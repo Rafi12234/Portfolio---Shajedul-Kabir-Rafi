@@ -1,49 +1,83 @@
-# Shajedul Kabir Rafi — Portfolio Specification
+# Rafi — Hero 00 / The Editorial Cover
 
-**Revision:** 2026-10-20 · **Status:** Documentation and art direction; no website generation authorized · **Deployment:** 100% static.
+**Status:** Ready for your visual review. **Scope:** HEADER + HERO ONLY. No other portfolio section is included or implied to be approved.
 
-## Current visual identity — THE CODE ATELIER (internal creative label)
+A bespoke 100%-static Astro hero based on your luxury editorial reference: near-black/burgundy/cream, architectural condensed typography, real HTML text, a separately composited transparent Rafi portrait, an independent animated red disc, and precise scroll/pointer depth. The implementation rejects the former coding/terminal/VS Code visual theme.
 
-**A premium, original, cinematic editorial portfolio** with the atmosphere of the owner-supplied creative-portfolio screenshot: monumental condensed cream typography, almost-black canvas, deep burgundy shape/layers, real owner portrait overlapping headline, precise fine rules, asymmetric grids, beautiful type pairings, richly composed imagery, and exceptionally smooth transitions.
+## Run it (Astro)
 
-**LATEST INSTRUCTION OVERRIDES ALL PREVIOUS CONCEPTS:** The owner explicitly **dismissed the coding/programming/terminal/VS Code/source-control visual theme**. Software engineering is what the portfolio documents; an editor or terminal must NOT be the website's overall aesthetic. The former name **THE WORKING TREE** and its git/terminal motifs are retired.
+Requires Node 20.19+ or Node 22.12+ (Astro 5 compatible) and an internet connection for the initial `npm install`.
 
-Do not copy the original reference person's identity, text, projects, exact layout or assets. Achieve similar color combination, quality, tone, hierarchy and artistic ambition through Rafi's original composition.
+```bash
+npm install
+npm run dev
+```
 
-## Mandatory creative constraints
+Open `http://localhost:4321`. To generate deployable static HTML:
 
-- Sophisticated, extraordinarily aesthetic, modern, classy; dark luxury/editorial rather than SaaS/AI-template.
-- Palette: Obsidian #0A0708; Black Wine #130809; Warm Charcoal #1E1312; Burgundy #501615; Parchment #E4CCAF; Sand #C1AF9D; Taupe #A68C7B; functional Soft Red #B85E55.
-- Distinctive **rich typography**: Big Shoulders Display Black-style condensed large headlines, Instrument Serif editorial accent, Instrument Sans body/navigation; limited genuine technical monospace only inside real case-study evidence.
-- Layered portrait in hero (real approved Rafi photo) or a beautifully designed type-only fallback.
-- Editorial grid, border/hairline discipline, original project image treatments and varied section compositions.
-- High-quality motion throughout: masked reveals, choreography, subtle parallax, image wipes, tactile hover/focus, elegant page/chapter transitions, native-feeling smooth scroll, reduced-motion fallback.
-- No purple gradients, neon/glassmorphism, repetitive bento cards, code rain, fake terminal screens, hero IDE mockup, fake stats, stock tech imagery or fabricated engineering achievements.
-- **One section at a time**: design → implement → inspect desktop/mobile → refine → get explicit owner approval → then next section. Never generate the whole website in one pass.
+```bash
+npm run build
+npm run preview
+```
 
-## Documentation
+The built website will be in `dist/`. There are no backend endpoints, databases, user accounts or API keys.
 
-1. **AGENTS.md** — mandatory coding-assistant contract.
-2. **docs/REFERENCE_ANALYSIS.md** — precise reading of user-supplied screenshot, likeness vs originality.
-3. **docs/BRIEF.md** — identity, creative goal, visitor positioning.
-4. **docs/DESIGN.md** — palette, typography, grid, component art direction.
-5. **docs/MOTION.md** — transitions/scrolling/microinteractions.
-6. **docs/SECTION_BLUEPRINTS.md** — ten chapters with unique layouts and animation ideas.
-7. **docs/REQUIREMENTS.md** — requirements and testable acceptance.
-8. **docs/IMPLEMENTATION.md** — approval gates, hero-only first task.
-9. **docs/INTERACTIONS.md** — progressive enhancements and optional work explainers.
-10. **docs/ARCHITECTURE.md**, **docs/QUALITY.md**, **docs/ASSETS.md** — static tech, test/asset boundaries.
-11. **docs/CONTENT.md**, **docs/PROJECTS.md**, **docs/RESEARCH.md** — accurate CV/repository/research content.
-12. **docs/DECISIONS.md**, **docs/SOURCES.md** — unknowns and provenance.
+## View instantly without npm
 
-## Initial milestone
+Open **`preview/index.html`** directly in a modern browser (or serve `preview/` with any basic static server). It contains a mirrored, fully working **dependency-free** demo with all image assets, CSS and JavaScript. This is not a different design. Note that hosted Google Fonts require an internet connection; the design has local system-font fallbacks.
 
-Build **header + Section 00 hero only** once approved. Establish type, portrait treatment, desktop/mobile composition and entrance/handoff motion before implementing any other chapter.
+## What is actually layered / animated
 
-## Technical default
+| Layer | File/component | Motion |
+|---|---|---|
+| Base atmosphere | `public/assets/hero-atmosphere.webp` | Static backdrop visible immediately |
+| Burgundy circle | `.hero__orb` (CSS-rendered, separate from backdrop) | Grows/reveals after portrait begins |
+| Main headline | `.hero__masthead` (real HTML) | Giant masked typography behind subject |
+| Rafi portrait | `public/assets/rafi-portrait.webp` / PNG fallback | Independent front-facing transparent cutout; upward/masked entrance |
+| Name / role | `.hero__nameplate` | Editorial serif fade-and-rise |
+| Left/right info | `.hero__side` | Staggered content entrance |
+| Header / footer controls | `.site-header`, `.hero__bottom-strip` | Subtle reveals and interactive focus/hover treatments |
 
-Astro static prerendering, typed data, CSS design tokens, selective React for genuinely interactive features. GSAP where a designed timeline justifies it; Lenis only if verified to improve scrolling. No backend/database/auth/CMS is needed.
+The CSS entrance timeline overlaps actions deliberately; **no artificial loading screen**. On capable desktop devices, `public/scripts/hero.js` adds subtle optical pointer parallax and a bounded scroll transform with requestAnimationFrame and IntersectionObserver. It intentionally does NOT use heavy 3D/WebGL or scroll hijacking. Mobile and reduced-motion users get a calm, static composition with full text and links.
 
-## Truth & permissions
+## File structure
 
-Confirm current academic year, individual contributions, client screenshot rights, preferred email, research titles/authors/statuses and manuscript-link permissions before publishing. Never invent verified deployments, performance figures, publication DOIs, or credentials.
+```text
+RAFI_HERO_00/
+├── README.md
+├── AGENTS.md                 # guardrail: build only one chapter at a time
+├── astro.config.mjs
+├── package.json
+├── src/pages/index.astro    # only page/section implemented
+├── public/
+│   ├── styles/hero.css
+│   ├── scripts/hero.js
+│   └── assets/
+│       ├── rafi-portrait.png              # lossless transparent original
+│       ├── rafi-portrait.webp             # optimized transparent production image
+│       ├── hero-atmosphere.webp           # background with embedded disc softened
+│       └── original-bg-reference.webp     # original supplied atmospheric reference
+├── preview/                # self-contained view without Astro installation
+├── scripts/check.mjs       # automated source/integrity smoke test
+└── docs/HERO_HANDOFF.md    # design decisions, timing, responsive QA, integration
+```
+
+## Important integration notes
+
+- **All text is actual HTML.** Do NOT replace it with a poster screenshot.
+- Replace the current contact CTA link if you want another approved destination. The navigation links currently go to your existing public GitHub and LinkedIn, since later website sections do not exist yet.
+- Portrait assets are derived from the previously generated subject you approved for this concept; compare facial likeness with your original photo before publishing. Do not treat them as an unedited photograph.
+- Main theme color tokens are at top of `public/styles/hero.css`.
+- Google Fonts: Big Shoulders Display, Instrument Serif and Instrument Sans loaded with a CSS link; font files are not bundled. For a production privacy/performance review, self-host legally downloaded versions if desired.
+- If deploying to GitHub Pages under a repository subpath, set the Astro `base` in `astro.config.mjs` and verify public asset paths. Relative asset URLs are already used for the hero entry.
+- The Hero does not include fabricated metrics, a contact backend or unfinished placeholder sections.
+
+## Verification performed
+
+- JS syntax and source integrity checks.
+- Rendered desktop/tablet/mobile using an inline self-contained browser preview (remote/local page navigation was restricted in the test environment).
+- 320, 390, 768, 1024 and 1440px viewport passes: no page-level horizontal overflow, image loaded, no JavaScript page errors.
+- **Astro package installation and `astro build` were not executable in this environment.** Run `npm install && npm run build` locally before production deployment.
+- Recommended manual review: actual Big Shoulders Display load, touch scroll, focus/hover, 1920px ultra-wide layout, Safari, Android/iOS, network failure and `prefers-reduced-motion`.
+
+Next step: approve or request revisions to Hero 00. Do not implement chapter 01 until you explicitly approve this visual and its motion.
