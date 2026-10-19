@@ -1,61 +1,47 @@
-# AI / Coding Agent Contract
+# Agent Contract — Luxury Editorial Portfolio
 
-You are working on **Shajedul Kabir Rafi's static engineering portfolio**. Your job is not to maximize visual effects or generate generic sections. Build an original, precise, accessible, truthful experience that foregrounds software engineering evidence.
+This is a **design-first**, static portfolio for Shajedul Kabir Rafi. Latest user instruction (2026-10-20) wins.
 
-## Read order and authority
+## Supersession (HARD RULE)
 
-1. `docs/DECISIONS.md` — unresolved facts and approvals; never fill unknowns by guessing.
-2. `docs/REQUIREMENTS.md` — product requirements and definition of done.
-3. `docs/CONTENT.md`, `docs/PROJECTS.md`, `docs/RESEARCH.md` — claims and their publication states.
-4. `docs/DESIGN.md` and `docs/MOTION.md` — visual and motion contracts.
-5. `docs/ARCHITECTURE.md` and `docs/INTERACTIONS.md` — implementation boundaries.
-6. `docs/QUALITY.md` and `docs/IMPLEMENTATION.md` — quality gates and roadmap.
+**Dismiss the old coding, programming, terminal, VS Code and source-control website theme.** Do not follow THE WORKING TREE as a visual metaphor. Software engineering is the SUBJECT, not an interface costume. No command-prompt homepage, git-branch navigation, fake code windows, IDE chrome, Matrix rain, neon syntax colors, typewriter hero or programmer-terminal branding.
 
-If specifications conflict, **pause the conflicting change**, record it in `docs/DECISIONS.md`, and ask for a decision. Do not silently reinterpret requirements.
+**Current required direction:** owner-supplied creative portfolio screenshot: monumental condensed parchment typography; almost-black and burgundy environment; authentic portrait overlapping giant typography; luxury editorial gridded panels with hairline borders; carefully balanced asymmetry; beautiful serif/sans pairings; highly polished, frequent but purposeful animations/transitions; same warm black/red/cream palette. Adapt into an original Rafi-specific design; never copy person's photos, exact page composition, texts or project art.
 
-## Non-negotiables
+## Mandatory reading order
 
-- **Static site only**: prerender all content, no custom backend, DB, auth, or secrets in client bundles.
-- **No AI-template visual language**: do not add purple gradients, generic bento card layouts, oversized decorative glow, fake code rain, meaningless scanlines, generic tech-logo walls, or random cursor gimmicks.
-- **No plagiarism**: do not reuse code, assets, paid animation plugins, branded layouts, licensed fonts or another portfolio's exact design without appropriate rights.
-- **No fabricated evidence**: do not invent users, metrics, citations, paper titles, deployed URLs, growth stats, contributor ownership, architecture diagrams presented as actual, GitHub activity counts, or employer endorsements.
-- **Nuance matters**: *submitted* research is not *accepted*; *accepted/presented* is not necessarily *indexed/published*; a README's “production-ready” statement is not verified production usage.
-- **Protect information**: omit phone number, private manuscript Drive links, credentials, customer data, private architecture details and client assets unless explicitly approved.
-- **Accessibility**: all controls keyboard-operable; focus visible; reduced-motion behavior; semantic markup and contrast.
-- **Performance**: avoid large main-thread work, unnecessary hydration, preloaders, scroll hijacking, or WebGL as a baseline dependency.
+docs/DECISIONS.md → docs/BRIEF.md → docs/REFERENCE_ANALYSIS.md → docs/DESIGN.md → docs/MOTION.md → docs/SECTION_BLUEPRINTS.md → docs/REQUIREMENTS.md → docs/CONTENT.md → docs/PROJECTS.md → docs/RESEARCH.md → docs/ASSETS.md → docs/INTERACTIONS.md → docs/ARCHITECTURE.md → docs/QUALITY.md → docs/IMPLEMENTATION.md → docs/SOURCES.md.
 
-## Workflow for every feature
+## Visual acceptance
 
-1. Identify the exact requirement, narrative purpose, and owning spec file.
-2. State whether the feature is static, CSS-enhanced or React-hydrated.
-3. Implement smallest working vertical slice, mobile first where feasible.
-4. Verify with keyboard, touch, reduced motion, a low-powered device assumption and production build.
-5. Update source content/contracts and acceptance checklist when implementation changes.
-6. Do not mark a milestone complete from screenshots alone; interactions must work.
+- Palette fixed around #0A0708, #130809, #1E1312, #501615, #E4CCAF, #C1AF9D, #A68C7B, #B85E55. Check accessible contrast.
+- Strong display typography + expressive serif + readable sans. Candidate faces Big Shoulders Display, Instrument Serif, Instrument Sans; self-host with valid licenses. Monospace only for real technical evidence.
+- Original large portrait/typography interaction in hero. Do not fabricate Rafi's face. Real assets only with permission.
+- Different chapters must have different compelling compositions while sharing gridlines, spatial rhythm and color vocabulary.
+- No default gradient SaaS landing page, no generic bento tiles or stock/decorative tech illustrations, no fake stats, no empty filler animations.
+- Always inspect actual browser screenshots; evaluate with and without animation, multiple widths, real photo crop, font fallback, and keyboard focus.
 
-## Architecture discipline
+## Motion acceptance
 
-- Page/layout content in `.astro`; stateful simulations in contained React islands.
-- No generic `components/Everything.tsx`; group by role (`layout/`, `ui/`, `sections/`, `interactive/`).
-- Centralize design tokens and motion constants; do not scatter magic numbers.
-- Semantic HTML first. Links navigate, buttons act. No inaccessible div click handlers.
-- Don't import GSAP/React into purely static components without demonstrated need.
-- GSAP setup must be scoped and cleaned up (`gsap.context`/revert, listeners removed, React lifecycle handled).
-- Never `eval` or execute user-supplied strings in command palette; match an allowlist.
-- No dependency added without a written reason and bundle cost review.
+Every major chapter deserves one well-designed motion signature; every link/control has refined hover/focus/press feedback. Use mask reveals, rule reveals, restrained image movement, clip transitions, and editorial scene changes. Not 50 identical fades. Scroll must remain responsive, not hijacked. Reduced motion must reveal everything instantly; no lost content or focus. GSAP/ScrollTrigger used only when justified; Lenis optional based on measured UX.
 
-## Visual review rubric
+## Development law (ABSOLUTE)
 
-For each section ask: (1) What does the visitor learn? (2) Why does this composition exist? (3) Is the interaction specific to Rafi's work? (4) Would this still look intentional with animation off? (5) Would this be confused with a template? (6) Does it remain navigable on 360px screens?
+**Never build multiple sections at once.** For EACH section:
+1. Read the relevant specs, real content, photos and constraints.
+2. Art-direct the layout; propose responsive compositions and exact visual hierarchy.
+3. Specify reveal/hover/scroll choreography and reduced-motion alternative.
+4. Implement ONLY the selected section.
+5. Build, render, compare desktop/tablet/mobile screenshots; fix typography, crop, contrast and motion.
+6. Present for review; iterate until the owner expressly approves.
+7. Lock that section and record choices; then and ONLY THEN request the next chapter.
 
-## Safe copy rules
+First implementation scope = **header + hero (00) only**. Documentation-update requests must not generate site files.
 
-- Title: “Software Engineer” / “Junior Software Engineer” as supported; do not elevate to senior engineer.
-- Current fourth-year academic standing is user-provided; the older CV introduction says third-year — see `docs/DECISIONS.md`.
-- Research entries are tagged `accepted-and-presented`, `submitted`, `proposal-submitted`, or `ongoing`, never given a different status automatically.
-- The CareerPath CV and repository READMEs disagree on the backend stack; get confirmation before displaying definitive backend tech.
-- Case study ownership must reflect individual/team contribution accurately.
+## Functional and ethical laws
 
-## Do not implement yet
+Static prerender, semantic HTML, accessible navigation, no backend, authentication or client secrets. Keep CV facts honest: DataPulse Global/Boraq; AUST/leadership; project attributions; accepted/presented vs submitted research. Never leak confidential client assets, internal datasets, manuscript PDFs or phone numbers unless permitted. No misleading fake live APIs or business metrics.
 
-Do not auto-generate all final pages or claim a finished website solely from these specs. Await real project screenshots, updated paper metadata, approved client disclosures, and design selection where called out. Build in the phased order of `docs/IMPLEMENTATION.md`.
+Test 320/360/390/768/1024/1440/1920 breakpoints, touch, keyboard, reduced motion, link health, image loading, production build. Follow docs/QUALITY.md.
+
+If specifications conflict, record the conflict in docs/DECISIONS.md. The user's latest editorial-theme instruction always supersedes earlier aesthetic suggestions.

@@ -1,5 +1,7 @@
 # Project Audit, Editorial Selection & Case-Study Plan
 
+> **V2 VISUAL OVERRIDE:** Preserve project/evidence analysis below, but present projects as authentic, original, premium editorial image spreads with near-black/burgundy/cream, rich typography and chapter-specific motion. No terminal project browser/source-tree aesthetic. Do not show unapproved client screenshots, invented results or claims.
+
 **Snapshot:** 2026-10-19. **Sources:** CV (supplied images); GitHub repository listing, descriptions and selectively reviewed repository README files at https://github.com/Rafi12234; user-supplied client/production context. A README is documentation written by project maintainers, not independent proof that a deployment is live or a stated outcome has been measured.
 
 ## Selection philosophy

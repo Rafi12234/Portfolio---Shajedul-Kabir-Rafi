@@ -1,5 +1,7 @@
 # Decisions Register, Risks & Owner Questions
 
+> **V2 DEFINITIVE OWNER DECISIONS (2026-10-20):** D-11 RESOLVED: art direction is luxury cinematic editorial aligned to supplied black/burgundy/cream portrait-led portfolio reference. Old THE WORKING TREE, programming/coding/terminal/VS Code visual theme is explicitly CANCELED. Owner requires rich condensed/serif typography, outstanding animations/transitions and extraordinary smooth scrolling; **section-by-section implementation only**, starting header+hero, no full-site generation. Open questions remain Rafi portrait/media rights, exact hero headline and factual approvals. Any older contradictory direction below is superseded by this paragraph.
+
 **Current status:** Pre-implementation. These decisions are intentionally explicit: AI coding assistants must not settle ambiguities by guessing.
 
 ## Confirmations needed before public launch
@@ -16,7 +18,7 @@
 | D-08 | HIGH | GoliTransit results | CV says hackathon champion; repo README describes dummy traffic labels and dev graph | Confirm team roles, award proof, model evaluation, datasets and demo fidelity |
 | D-09 | HIGH | AUSTRC app release | CV says app-store deployment / sole developer; repo does not provide verified store URLs | Platform/store links, ownership split, whether all claimed features are live |
 | D-10 | HIGH | Current organizations | CV describes DataPulse and Boraq since Jun 2026; AUSTRC Director since Jul 2026 | Confirm latest dates, titles, what association may be disclosed publicly |
-| D-11 | MEDIUM | Final art direction | “THE WORKING TREE” is a designed direction, not a signed-off visual mockup | Review two hero options, type/font and palette before full build |
+| D-11 | MEDIUM | Final art direction | New luxury-editorial black/burgundy/cream art direction selected; final individual hero composition awaits signoff | Review two hero options, type/font and palette before full build |
 | D-12 | MEDIUM | Technology | Astro + React islands recommended for static portfolio | Confirm deploy target and comfort with Astro; Vite React SPA is acceptable alternative if required |
 | D-13 | MEDIUM | Featured work order | Operational work + GoliTransit + club app suggested | Identify top 3 projects that best reflect target career opportunities |
 | D-14 | MEDIUM | Resume PDF | CV supplied as screenshots in chat | Obtain updated, approved resume PDF before public download |

@@ -1,5 +1,7 @@
 # Research Sources, Provenance & Verification Limits
 
+> **V2 SOURCE UPDATE (2026-10-20):** New owner-supplied screenshot in conversation is the binding visual *reference*: monumental condensed cream heading, real portrait layering, deep burgundy disc, near-black canvas, fine grid, red accents. User expressly retired coding/programming/terminal/VS Code visual style. Color candidates and analysis in docs/REFERENCE_ANALYSIS.md; image itself has no repository rights/asset copy. Source hierarchy: current explicit user art direction supersedes older theme notes while CV/GitHub/research claim attribution stays unchanged.
+
 **Research date:** 2026-10-19. **Scope:** supplied three-page CV image, statements in the conversation, and accessible GitHub repositories/READMEs. This file is a **traceability register**—not a bibliography of fully audited external facts.
 
 ## Authority hierarchy
@@ -15,7 +17,7 @@ Where (1) and (2)/(3) differ, **flag**; do not silently overwrite technical hist
 
 | Ref | Content supplied | Supports |
 |---|---|---|
-| U-01 | User's introductory messages | Static portfolio goal, fourth-year status, dual current software roles, preference for unique programming theme |
+| U-01 | User's introductory messages | Static portfolio goal, fourth-year status, dual current software roles, superseded earlier programming-theme preference; current requirement is dark luxury editorial |
 | U-02 | Three CV screenshot pages in conversation | Name, email, LinkedIn, university, DataPulse/Boraq timeline, detailed skill list, GoliTransit/CareerPath/AUSTRC project claims, club leadership and awards |
 | U-03 | User's latest detailed request | Client/production projects (Dhaka Ladies Club, Elite Convention Hall, Sicko Soul), research statuses, collaborator and links |
 

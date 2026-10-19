@@ -1,62 +1,49 @@
-# Shajedul Kabir Rafi — Engineering Portfolio
+# Shajedul Kabir Rafi — Portfolio Specification
 
-**Status:** Pre-development specification · **Updated:** 2026-10-19 · **Website type:** Fully static
+**Revision:** 2026-10-20 · **Status:** Documentation and art direction; no website generation authorized · **Deployment:** 100% static.
 
-> A meticulously designed, fast, accessible engineering portfolio rooted in real shipped systems, research, and technical leadership. Not a terminal-themed template.
+## Current visual identity — THE CODE ATELIER (internal creative label)
 
-This ZIP contains **documentation only**. It intentionally contains no generated application source, copied project code, screenshots, proprietary assets, manuscript PDFs, credentials, or inferred performance figures.
+**A premium, original, cinematic editorial portfolio** with the atmosphere of the owner-supplied creative-portfolio screenshot: monumental condensed cream typography, almost-black canvas, deep burgundy shape/layers, real owner portrait overlapping headline, precise fine rules, asymmetric grids, beautiful type pairings, richly composed imagery, and exceptionally smooth transitions.
 
-## Start here
+**LATEST INSTRUCTION OVERRIDES ALL PREVIOUS CONCEPTS:** The owner explicitly **dismissed the coding/programming/terminal/VS Code/source-control visual theme**. Software engineering is what the portfolio documents; an editor or terminal must NOT be the website's overall aesthetic. The former name **THE WORKING TREE** and its git/terminal motifs are retired.
 
-1. Read [`docs/BRIEF.md`](docs/BRIEF.md) for the creative direction and factual positioning.
-2. Review [`docs/DECISIONS.md`](docs/DECISIONS.md) and settle the unresolved facts/content approvals.
-3. Read [`docs/REQUIREMENTS.md`](docs/REQUIREMENTS.md) for non-negotiable functionality and acceptance criteria.
-4. Lock [`docs/DESIGN.md`](docs/DESIGN.md) and [`docs/MOTION.md`](docs/MOTION.md) before implementing elaborate UI.
-5. Develop using [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md), [`docs/INTERACTIONS.md`](docs/INTERACTIONS.md), and [`docs/IMPLEMENTATION.md`](docs/IMPLEMENTATION.md).
-6. Populate content from [`docs/CONTENT.md`](docs/CONTENT.md), [`docs/PROJECTS.md`](docs/PROJECTS.md), and [`docs/RESEARCH.md`](docs/RESEARCH.md).
-7. Use [`docs/QUALITY.md`](docs/QUALITY.md), [`docs/ASSETS.md`](docs/ASSETS.md), and [`docs/SOURCES.md`](docs/SOURCES.md) for launch verification.
+Do not copy the original reference person's identity, text, projects, exact layout or assets. Achieve similar color combination, quality, tone, hierarchy and artistic ambition through Rafi's original composition.
 
-## Documentation ownership
+## Mandatory creative constraints
 
-| File | Source of truth for |
-|---|---|
-| `AGENTS.md` | Agent behavior, safety, project workflow |
-| `docs/BRIEF.md` | Creative thesis, differentiation, target audience |
-| `docs/REQUIREMENTS.md` | Scope, experience requirements, success criteria |
-| `docs/DESIGN.md` | Art direction, type, layout, color, components |
-| `docs/MOTION.md` | Scrolling, animation, interaction timing |
-| `docs/INTERACTIONS.md` | Signature experiences and functional specs |
-| `docs/ARCHITECTURE.md` | Static framework, structure, data contracts |
-| `docs/CONTENT.md` | Verified-profile draft and writing standards |
-| `docs/PROJECTS.md` | Case-study inventory, priorities, evidence gaps |
-| `docs/RESEARCH.md` | Research statuses and publication policy |
-| `docs/QUALITY.md` | Accessibility, performance, SEO and QA |
-| `docs/ASSETS.md` | Required images, rights, data, permissions |
-| `docs/IMPLEMENTATION.md` | Milestones, dependencies, acceptance gates |
-| `docs/SOURCES.md` | Claim-to-source traceability and caveats |
-| `docs/DECISIONS.md` | Known mismatches, pending decisions, change log |
+- Sophisticated, extraordinarily aesthetic, modern, classy; dark luxury/editorial rather than SaaS/AI-template.
+- Palette: Obsidian #0A0708; Black Wine #130809; Warm Charcoal #1E1312; Burgundy #501615; Parchment #E4CCAF; Sand #C1AF9D; Taupe #A68C7B; functional Soft Red #B85E55.
+- Distinctive **rich typography**: Big Shoulders Display Black-style condensed large headlines, Instrument Serif editorial accent, Instrument Sans body/navigation; limited genuine technical monospace only inside real case-study evidence.
+- Layered portrait in hero (real approved Rafi photo) or a beautifully designed type-only fallback.
+- Editorial grid, border/hairline discipline, original project image treatments and varied section compositions.
+- High-quality motion throughout: masked reveals, choreography, subtle parallax, image wipes, tactile hover/focus, elegant page/chapter transitions, native-feeling smooth scroll, reduced-motion fallback.
+- No purple gradients, neon/glassmorphism, repetitive bento cards, code rain, fake terminal screens, hero IDE mockup, fake stats, stock tech imagery or fabricated engineering achievements.
+- **One section at a time**: design → implement → inspect desktop/mobile → refine → get explicit owner approval → then next section. Never generate the whole website in one pass.
 
-## Initial site thesis
+## Documentation
 
-**Public-facing idea:** “Software engineer building systems for real-world operations, and exploring intelligent systems through applied research.”
+1. **AGENTS.md** — mandatory coding-assistant contract.
+2. **docs/REFERENCE_ANALYSIS.md** — precise reading of user-supplied screenshot, likeness vs originality.
+3. **docs/BRIEF.md** — identity, creative goal, visitor positioning.
+4. **docs/DESIGN.md** — palette, typography, grid, component art direction.
+5. **docs/MOTION.md** — transitions/scrolling/microinteractions.
+6. **docs/SECTION_BLUEPRINTS.md** — ten chapters with unique layouts and animation ideas.
+7. **docs/REQUIREMENTS.md** — requirements and testable acceptance.
+8. **docs/IMPLEMENTATION.md** — approval gates, hero-only first task.
+9. **docs/INTERACTIONS.md** — progressive enhancements and optional work explainers.
+10. **docs/ARCHITECTURE.md**, **docs/QUALITY.md**, **docs/ASSETS.md** — static tech, test/asset boundaries.
+11. **docs/CONTENT.md**, **docs/PROJECTS.md**, **docs/RESEARCH.md** — accurate CV/repository/research content.
+12. **docs/DECISIONS.md**, **docs/SOURCES.md** — unknowns and provenance.
 
-**Creative direction:** **THE WORKING TREE** — an editorial engineering field notebook with the typographic rigor of a source-control interface and the depth of a real case-study archive. This is a concept proposal, *not an irrevocable visual decision*.
+## Initial milestone
 
-**What this is not:** a fullscreen fake terminal, purple/neon gradients, stock illustrations, a grid of sixty GitHub repos, a 3D animation showcase with no engineering evidence, or an AI-generated buzzword résumé.
+Build **header + Section 00 hero only** once approved. Establish type, portrait treatment, desktop/mobile composition and entrance/handoff motion before implementing any other chapter.
 
-## Recommended framework, subject to final approval
+## Technical default
 
-- Astro + TypeScript for prerendered content and routing.
-- React islands for genuine interaction only.
-- Custom CSS design tokens; Tailwind only if useful, not as a visual identity.
-- GSAP ScrollTrigger only where native CSS cannot accomplish the intended timeline; Lenis optional after device testing.
-- Markdown/MDX-style project content; use Astro Content Collections for validated data.
-- Zero custom backend, database, authentication, server actions, or runtime API requirements.
+Astro static prerendering, typed data, CSS design tokens, selective React for genuinely interactive features. GSAP where a designed timeline justifies it; Lenis only if verified to improve scrolling. No backend/database/auth/CMS is needed.
 
-## Privacy and permissions
+## Truth & permissions
 
-Do **not** publish phone numbers, unpublished paper manuscripts, client records, company-sensitive code/architecture, credentials, unapproved screenshots, or private analytics. The user supplied Google Drive manuscript links in conversation; they are **deliberately omitted** from repository documentation until public-sharing approval. A research manuscript link is not the same as a verified published-paper DOI.
-
-## Documentation status
-
-This pack consolidates the supplied CV images, user-provided research statements, and a review of accessible GitHub repository names, metadata, and key READMEs on 2026-10-19. It is an **implementation-ready planning baseline**, not a claim that every personal, publication, deployment, or contribution detail was independently checked.
+Confirm current academic year, individual contributions, client screenshot rights, preferred email, research titles/authors/statuses and manuscript-link permissions before publishing. Never invent verified deployments, performance figures, publication DOIs, or credentials.

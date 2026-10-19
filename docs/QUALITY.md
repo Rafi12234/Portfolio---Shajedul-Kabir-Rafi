@@ -1,5 +1,7 @@
 # Quality Gates — Accessibility, Performance, SEO & Release
 
+> **V2 VISUAL/PROCESS QUALITY OVERRIDE:** In addition to tests below, each section must pass art-direction review against owner's black/burgundy/cream editorial reference, large condensed typography, real portrait or designed fallback, polished motion and distinct compositions. Explicit OWNER APPROVAL PER SECTION required; no unreviewed whole-site generation. Coding/terminal/VS Code styling rejected.
+
 **Principle:** The portfolio represents software engineering. Its reliability, usability and speed are part of the work sample. Fancy motion cannot excuse fragile semantics, privacy failures or broken routes.
 
 ## 1. Accessibility acceptance

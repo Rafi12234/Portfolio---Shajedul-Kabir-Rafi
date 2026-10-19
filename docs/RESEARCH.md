@@ -1,5 +1,7 @@
 # Research Ledger & Publication Integrity
 
+> **V2 RESEARCH-PRESENTATION OVERRIDE:** Preserve all carefully differentiated paper statuses and verification gaps below. Visually present as elegant scholarly editorial publication register using serif highlights and cream/burgundy fine rules, not programming terminal or source-control ledger.
+
 **Snapshot:** 2026-10-19 · **Evidence:** direct user statement and supplied Drive document links (document bodies not independently inspected in this session). This is a content plan, not a bibliographic verification report.
 
 ## Critical distinction

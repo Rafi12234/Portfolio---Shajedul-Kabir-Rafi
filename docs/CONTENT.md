@@ -1,5 +1,7 @@
 # Content Bible & Profile Inventory
 
+> **V2 CONTENT/PRESENTATION OVERRIDE:** Preserve all sourced career/project/education facts below, but *do not reuse obsolete source-control/terminal-inspired presentation or hero copy*. Build original luxury editorial hero for the person, not an IDE. All missing personal portrait details and copy require approval.
+
 **Reviewed:** 2026-10-19. **Status:** Working copy, not authorized publication. **Authority:** user's current explicit statements > supplied CV for current self-description; primary repo documentation for implementation details; never silently resolve conflicts.
 
 ## Editorial principle

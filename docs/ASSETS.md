@@ -1,5 +1,7 @@
 # Artifacts, Screenshots & Permissions
 
+> **V2 ASSET OVERRIDE:** Real, approved Rafi portrait is strongly preferred for giant cream masthead over burgundy disc; use beautiful typography-only fallback until obtained. All project imagery must be authentic and rights-cleared. No generated lookalike of reference portrait, no developer-stock tech photos. Rights-cleared Big Shoulders Display/Instrument Serif/Instrument Sans font candidates.
+
 **Policy:** Actual software evidence is more distinctive than stock artwork. All imagery must support specific content, be rights-cleared and avoid disclosing client/private data.
 
 ## Needed assets by chapter

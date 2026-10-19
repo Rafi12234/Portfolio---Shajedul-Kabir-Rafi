@@ -1,5 +1,7 @@
 # Static Architecture & File Structure
 
+> **V2 DESIGN OVERRIDE:** Architecture remains static Astro/TypeScript, optional React islands; any terminal/command palette, Git branch rail or source-control themed UI mentioned below is **deprecated and must not be implemented**. Section by section, header+hero first; see new design/motion docs.
+
 ## Architecture decision
 
 **Default:** Astro + TypeScript + selectively hydrated React islands. Avoid Next.js full-app hydration or SSR infrastructure for a brochure/case-study site unless an unforeseen requirement justifies it. Astro can prerender routes to HTML with zero custom backend.
