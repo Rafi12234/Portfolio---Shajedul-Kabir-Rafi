@@ -44,12 +44,13 @@ function setupLenis() {
   if (reduced.matches || !desktopPointer.matches) return;
   lenis = new Lenis({
     autoRaf: false, smoothWheel: true, syncTouch: false,
-    lerp: 0.14, wheelMultiplier: 0.95, anchors: true,
+    lerp: 0.21, wheelMultiplier: 0.92, anchors: true,
   });
   lenis.on('scroll', ScrollTrigger.update);
   ticker = (seconds: number) => lenis?.raf(seconds * 1000);
   gsap.ticker.add(ticker);
-  gsap.ticker.lagSmoothing(0);
+  // Cap the effect of long frame stalls instead of propagating huge GSAP deltas.
+  gsap.ticker.lagSmoothing(500, 33);
 }
 
 function setupHero(entrance: boolean) {
