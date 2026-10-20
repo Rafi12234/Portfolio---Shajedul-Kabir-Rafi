@@ -60,3 +60,89 @@
 /* Modal displays the WHOLE mockup, not a cropped fragment of its dashboard. */
 .sw__modal-art{justify-content:center;align-items:center;background:radial-gradient(circle at 50% 50%,#322027,#100d12 70%)!important}
 .sw__modal-image{display:block;width:100%;height:auto;max-height:100%;aspect-ratio:16/9;object-fit:contain;object-position:center}
+
+/* V5: image-driven archive + GPU budget overrides; preserves the section art direction. */
+.sw__visual-disclaimer {
+  display:flex; align-items:center; gap:.75em; flex-wrap:wrap;
+  margin:0; padding:12px 17px; border:1px solid rgba(230,177,145,.42);
+  background:rgba(93,30,31,.35); color:#f1d8bf;
+  font:600 clamp(10px,.9vw,12px)/1.5 var(--sw-ui);
+  letter-spacing:.035em;
+}
+.sw__visual-disclaimer strong { color:#ffdbc6; font-weight:800; }
+.sw__visual-disclaimer span { color:#e9a08f; font-size:18px; }
+.sw__item { contain:layout style; will-change:auto; }
+.sw__item.sw__item--composited { will-change:transform; }
+.sw__card-link, .sw__card-link:hover, .sw__card-link:focus-visible {
+  filter:none !important;
+}
+.sw__plate {
+  box-shadow:0 15px 32px rgba(0,0,0,.42);
+}
+.sw__card-link { transition:scale .23s ease; }
+.sw__mockup img {filter:none!important;transform:none!important;transition:none!important;}
+.sw__card-link:hover .sw__mockup img,.sw__card-link:focus-visible .sw__mockup img {filter:none!important;transform:none!important;}
+.sw__mockup-tag {
+  left:10px; right:auto; bottom:10px; background:rgba(13,6,9,.93);
+  color:#ffe1c9; border-color:rgba(252,205,174,.6); font-weight:800;
+  letter-spacing:.07em; box-shadow:0 4px 14px rgba(0,0,0,.45);
+}
+.sw__wall-track {animation-play-state:paused;will-change:auto;}
+.sw.sw--cinema-visible .sw__wall-track {animation-play-state:running;will-change:transform;}
+.sw__cinema-red {filter:none !important;opacity:.24;}
+.sw__dialog::backdrop{backdrop-filter:none;-webkit-backdrop-filter:none;}
+.sw__modal-art-caption {max-width:calc(100% - 35px);line-height:1.5;white-space:normal;background:#230f13;color:#ffdbc2;border-color:#dfa088;}
+.sw__modal-art-caption strong {color:#ffe9d8;}
+@media(max-width:700px){
+  .sw__visual-disclaimer {padding:11px 12px;font-size:10px;}
+  .sw__mockup-tag {left:5px;bottom:5px;font-size:6px;max-width:94%;white-space:normal;}
+}
+@media(prefers-reduced-motion:reduce){
+  .sw__item {will-change:auto!important;}
+  .sw__wall-track {animation-play-state:paused!important;}
+}
+
+/* ==========================================
+   PROJECT MODAL — DISCLAIMER TYPOGRAPHY FIX
+   ========================================== */
+
+.sw__modal-art .sw__modal-art-caption {
+  position: absolute;
+  z-index: 5;
+  left: 16px;
+  bottom: 16px;
+
+  display: block;
+  max-width: calc(100% - 32px);
+  padding: 9px 13px;
+
+  background: rgba(27, 10, 14, 0.94);
+  border: 1px solid rgba(217, 151, 128, 0.45);
+
+  color: #D6B8A7;
+  font-family: var(--sw-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: normal;
+
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Prevent the old giant display-font rule
+   from affecting the disclaimer */
+
+.sw__modal-art .sw__modal-art-caption strong {
+  position: static;
+  display: inline;
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 800;
+  line-height: inherit;
+  letter-spacing: inherit;
+
+  color: #FFE2D0;
+}
