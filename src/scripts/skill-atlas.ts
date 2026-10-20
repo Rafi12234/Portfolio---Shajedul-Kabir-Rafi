@@ -217,7 +217,7 @@ if (root) {
         onLeaveBack: () => orbitTweens.forEach(t => t.pause()),
       });
     }, root);
-    requestAnimationFrame(() => ScrollTrigger.refresh());
+    // Shared motion director refreshes trigger measurements once on startup.
   }
 
   select(0);
