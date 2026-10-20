@@ -38,10 +38,16 @@ if (root) {
   let trackLength = 0;
   const travel = { value: 0 };
   let frames = 0;
+  let cinemaHeight = 0;
+  // Cache positions outside the DOM so every animation tick stays write-only.
+  const cardPositions = new Map<HTMLElement, number>();
+  const cardLayers = new Map<HTMLElement, number>();
+  const cardVisible = new Map<HTMLElement, boolean>();
+  const cardLinks = new Map(cards.map(card => [card, card.querySelector<HTMLAnchorElement>('[data-sw-open]')!] as const));
   const activeAnimation = (): boolean => !rm.matches && visibleCards.length > 1;
 
   function say(value: string) { if (stateText.textContent !== value) stateText.textContent = value; }
-  function pauseNeeded() { return !inView || hovered || focused || manuallyPaused || inspecting || rm.matches; }
+  function pauseNeeded() { return document.hidden || !inView || hovered || focused || manuallyPaused || inspecting || rm.matches; }
   function updateControls() {
     const paused = pauseNeeded();
     if (motion) paused ? motion.pause() : motion.resume();
@@ -54,47 +60,65 @@ if (root) {
     else say(paused ? 'MOTION PAUSED' : 'ARCHIVE IN MOTION');
   }
   function setFocusability() {
-    // Prevent tabbing to moving cards outside the visible cinema.
-    const height = cinema.clientHeight;
-    visibleCards.forEach((card) => {
-      const y = Number(card.dataset.swY || -10000);
-      const cardHeight = card.offsetHeight;
-      const onScreen = y > -cardHeight * 0.28 && y + cardHeight * 0.28 < height;
-      const a = card.querySelector<HTMLAnchorElement>('[data-sw-open]')!;
-      if (!inspecting || lastOpener !== a) a.tabIndex = onScreen ? 0 : -1;
+    // Read a cache, never layout, and do not rewrite a tabindex unless it changed.
+    const height = cinemaHeight;
+    visibleCards.forEach(card => {
+      const y = cardPositions.get(card) ?? -10000;
+      const onScreen = y > -step * 1.4 && y < height + step * .4;
+      const link = cardLinks.get(card)!;
+      const next = onScreen ? 0 : -1;
+      if (link.tabIndex !== next) link.tabIndex = next;
     });
   }
   function renderMotion() {
-    if (!activeAnimation()) return;
+    if (!activeAnimation() || trackLength <= 0) return;
     const low = -Math.max(240, step * 1.1);
+    const visibleLimit = cinema.clientHeight + step;
     visibleCards.forEach((card, index) => {
       const adjusted = index * step - travel.value;
       const wrapped = ((adjusted - low) % trackLength + trackLength) % trackLength + low;
-      card.style.transform = `translate3d(0,${wrapped.toFixed(2)}px,0)`;
-      card.dataset.swY = String(wrapped);
-      // Lower cards float in front of those above, giving an overlapping-page feeling.
-      card.style.zIndex = String(10 + Math.max(0, Math.floor(wrapped / Math.max(step, 1))));
+      cardPositions.set(card, wrapped);
+      const shouldDraw = wrapped > low - step && wrapped < visibleLimit;
+      if (cardVisible.get(card) !== shouldDraw) {
+        card.style.visibility = shouldDraw ? 'visible' : 'hidden';
+        card.style.pointerEvents = shouldDraw ? 'auto' : 'none';
+        card.classList.toggle('sw__item--composited', shouldDraw);
+        cardVisible.set(card, shouldDraw);
+      }
+      if (!shouldDraw) return;
+      card.style.transform = `translate3d(0,${wrapped.toFixed(1)}px,0)`;
+      const layer = 10 + Math.max(0, Math.floor(wrapped / Math.max(step, 1)));
+      if (cardLayers.get(card) !== layer) {
+        card.style.zIndex = String(layer);
+        cardLayers.set(card, layer);
+      }
     });
-    if (++frames % 12 === 0) setFocusability();
+    if (++frames % 20 === 0) setFocusability();
   }
   function stopMotion() { motion?.kill(); motion = null; gsap.set(travel, { value: 0 }); }
   function relayout() {
     stopMotion();
+    const wasAnimated = root.classList.contains('sw--animated');
     visibleCards = cards.filter(card => activeGroup === 'all' || card.dataset.swGroup === activeGroup);
+    cardPositions.clear(); cardLayers.clear(); cardVisible.clear();
     cards.forEach(card => {
       card.hidden = !visibleCards.includes(card);
       card.style.transform = '';
       card.style.zIndex = '';
-      card.dataset.swY = '';
+      card.style.visibility = '';
+      card.style.pointerEvents = '';
+      card.classList.remove('sw__item--composited');
       card.querySelector<HTMLAnchorElement>('[data-sw-open]')!.tabIndex = 0;
     });
     const animated = !rm.matches && visibleCards.length > 1;
     root.classList.toggle('sw--animated', animated);
     root.classList.toggle('sw--single', visibleCards.length === 1 && !rm.matches);
-    if (!animated) { updateControls(); ScrollTrigger.refresh(); return; }
+    if (wasAnimated !== animated) requestAnimationFrame(() => ScrollTrigger.refresh());
+    cinemaHeight = cinema.clientHeight;
+    if (!animated) { updateControls(); return; }
     // Respect actual CSS card heights at each breakpoint.
-    step = Math.round(visibleCards[0]?.getBoundingClientRect().height * (window.innerWidth < 700 ? .87 : .82)) || 255;
-    speed = window.innerWidth < 700 ? 58 : 86;
+    step = Math.round(visibleCards[0]?.offsetHeight * (window.innerWidth < 700 ? .87 : .82)) || 255;
+    speed = window.innerWidth < 700 ? 43 : 52;
     trackLength = step * visibleCards.length;
     motion = gsap.to(travel, {
       value: trackLength,
@@ -106,7 +130,7 @@ if (root) {
     });
     renderMotion();
     updateControls();
-    ScrollTrigger.refresh();
+    // The carousel height is fixed. No ScrollTrigger refresh is needed for each filter.
   }
 
   function fillModal(slug: string) {
@@ -125,8 +149,8 @@ if (root) {
     text('[data-sw-modal-pagination]', `${num} / ${selectedProjects.length}`);
     const modalImage = dialog.querySelector<HTMLImageElement>('[data-sw-modal-image]');
     if (modalImage) {
-      modalImage.src = `/assets/project-mockups/${project.slug}.svg`;
-      modalImage.alt = `Illustrative UI concept for ${project.title}; not an actual product screenshot`;
+      modalImage.src = `/assets/project-covers/${project.slug}.webp`;
+      modalImage.alt = `Generated demonstration mockup for ${project.title}, not a screenshot of the actual application`;
     }
     const art = dialog.querySelector<HTMLElement>('[data-sw-modal-art]')!;
     art.className = `sw__modal-art sw__modal-art--${project.tone}`;
@@ -155,9 +179,9 @@ if (root) {
     dialog.showModal();
     updateControls();
     if (!rm.matches) {
-      gsap.set(modal, { autoAlpha: 0, y: 36, scale: .965, rotateX: -5, transformPerspective: 1300 });
+      gsap.set(modal, { autoAlpha: 0, y: 20 });
       modalTween?.kill();
-      modalTween = gsap.to(modal, { autoAlpha: 1, y: 0, scale: 1, rotateX: 0, duration: .72, ease: 'power3.out', clearProps: 'transform,opacity,visibility' });
+      modalTween = gsap.to(modal, { autoAlpha: 1, y: 0, duration: .44, ease: 'power3.out', clearProps: 'transform,opacity,visibility' });
     }
     closeButton.focus({ preventScroll: true });
   }
@@ -181,7 +205,7 @@ if (root) {
     closeInProgress = true;
     modalTween?.kill();
     if (rm.matches) { finishClose(); return; }
-    modalTween = gsap.to(modal, { autoAlpha: 0, y: 22, scale: .97, duration: .25, ease: 'power2.in', onComplete: finishClose });
+    modalTween = gsap.to(modal, { autoAlpha: 0, y: 12, duration: .22, ease: 'power2.in', onComplete: finishClose });
   }
 
   root.querySelectorAll<HTMLAnchorElement>('[data-sw-open]').forEach(link => {
@@ -234,13 +258,24 @@ if (root) {
   }));
   const observer = new IntersectionObserver(entries => {
     inView = !!entries[0]?.isIntersecting;
+    root.classList.toggle('sw--cinema-visible', inView && !document.hidden && !rm.matches);
     updateControls();
   }, { threshold: .06 });
   observer.observe(cinema);
+  document.addEventListener('visibilitychange', () => {
+    root.classList.toggle('sw--cinema-visible', inView && !document.hidden && !rm.matches);
+    updateControls();
+  });
   let resizeFrame = 0;
+  let lastWidth = document.documentElement.clientWidth;
   window.addEventListener('resize', () => {
     cancelAnimationFrame(resizeFrame);
-    resizeFrame = requestAnimationFrame(relayout);
+    resizeFrame = requestAnimationFrame(() => {
+      const width = document.documentElement.clientWidth;
+      if (Math.abs(width - lastWidth) < 2) return;
+      lastWidth = width;
+      relayout();
+    });
   }, { passive: true });
   rm.addEventListener('change', relayout);
   let intro: gsap.core.Tween | undefined;
