@@ -1,0 +1,123 @@
+---
+import { skillGroups, projectLevelTools } from '../data/skillAtlas';
+const total = skillGroups.reduce((sum, group) => sum + group.skills.length, 0);
+// Positions are precomputed at build time to avoid JS layout shifts.
+const positions = skillGroups.map((_, i) => {
+  const angle = (-90 + i * 360 / skillGroups.length) * Math.PI / 180;
+  return { x: 50 + 40 * Math.cos(angle), y: 50 + 40 * Math.sin(angle) };
+});
+---
+<section class="sa" id="skills" aria-labelledby="sa-title" data-skill-atlas>
+  <div class="sa__ambient" aria-hidden="true"></div>
+  <div class="sa__shell">
+    <div class="sa__chapter" data-sa-reveal>
+      <span class="sa__chapter-number"><i aria-hidden="true"></i> 03 / 09</span>
+      <span class="sa__chapter-rule"></span>
+      <span class="sa__chapter-label">AN INDEX OF THE CRAFT</span>
+    </div>
+
+    <header class="sa__intro">
+      <div class="sa__intro-title">
+        <span class="sa__eyebrow" data-sa-reveal>THE MATERIALS OF MY WORK <i aria-hidden="true">✳</i></span>
+        <h2 id="sa-title" class="sa__headline" data-sa-head>THE <span>TOOLKIT<b>.</b></span></h2>
+      </div>
+      <div class="sa__intro-aside" data-sa-reveal>
+        <span class="sa__small-rule" aria-hidden="true"></span>
+        <p>Different tools.<br /><em>One way of thinking.</em></p>
+        <span>EVERY SKILL HAS ITS PLACE IN THE PROCESS.</span>
+      </div>
+    </header>
+
+    <div class="sa__lead" data-sa-reveal>
+      <p>From programming fundamentals to intelligent systems, this is the working knowledge I've brought into projects, research and teams.</p>
+      <span>SELECT A DISCIPLINE<br />TO EXPLORE <b aria-hidden="true">↘</b></span>
+    </div>
+
+    <div class="sa__experience" data-sa-experience>
+      <div class="sa__dial-column">
+        <div class="sa__dial-caption"><span>01 / THE ATLAS</span><span>INTERACTIVE FIELD NOTES</span></div>
+        <div class="sa__dial" aria-label="Explore skills by discipline">
+          <div class="sa__dial-rings" aria-hidden="true">
+            <div class="sa__dial-orbit sa__dial-orbit--outer" data-sa-orbit></div>
+            <div class="sa__dial-orbit sa__dial-orbit--inner" data-sa-orbit-reverse></div>
+            <div class="sa__dial-axis sa__dial-axis--horizontal"></div>
+            <div class="sa__dial-axis sa__dial-axis--vertical"></div>
+          </div>
+          <div class="sa__dial-center" aria-hidden="true">
+            <span class="sa__dial-center-index" data-sa-index>01 <i>/ 09</i></span>
+            <span class="sa__dial-center-rule"></span>
+            <strong data-sa-center>LANGUAGES</strong>
+            <span class="sa__dial-center-caption">A LIVING INVENTORY<br />OF WHAT I USE</span>
+          </div>
+          {skillGroups.map((group, i) => (
+            <button
+              type="button"
+              class:list={['sa__node', { 'is-active': i === 0 }]}
+              style={`left:${positions[i].x.toFixed(4)}%;top:${positions[i].y.toFixed(4)}%`}
+              data-sa-node={group.id}
+              aria-label={`View ${group.title} skills`}
+              aria-pressed={i === 0 ? 'true' : 'false'}
+              title={group.title}
+            >
+              <span>{String(i + 1).padStart(2, '0')}</span>
+            </button>
+          ))}
+          <span class="sa__dial-cross sa__dial-cross--nw" aria-hidden="true">+</span>
+          <span class="sa__dial-cross sa__dial-cross--se" aria-hidden="true">+</span>
+        </div>
+        <div class="sa__dial-footer"><span>CURATED FROM MY ACTUAL WORK & CV</span><span aria-hidden="true">✳</span></div>
+      </div>
+
+      <div class="sa__detail-column">
+        <div class="sa__detail-heading"><span>02 / SELECTED DISCIPLINE</span><span class="sa__selected-count" data-sa-count>01 — 09</span></div>
+        <div class="sa__panels" aria-live="off">
+          {skillGroups.map((group, i) => (
+            <article class:list={['sa__panel', { 'is-active': i === 0 }]} data-sa-panel={group.id} hidden={i !== 0}>
+              <span class="sa__panel-index">FIELD / {String(i + 1).padStart(2, '0')}</span>
+              <h3>{group.title}</h3>
+              <p class="sa__panel-subtitle">{group.subtitle}</p>
+              <div class="sa__panel-rule"><i></i></div>
+              <p class="sa__panel-note">{group.note}</p>
+              <ul class="sa__skill-tokens">
+                {group.skills.map((skill, j) => <li><span class="sa__skill-token-id">{String(j + 1).padStart(2, '0')}</span>{skill}</li>)}
+              </ul>
+              <div class="sa__panel-bottom"><span>FROM THE WORKING TOOLKIT</span><span aria-hidden="true">↗</span></div>
+            </article>
+          ))}
+        </div>
+        <div class="sa__controls">
+          <button type="button" class="sa__step" data-sa-prev aria-label="Previous skill group"><span aria-hidden="true">←</span> PREVIOUS</button>
+          <button type="button" class="sa__autoplay" data-sa-autoplay aria-pressed="false" aria-label="Pause automatic skill rotation" hidden>
+            <span class="sa__autoplay-symbol" aria-hidden="true">Ⅱ</span>
+            <span data-sa-autoplay-label>AUTO · 02 SEC</span>
+          </button>
+          <button type="button" class="sa__step" data-sa-next aria-label="Next skill group">NEXT <span aria-hidden="true">→</span></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sa__index" aria-labelledby="sa-inventory-title">
+      <div class="sa__index-heading" data-sa-reveal>
+        <div><span>03 / COMPLETE INDEX</span><h3 id="sa-inventory-title">THE FULL <em>inventory.</em></h3></div>
+        <p>Everything listed below is drawn from my CV. Select any discipline above to explore its role in greater detail.</p>
+      </div>
+      <div class="sa__ledger">
+        {skillGroups.map((group, i) => (
+          <div class="sa__ledger-row" data-sa-ledger-row>
+            <span class="sa__ledger-number">{String(i + 1).padStart(2, '0')}</span>
+            <h4>{group.title}</h4>
+            <ul>{group.skills.map(skill => <li>{skill}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <aside class="sa__project-tools" aria-label="Additional technologies from project repositories" data-sa-reveal>
+      <span class="sa__project-tools-label">ALSO IN THE PROJECT ARCHIVE <i aria-hidden="true">↗</i></span>
+      <p>Additional tools appearing in my project repositories. Listed as project-level experience—not blanket claims of proficiency.</p>
+      <ul>{projectLevelTools.map(tool => <li>{tool}</li>)}</ul>
+    </aside>
+
+    <div class="sa__outro"><span>THE TOOLS CHANGE. THE CURIOSITY DOESN'T.</span><span aria-hidden="true">✳</span><span>{skillGroups.length} DISCIPLINES / {total} ENTRIES</span></div>
+  </div>
+</section>
