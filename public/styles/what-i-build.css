@@ -137,7 +137,7 @@
 .wib__end-right span {color:var(--wib-red);margin-left:9px;font-size:16px;}
 /* Continuous typographic ribbon: very slow, GSAP-driven, pauses offscreen. */
 .wib__marquee {height:clamp(118px,12vw,205px);position:relative;overflow:hidden;border-block:1px solid rgba(228,204,175,.16);background:rgba(32,10,12,.55);display:flex;align-items:center;}
-.wib__marquee-track {display:flex;width:max-content;white-space:nowrap;will-change:transform;}
+.wib__marquee-track {display:flex;width:max-content;white-space:nowrap;will-change:auto;}
 .wib__marquee-track>span {display:block;flex:none;font:800 clamp(84px,11.5vw,185px)/1 var(--display,Impact,sans-serif);letter-spacing:-.012em;color:transparent;-webkit-text-stroke:1px rgba(228,204,175,.36);padding-right:.28em;}
 .wib__marquee-track i {display:inline-block;color:#9b3c3d;-webkit-text-stroke:0;font:400 .36em/1 var(--serif,Georgia,serif);font-style:normal;vertical-align:25%;padding:0 .16em;}
 /* Individually designed art boards are decorative conceptual representations. */
@@ -297,3 +297,6 @@
   .wib__mobile-side-kicker,.wib__mobile-side-meta {font-size:6.6px;letter-spacing:.04em;}
   .wib__mobile-side-rule {width:28px;}
 }
+
+/* GPU promotion only while the outline ticker is onscreen. */
+.wib__marquee-track.is-playing{will-change:transform;}
