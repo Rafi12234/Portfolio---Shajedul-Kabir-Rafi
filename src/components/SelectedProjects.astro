@@ -1,0 +1,122 @@
+---
+import { selectedProjects, projectGroups } from '../data/selectedProjects';
+---
+<section id="selected-work" class="sw" data-selected-work aria-labelledby="sw-title">
+  <div class="sw__grain" aria-hidden="true"></div>
+  <div class="sw__shell">
+    <div class="sw__folio">
+      <span><i></i> 04 / SELECTED PROJECTS</span>
+      <span class="sw__folio-rule"></span>
+      <span>THE WORK / 2026</span>
+    </div>
+    <header class="sw__intro">
+      <div>
+        <p class="sw__eyebrow">PROJECTS &nbsp; <span>✳</span> &nbsp; THE CURATED ARCHIVE</p>
+        <h2 id="sw-title" class="sw__headline">THE WORK<br/><em>IN MOTION.</em></h2>
+      </div>
+      <div class="sw__intro-aside">
+        <span class="sw__intro-num">18<sup>PROJECTS</sup></span>
+        <p>Systems, platforms, useful tools and playful ideas, built to solve different kinds of problems.</p>
+        <span>SCROLL TO EXPLORE <b>↘</b></span>
+      </div>
+    </header>
+    <div class="sw__filters" role="group" aria-label="Filter projects by category">
+      <span class="sw__filters-label">FILTER THE ARCHIVE /</span>
+      <div class="sw__filters-list">
+        {projectGroups.map(group => (
+          <button type="button" class:list={['sw__filter',group.key==='all'&&'is-active']} data-sw-filter={group.key} aria-pressed={group.key==='all'}>
+            <span>{group.name}</span><small>{String(group.count).padStart(2,'0')}</small>
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+  <div class="sw__cinema" data-sw-cinema>
+    <!-- Three seamless independent headline tracks. Alternate directions; never paused by card hover. -->
+    <div class="sw__wall" aria-hidden="true">
+      {['CREATIVE WORK — CURATED STORIES — ', 'ENGINEERED IDEAS — BUILT WITH PURPOSE — ', 'DESIGN IN MOTION — PROJECT ARCHIVE — '].map((words, i) => (
+        <div class:list={['sw__wall-row', `sw__wall-row--${i+1}`]}>
+          <div class="sw__wall-track"><span>{words}</span><span>{words}</span></div>
+        </div>
+      ))}
+    </div>
+    <div class="sw__cinema-red" aria-hidden="true"></div>
+    <div class="sw__fade sw__fade--top" aria-hidden="true"></div>
+    <div class="sw__fade sw__fade--bottom" aria-hidden="true"></div>
+    <div class="sw__reel" data-sw-reel>
+      {selectedProjects.map((project,index)=>{
+        const initials=project.title.split(' ').map(word=>word[0]).join('').slice(0,3);
+        const angle=[-7,5,-4,7,-6,3][index%6];
+        const offset=[-24,28,-15,35,-27,19][index%6];
+        return (
+          <article
+            class:list={['sw__item',`sw__item--${project.tone}`]}
+            data-sw-item
+            data-sw-project={project.slug}
+            data-sw-group={project.group}
+            data-sw-index={index}
+            style={`--sw-angle:${angle}deg;--sw-x:${offset}px;`}
+          >
+            <a class="sw__card-link" data-sw-open href={project.repo} target="_blank" rel="noopener noreferrer" aria-haspopup="dialog" aria-label={`Explore ${project.title}, project details and technology stack`}>
+              <div class="sw__plate">
+                <div class="sw__plate-upper">
+                  <div class="sw__plate-identity"><span class="sw__plate-kicker">RAFI / SELECTED WORK</span><strong>{project.title}</strong></div>
+                  <span class="sw__plate-count">{String(index+1).padStart(2,'0')} — {String(selectedProjects.length).padStart(2,'0')}</span>
+                </div>
+                <!-- Each of the 18 plates has a distinct project-specific UI illustration asset. -->
+                <div class="sw__mockup" aria-hidden="true">
+                  <img
+                    src={`/assets/project-mockups/${project.slug}.svg`}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    width="1280"
+                    height="720"
+                  />
+                  <span class="sw__mockup-tag">UI CONCEPT / PROJECT PREVIEW</span>
+                </div>
+                <div class="sw__plate-bottom"><div><small>{project.kicker}</small><strong>{project.title}</strong></div><span>VIEW PROJECT <b>↗</b></span></div>
+              </div>
+            </a>
+          </article>
+        );
+      })}
+    </div>
+    <div class="sw__cinema-foot" aria-hidden="true"><span>IN MOTION / 04</span><span>SELECT A PROJECT TO EXPLORE</span></div>
+  </div>
+  <div class="sw__shell">
+    <div class="sw__controls">
+      <div class="sw__controls-note"><i></i><span>AN EVER-EVOLVING ARCHIVE OF REAL PROJECTS.</span></div>
+      <span class="sw__state" data-sw-state role="status" aria-live="polite">READY TO EXPLORE</span>
+      <button class="sw__pause" type="button" data-sw-pause aria-pressed="false">Ⅱ &nbsp; PAUSE MOTION</button>
+    </div>
+    <footer class="sw__footer"><span>HAVE A PROJECT IN MIND?</span><a href="https://github.com/Rafi12234" target="_blank" rel="noopener noreferrer">EXPLORE ALL REPOSITORIES ↗</a></footer>
+  </div>
+
+  <dialog class="sw__dialog" data-sw-dialog aria-labelledby="sw-dialog-title" aria-describedby="sw-dialog-description">
+    <div class="sw__modal" data-sw-modal>
+      <div class="sw__modal-top">
+        <div><span class="sw__modal-dot"></span> <span>RAFI / PROJECT DOSSIER</span></div>
+        <button type="button" class="sw__close" data-sw-close aria-label="Close project details"><span aria-hidden="true">✕</span><span>CLOSE</span></button>
+      </div>
+      <div class="sw__modal-body">
+        <div class="sw__modal-art sw__modal-art--wine" data-sw-modal-art>
+          <img class="sw__modal-image" data-sw-modal-image src="/assets/project-mockups/make-my-event.svg" alt="Illustrative mockup for the selected project" width="1280" height="720" />
+          <span class="sw__modal-art-caption">ILLUSTRATIVE UI CONCEPT / NOT AN APP SCREENSHOT</span>
+        </div>
+        <div class="sw__modal-copy">
+          <p class="sw__modal-eyebrow" data-sw-modal-eyebrow>PROJECT 01 / MANAGEMENT</p>
+          <h3 id="sw-dialog-title" class="sw__modal-title" data-sw-modal-title>PROJECT TITLE</h3>
+          <p class="sw__modal-subtitle" data-sw-modal-subtitle>PROJECT DISCIPLINE</p>
+          <div class="sw__modal-rule"></div>
+          <p id="sw-dialog-description" class="sw__modal-description" data-sw-modal-description></p>
+          <div class="sw__modal-features"><h4>KEY CAPABILITIES <span>↘</span></h4><ul data-sw-modal-features></ul></div>
+          <div class="sw__modal-stack-area"><h4>ENGINEERING STACK <span>↘</span></h4><div class="sw__modal-stack" data-sw-modal-stack></div></div>
+          <p class="sw__modal-note" data-sw-modal-note hidden></p>
+          <a class="sw__modal-repo" data-sw-modal-repo href="https://github.com/Rafi12234" target="_blank" rel="noopener noreferrer">EXPLORE SOURCE REPOSITORY <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <div class="sw__modal-bottom"><span>PORTFOLIO ARCHIVE / SHAJEDUL KABIR RAFI</span><span data-sw-modal-pagination>01 / 18</span></div>
+    </div>
+  </dialog>
+</section>
