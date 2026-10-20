@@ -125,31 +125,33 @@ if (root) {
       });
       // Gentle continuous outline type. Pauses offscreen and under reduced-motion.
       if (marquee) {
-        continuousMotion = gsap.to(marquee, { xPercent: -50, duration: 43, ease: 'none', repeat: -1, paused: true });
+        continuousMotion = gsap.to(marquee, { xPercent: -50, duration: 64, ease: 'none', repeat: -1, paused: true });
         ScrollTrigger.create({
           trigger: root, start: 'top bottom', end: 'bottom top',
-          onEnter: () => { sectionVisible = true; continuousMotion?.play(); decoMotion?.play(); },
-          onEnterBack: () => { sectionVisible = true; continuousMotion?.play(); decoMotion?.play(); },
-          onLeave: () => { sectionVisible = false; continuousMotion?.pause(); decoMotion?.pause(); },
-          onLeaveBack: () => { sectionVisible = false; continuousMotion?.pause(); decoMotion?.pause(); },
+          onEnter: () => { sectionVisible = true; if (!document.hidden) { continuousMotion?.play(); marquee?.classList.add('is-playing'); } },
+          onEnterBack: () => { sectionVisible = true; if (!document.hidden) { continuousMotion?.play(); marquee?.classList.add('is-playing'); } },
+          onLeave: () => { sectionVisible = false; continuousMotion?.pause(); marquee?.classList.remove('is-playing'); },
+          onLeaveBack: () => { sectionVisible = false; continuousMotion?.pause(); marquee?.classList.remove('is-playing'); },
         });
       }
-      const bloom = root.querySelector<HTMLElement>('.wib__bloom');
-      if (bloom) {
-        decoMotion = gsap.to(bloom, { x: 13, y: 17, scale: 1.045, duration: 11, yoyo: true, repeat: -1, ease: 'sine.inOut', paused: true });
-        if (sectionVisible) decoMotion.play();
-      }
+      // Large moving blurs are expensive while Lenis and ScrollTrigger render.
+      // Keep the original visual glow, but do not animate the blur layer.
       const star = root.querySelector<HTMLElement>('.wib__end-symbol');
       if (star) gsap.fromTo(star, { rotate: -14 }, {
         rotate: 14, duration: 9, yoyo: true, repeat: -1, ease: 'sine.inOut',
         scrollTrigger: { trigger: star, start: 'top bottom', end: 'bottom top', toggleActions: 'play pause resume pause' },
       });
     }, root);
-    requestAnimationFrame(() => ScrollTrigger.refresh());
+    // Global motion director performs the single scheduled refresh after initialization.
   }
 
+  const onVisibility = () => {
+    if (document.hidden) { continuousMotion?.pause(); marquee?.classList.remove('is-playing'); }
+    else if (sectionVisible && !reducedMotion.matches) { continuousMotion?.play(); marquee?.classList.add('is-playing'); }
+  };
+  document.addEventListener('visibilitychange', onVisibility);
   setupMotion();
   reducedMotion.addEventListener('change', setupMotion);
   // Existing shared motion director owns Lenis; do not create a second scroll loop.
-  window.addEventListener('pagehide', stopMotion, { once: true });
+  window.addEventListener('pagehide', () => { document.removeEventListener('visibilitychange', onVisibility); stopMotion(); }, { once: true });
 }
