@@ -1,5 +1,6 @@
 ---
 import BeyondTitle from "../components/BeyondTitle.astro";
+import WhatIBuild from "../components/WhatIBuild.astro";
 ---
 <!doctype html>
 <html lang="en">
@@ -20,9 +21,11 @@ import BeyondTitle from "../components/BeyondTitle.astro";
     <link rel="preload" href="./assets/rafi-portrait.webp" as="image" type="image/webp" fetchpriority="high" />
     <link rel="stylesheet" href="./styles/hero.css" />
     <link rel="stylesheet" href="./styles/beyond-title.css" />
-    <!-- GSAP, ScrollTrigger, and Lenis are bundled through Astro. -->
+    <link rel="stylesheet" href="./styles/what-i-build.css" />
+    <!-- Shared GSAP + ScrollTrigger + Lenis director: Astro bundles all dependencies. -->
     <script>
       import '../scripts/motion.ts';
+      import '../scripts/what-i-build.ts';
     </script>
   </head>
   <body>
@@ -132,6 +135,7 @@ import BeyondTitle from "../components/BeyondTitle.astro";
         </section>
 
         <BeyondTitle />
+        <WhatIBuild />
       </main>
     </div>
   </body>
