@@ -20,6 +20,7 @@ import { selectedProjects, projectGroups } from '../data/selectedProjects';
         <span>SCROLL TO EXPLORE <b>↘</b></span>
       </div>
     </header>
+    <p class="sw__visual-disclaimer" role="note"><span aria-hidden="true">✳</span> <strong>DEMO VISUALS ONLY</strong> — All project cover images are conceptual UI mockups for portfolio presentation. They are <strong>not screenshots of the actual products.</strong></p>
     <div class="sw__filters" role="group" aria-label="Filter projects by category">
       <span class="sw__filters-label">FILTER THE ARCHIVE /</span>
       <div class="sw__filters-list">
@@ -45,7 +46,6 @@ import { selectedProjects, projectGroups } from '../data/selectedProjects';
     <div class="sw__fade sw__fade--bottom" aria-hidden="true"></div>
     <div class="sw__reel" data-sw-reel>
       {selectedProjects.map((project,index)=>{
-        const initials=project.title.split(' ').map(word=>word[0]).join('').slice(0,3);
         const angle=[-7,5,-4,7,-6,3][index%6];
         const offset=[-24,28,-15,35,-27,19][index%6];
         return (
@@ -66,14 +66,14 @@ import { selectedProjects, projectGroups } from '../data/selectedProjects';
                 <!-- Each of the 18 plates has a distinct project-specific UI illustration asset. -->
                 <div class="sw__mockup" aria-hidden="true">
                   <img
-                    src={`/assets/project-mockups/${project.slug}.svg`}
+                    src={`/assets/project-covers/${project.slug}.webp`}
                     alt=""
                     loading="lazy"
                     decoding="async"
-                    width="1280"
-                    height="720"
+                    width="1400"
+                    height="788"
                   />
-                  <span class="sw__mockup-tag">UI CONCEPT / PROJECT PREVIEW</span>
+                  <span class="sw__mockup-tag">DEMO UI MOCKUP · NOT ACTUAL PRODUCT UI</span>
                 </div>
                 <div class="sw__plate-bottom"><div><small>{project.kicker}</small><strong>{project.title}</strong></div><span>VIEW PROJECT <b>↗</b></span></div>
               </div>
@@ -101,8 +101,8 @@ import { selectedProjects, projectGroups } from '../data/selectedProjects';
       </div>
       <div class="sw__modal-body">
         <div class="sw__modal-art sw__modal-art--wine" data-sw-modal-art>
-          <img class="sw__modal-image" data-sw-modal-image src="/assets/project-mockups/make-my-event.svg" alt="Illustrative mockup for the selected project" width="1280" height="720" />
-          <span class="sw__modal-art-caption">ILLUSTRATIVE UI CONCEPT / NOT AN APP SCREENSHOT</span>
+          <img class="sw__modal-image" data-sw-modal-image src="/assets/project-covers/make-my-event.webp" alt="Conceptual demo UI mockup, not an actual application screenshot" width="1400" height="788" decoding="async" />
+          <span class="sw__modal-art-caption"><strong>DEMO REPRESENTATION ONLY</strong> — NOT ACTUAL PRODUCT SCREENSHOT</span>
         </div>
         <div class="sw__modal-copy">
           <p class="sw__modal-eyebrow" data-sw-modal-eyebrow>PROJECT 01 / MANAGEMENT</p>
