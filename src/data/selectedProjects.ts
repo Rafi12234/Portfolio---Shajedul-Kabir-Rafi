@@ -1,0 +1,49 @@
+/** Verified public repository metadata (2026-10-20).
+ *  Cards deliberately use original typographic art, not fabricated product screenshots.
+ *  Keep detailed claims conservative where READMEs contain only starter boilerplate.
+ */
+export type ProjectGroup = 'management' | 'web' | 'mobile' | 'ai' | 'experimental' | 'client';
+export type ProjectArt = 'structure' | 'route' | 'signal' | 'device' | 'type' | 'lens';
+export type ProjectRecord = {
+  slug: string;
+  title: string;
+  group: ProjectGroup;
+  kicker: string;
+  summary: string;
+  stack: string[];
+  repo: string;
+  art: ProjectArt;
+  tone: 'wine' | 'paper' | 'ink' | 'ember';
+  note?: string;
+  highlights?: string[];
+};
+const gh = 'https://github.com/Rafi12234/';
+export const projectGroups: {key: ProjectGroup | 'all'; name: string; count: number}[] = [
+  {key:'all',name:'All projects',count:18},
+  {key:'management',name:'Management',count:2},
+  {key:'web',name:'Web platforms',count:3},
+  {key:'mobile',name:'Mobile apps',count:5},
+  {key:'ai',name:'AI / ML',count:3},
+  {key:'experimental',name:'Experiments',count:4},
+  {key:'client',name:'Client work',count:1},
+];
+export const selectedProjects: ProjectRecord[] = [
+  {slug:'make-my-event',title:'MAKE MY EVENT',group:'management',kicker:'Office operations / management',summary:'An internal platform organizing client records, meetings, attendance, vendors, finance, calendars, and PDF proposals.',stack:['Prisma','MySQL / MariaDB','Modular APIs'],highlights:['Clients, meetings and staff workflows','Accounts, attendance and vendor records','PDF proposals and event operations'], repo:gh+'Make-My-Event-Office-Management-System',art:'structure',tone:'paper'},
+  {slug:'smart-inventory',title:'SMART INVENTORY',group:'management',kicker:'Inventory / demand tools',summary:'Multi-warehouse inventory with sales, purchases, stock movements, alerts and reporting. Demand prediction appears in the project name; verify model scope before making model claims.',stack:['Next.js 14','React','MySQL 8'],highlights:['Multi-warehouse inventory and stock levels','Sales, purchases and transaction logs','Low-stock alerts and reporting'], repo:gh+'Smart-Inventory-Demand-Prediction-Management-System',art:'structure',tone:'ink'},
+  {slug:'careerpath',title:'CAREERPATH',group:'web',kicker:'Career discovery / pathways',summary:'A career-development workspace with job exploration, skill-gap analysis and personalized roadmap features.',stack:['React','Vite','Laravel 10','MySQL'],highlights:['Career profiles and exploration','Skill-gap analysis and learning pathways','Job-matching and roadmap tools'], repo:gh+'CareerPath-Ultimate-Solution-for-Youth-Career-Development',art:'type',tone:'ember'},
+  {slug:'safepath',title:'SAFEPATH BD',group:'web',kicker:'Safety / geospatial',summary:'Road safety reports, moderation and incident-aware routing on real map geometry. Traffic-ML experiments use synthetic-development inputs.',stack:['ASP.NET Core','C#','Leaflet','OSRM','ML.NET'],highlights:['Community hazard reports and moderation','Verified-incident-aware route alternatives','Geospatial maps and routing'], repo:gh+'SafePath-BD',art:'route',tone:'wine'},
+  {slug:'ridesplit',title:'RIDESPLIT',group:'web',kicker:'Destination matching / sharing',summary:'A destination-based ride companion with location-based matching, map discovery and in-app chat.',stack:['React','TypeScript','Leaflet','Firebase'],highlights:['Destination-based nearby rider discovery','Location display and matching','Firebase-powered chat and authentication'], repo:gh+'RideSplit',art:'route',tone:'paper'},
+  {slug:'robotics-mobile',title:'AUSTRC MOBILE',group:'mobile',kicker:'Club mobile platform',summary:'Cross-platform application for AUST Robotics Club events, member information, notifications and community updates.',stack:['Flutter','Dart','REST APIs'],highlights:['Events and club announcements','Member-facing updates and notifications','Cross-platform mobile interface'], repo:gh+'AUST-Robotics-Club-Mobile-Application',art:'device',tone:'ink'},
+  {slug:'aust-students',title:'AUST STUDENTS',group:'mobile',kicker:'Student management / mobile',summary:'A Flutter-based student-management project; its public README contains starter instructions rather than a feature specification.',stack:['Flutter','Dart'],highlights:['Flutter/Dart student-oriented codebase','Feature inventory needs confirmation'], repo:gh+'Student-Management-System-for-AUSTians',art:'device',tone:'wine',note:'Feature detail awaiting confirmation'},
+  {slug:'nutritrack',title:'NUTRITRACK',group:'mobile',kicker:'Nutrition / mobile',summary:'A Flutter nutrition-oriented application; the repository README currently provides only default setup instructions.',stack:['Flutter','Dart'],highlights:['Flutter/Dart app codebase','Nutrition-focused concept; public feature inventory pending'], repo:gh+'NutriTrack',art:'device',tone:'paper',note:'Feature detail awaiting confirmation'},
+  {slug:'hercue',title:'HERCUE',group:'mobile',kicker:'Personal companion',summary:'A gentle everyday companion for remembering important things and staying on track with personal routines.',stack:['React Native','Expo','TypeScript / JavaScript','SQLite'],highlights:['Personal organization and reminders','Expo and React Native mobile stack','On-device data and notification dependencies'], repo:gh+'HerCue',art:'device',tone:'ember'},
+  {slug:'pixeltext',title:'PIXELTEXT',group:'mobile',kicker:'Image / text utility',summary:'Encodes image bytes as portable text, restores images from payloads, and adapts oversized images through compression.',stack:['Flutter','Dart','Base64','JSON'],highlights:['Image-to-text Base64 JSON encoding','Adaptive compression for large payloads','Decode and restore original image bytes'], repo:gh+'PixelText---Image-Text-Encoder',art:'device',tone:'wine'},
+  {slug:'docmind',title:'DOCMIND AI',group:'ai',kicker:'Document intelligence foundation',summary:'Phase 1 implements authenticated document workspaces and uploads. Retrieval, embeddings and grounded chat are described as future phases.',stack:['React','Express','Prisma','MySQL','Qdrant planned'],highlights:['Authenticated organizations and workspaces','Document uploads and storage access rules','RAG/retrieval functions planned for later phases'], repo:gh+'RAG-Based-Personalized-Chat-Bot',art:'signal',tone:'ink',note:'RAG functionality is planned, not yet implemented'},
+  {slug:'deepfake',title:'DEEPFAKE DETECTION',group:'ai',kicker:'Media verification / AI-assisted',summary:'An AI-assisted media-verification platform designed around image/video analysis, confidence-based risk signals and review workflows.',stack:['Next.js','FastAPI','PyTorch','OpenCV','PostgreSQL'],highlights:['Image and video analysis architecture','Confidence-oriented risk assessment','Human-review workflow design'], repo:gh+'AI-ASSISTED-DEEPFAKE-IMAGE-AND-VIDEO-DETECTION-SYSTEM',art:'lens',tone:'ember'},
+  {slug:'insurance',title:'INSURANCE PREDICTION',group:'ai',kicker:'Machine learning / regression',summary:'Compares regression models for medical-insurance charge prediction and presents an interactive Gradio demo.',stack:['Python','scikit-learn','Pandas','Gradio'],highlights:['Tabular data preprocessing','Regression-model comparisons','Interactive Gradio prediction interface'], repo:gh+'Insurance_charges_prediction-using-Machine-Learning',art:'signal',tone:'paper'},
+  {slug:'head-detection',title:'HEAD DETECTION',group:'experimental',kicker:'Computer vision / live tracking',summary:'Realtime head detection and counting with camera inputs, backend inference and an animated browser dashboard.',stack:['Python','YOLO','OpenCV','FastAPI','React'],highlights:['Live camera and video inference','Head counts, tracking and direction','Realtime dashboard and WebSocket updates'], repo:gh+'Deep-Learning-Based-Head-Detection-System',art:'lens',tone:'wine'},
+  {slug:'flaresphere',title:'FLARESPHERE',group:'experimental',kicker:'Hand tracking / visual experiment',summary:'Gesture-controlled cinematic fireball using webcam hand landmarks, live canvas particles and motion smoothing.',stack:['React','MediaPipe','Canvas','Vite'],highlights:['MediaPipe hand-landmark tracking','Canvas fireball particles and gesture control','Two-hand transfer interaction'], repo:gh+'FlareSphere-Real-Time-Hand-Tracking-Fireball-Effect',art:'signal',tone:'ember'},
+  {slug:'loveos',title:'LOVEOS 2.0',group:'experimental',kicker:'Personal creative experience',summary:'An interactive anniversary experience with a memory gallery, timeline, playful command interactions and celebrations.',stack:['React','Vite','Tailwind CSS','Framer Motion'],highlights:['Interactive personal anniversary story','Timeline and memory-gallery chapters','Playful animations and celebration effects'], repo:gh+'LoveOS-v2.0',art:'type',tone:'paper'},
+  {slug:'ai-image-generator',title:'AI IMAGE GENERATOR',group:'experimental',kicker:'Generative AI notebook',summary:'A GPU-oriented image generation experiment delivered as a Jupyter notebook, with Colab suggested for CUDA access.',stack:['Jupyter Notebook','GPU / CUDA'],highlights:['GPU-oriented Jupyter image generation','Colab/CUDA execution suggested','Model internals not documented in README'], repo:gh+'Ai-Image-Generator',art:'lens',tone:'ink',note:'Model and exact pipeline not documented in README'},
+  {slug:'sicko-soul',title:'SICKO SOUL',group:'client',kicker:'Client / editorial commerce',summary:'A motion-led streetwear experience with bespoke art direction, animated transitions and richly composed product storytelling.',stack:['Next.js 15','React 19','GSAP','Lenis','OGL'],highlights:['Editorial streetwear landing experience','GSAP and Lenis scroll transitions','OGL-based visual hover experiments'], repo:gh+'Sicko-Soul-Website',art:'type',tone:'ember',note:'Client images and public launch claims require permission'},
+];
