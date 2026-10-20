@@ -1,3 +1,6 @@
+---
+import BeyondTitle from "../components/BeyondTitle.astro";
+---
 <!doctype html>
 <html lang="en">
   <head>
@@ -16,6 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
     <link rel="preload" href="./assets/rafi-portrait.webp" as="image" type="image/webp" fetchpriority="high" />
     <link rel="stylesheet" href="./styles/hero.css" />
+    <link rel="stylesheet" href="./styles/beyond-title.css" />
     <script is:inline>
       // A brief opt-in marker only. Without JavaScript everything remains visible and usable.
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -23,6 +27,7 @@
       }
     </script>
     <script is:inline defer src="./scripts/hero.js"></script>
+    <script is:inline defer src="./scripts/beyond-title.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#introduction">Skip to content</a>
@@ -40,14 +45,14 @@
           <p class="site-header__folio">PERSONAL PORTFOLIO <span class="micro-star" aria-hidden="true">✦</span> EST. 2026</p>
           <nav class="site-nav" aria-label="Primary navigation">
             <a href="https://github.com/Rafi12234" target="_blank" rel="noopener noreferrer">SELECTED WORK <span aria-hidden="true">↗</span></a>
-            <a href="https://www.linkedin.com/in/shajedul-kabir-rafi/" target="_blank" rel="noopener noreferrer">PROFILE <span aria-hidden="true">↗</span></a>
+            <a href="#beyond-title">PROFILE <span aria-hidden="true">↗</span></a>
             <a class="site-nav__contact" href="https://www.linkedin.com/in/shajedul-kabir-rafi/" target="_blank" rel="noopener noreferrer">LET'S CONNECT <span aria-hidden="true">↗</span></a>
           </nav>
           <details class="mobile-menu" id="mobile-menu">
             <summary><span class="mobile-menu__label">MENU</span><span class="mobile-menu__glyph" aria-hidden="true"><i></i><i></i></span></summary>
             <nav class="mobile-menu__panel" aria-label="Mobile navigation">
               <a href="https://github.com/Rafi12234" target="_blank" rel="noopener noreferrer">SELECTED WORK <span aria-hidden="true">↗</span></a>
-              <a href="https://www.linkedin.com/in/shajedul-kabir-rafi/" target="_blank" rel="noopener noreferrer">PROFILE <span aria-hidden="true">↗</span></a>
+              <a href="#beyond-title">PROFILE <span aria-hidden="true">↗</span></a>
               <a href="https://www.linkedin.com/in/shajedul-kabir-rafi/" target="_blank" rel="noopener noreferrer">LET'S CONNECT <span aria-hidden="true">↗</span></a>
             </nav>
           </details>
@@ -126,9 +131,11 @@
               <span>EXPLORE SELECTED WORK</span>
               <span class="hero__cta-arrow" aria-hidden="true">↗</span>
             </a>
-            <span class="hero__bottom-scroll"><span class="hero__scroll-motif" aria-hidden="true">↓</span> THE STORY CONTINUES</span>
+            <a class="hero__bottom-scroll" href="#beyond-title" aria-label="Scroll to Beyond the Title"><span class="hero__scroll-motif" aria-hidden="true">↓</span> THE STORY CONTINUES</a>
           </div>
         </section>
+
+        <BeyondTitle />
       </main>
     </div>
   </body>
