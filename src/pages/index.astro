@@ -20,14 +20,10 @@ import BeyondTitle from "../components/BeyondTitle.astro";
     <link rel="preload" href="./assets/rafi-portrait.webp" as="image" type="image/webp" fetchpriority="high" />
     <link rel="stylesheet" href="./styles/hero.css" />
     <link rel="stylesheet" href="./styles/beyond-title.css" />
-    <script is:inline>
-      // A brief opt-in marker only. Without JavaScript everything remains visible and usable.
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        document.documentElement.classList.add('motion-capable');
-      }
+    <!-- GSAP, ScrollTrigger, and Lenis are bundled through Astro. -->
+    <script>
+      import '../scripts/motion.ts';
     </script>
-    <script is:inline defer src="./scripts/hero.js"></script>
-    <script is:inline defer src="./scripts/beyond-title.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#introduction">Skip to content</a>

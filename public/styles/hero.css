@@ -123,23 +123,6 @@ a:focus-visible,summary:focus-visible { outline: 2px solid var(--cream); outline
 .hero__cta:hover .hero__cta-arrow { transform: translate(3px,-3px); }
 
 /* CINEMATIC ENTER TIMELINE; all content is shown without JavaScript */
-.motion-capable .site-header__inner { animation: headerIn 850ms cubic-bezier(.2,.8,.2,1) 60ms both; }
-.motion-capable .hero__portrait-reveal { animation: portraitIn 1420ms cubic-bezier(.17,.78,.18,1) 260ms both; }
-.motion-capable .hero__orb-reveal { animation: orbIn 1240ms cubic-bezier(.16,1,.3,1) 650ms both; }
-.motion-capable .hero__masthead { animation: headlineIn 1230ms cubic-bezier(.16,1,.3,1) 800ms both; }
-.motion-capable .hero__side--left { animation: sideIn 900ms cubic-bezier(.16,1,.3,1) 1180ms both; }
-.motion-capable .hero__side--right { animation: sideIn 900ms cubic-bezier(.16,1,.3,1) 1280ms both; }
-.motion-capable .hero__nameplate { animation: nameIn 1040ms cubic-bezier(.16,1,.3,1) 1420ms both; }
-.motion-capable .hero__lower-left { animation: lowerIn 850ms cubic-bezier(.16,1,.3,1) 1710ms both; }
-.motion-capable .hero__lower-right { animation: lowerIn 850ms cubic-bezier(.16,1,.3,1) 1790ms both; }
-.motion-capable .hero__bottom-strip { animation: lowerIn 850ms cubic-bezier(.16,1,.3,1) 1940ms both; }
-@keyframes headerIn { from { opacity: 0; transform: translateY(-17px); } to { opacity:1; transform:translateY(0); } }
-@keyframes portraitIn { 0% { opacity:0; clip-path:inset(100% 0 0 0); transform:translateY(90px) scale(1.035); filter:blur(2px); } 22% { opacity:1; } 100% {opacity:1; clip-path:inset(0 0 0 0); transform:translateY(0) scale(1); filter:blur(0); } }
-@keyframes orbIn { from { opacity: 0; clip-path:circle(8% at 50% 51%); transform:translateX(-50%) scale(.82); } to { opacity:1; clip-path:circle(75% at 50% 50%); transform:translateX(-50%) scale(1); } }
-@keyframes headlineIn { from { opacity:0; transform:translateY(103%) rotate(.5deg); } to {opacity:1; transform:translateY(0) rotate(0); } }
-@keyframes sideIn { from {opacity:0; transform:translateY(32px); filter:blur(3px);} to {opacity:1; transform:translateY(0);filter:blur(0);} }
-@keyframes nameIn { from { opacity:0; transform:translate(-50%,54px); filter:blur(3px);} to {opacity:1; transform:translate(-50%,0);filter:blur(0);} }
-@keyframes lowerIn { from {opacity:0; transform:translateY(18px);} to {opacity:1;transform:translateY(0);} }
 @keyframes scrollHint { 0%,100% { transform:translateY(-3px); } 50% {transform:translateY(3px);} }
 
 /* LAPTOP */

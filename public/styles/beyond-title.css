@@ -95,7 +95,7 @@
 /* Genuine alternating timeline: axis through the LEFT column, glass cards change sides. */
 .bt__timeline { position: relative; margin-top: 47px; padding: 3px 0 29px; --bt-progress: 0; }
 .bt__timeline-rail { position: absolute; z-index: 1; left: 50%; top: 10px; bottom: 38px; width: 1px; transform: translateX(-50%); background: linear-gradient(180deg,rgba(228,204,175,.28),rgba(228,204,175,.1) 100%); pointer-events: none; }
-.bt__timeline-progress { display: block; position: absolute; inset: 0 0 auto; height: 100%; background: linear-gradient(180deg,#e7b29c 0%,#be655d 50%,#7c2428 100%); transform-origin: center top; transform: scaleY(var(--bt-progress,0)); box-shadow: 0 0 16px rgba(184,94,85,.5); }
+.bt__timeline-progress { display: block; position: absolute; inset: 0 0 auto; height: 100%; background: linear-gradient(180deg,#e7b29c 0%,#be655d 50%,#7c2428 100%); transform-origin: center top; transform: scaleY(1); box-shadow: 0 0 16px rgba(184,94,85,.5); }
 .bt__events { padding: 0; margin: 0; list-style: none; display: grid; gap: clamp(40px,4.5vw,70px); }
 .bt__event { position: relative; display: grid; grid-template-columns: minmax(0,1fr) 45px minmax(0,1fr); align-items: start; min-height: 178px; }
 .bt__event--left .bt__milestone { grid-column: 1; }
@@ -172,17 +172,7 @@
 .bt__end-rule span:first-child { width: 24px; height:1px; background:var(--bt-red); }
 .bt__end-rule span:last-child { flex:1; height:1px; background:rgba(228,204,175,.22); }
 
-/* PROGRESSIVE SCROLL ENTRANCE: only enhanced after observer JS successfully starts.
-   JS-disabled and reduced-motion users see all content without any reveal dependency. */
-.bt.bt--enhanced [data-bt-reveal] { opacity: 0; transform: translate3d(0,29px,0); filter: blur(2px); transition: opacity 850ms var(--bt-ease), transform 880ms var(--bt-ease), filter 880ms ease; }
-.bt.bt--enhanced [data-bt-reveal].bt--in-view { opacity:1; transform:translate3d(0,0,0); filter:blur(0); }
-.bt.bt--enhanced .bt__chapter-rule { transform:scaleX(0); transition:transform 1100ms var(--bt-ease) 160ms; }
-.bt.bt--enhanced .bt__chapter.bt--in-view .bt__chapter-rule { transform:scaleX(1); }
-.bt.bt--enhanced .bt__intro-title-wrap.bt--in-view { transition-duration:1050ms; }
-.bt.bt--enhanced .bt__event--right { transform:translate3d(18px,24px,0); }
-.bt.bt--enhanced .bt__event--right.bt--in-view { transform:translate3d(0,0,0); }
-.bt.bt--enhanced .bt__event--left { transform:translate3d(-18px,24px,0); }
-.bt.bt--enhanced .bt__event--left.bt--in-view { transform:translate3d(0,0,0); }
+/* GSAP owns scroll-linked entrances. Static content remains visible without JS. */
 
 /* TABLET: intro becomes the first chapter page; educational chronology continues below. */
 @media (max-width: 1190px) {
@@ -258,7 +248,7 @@
   .bt__milestone:hover, .bt__belief:hover {transform:none;}
 }
 @media (prefers-reduced-motion: reduce) {
-  .bt [data-bt-reveal], .bt.bt--enhanced [data-bt-reveal] { opacity:1!important; transform:none!important; filter:none!important; transition:none!important; }
+  .bt [data-bt-reveal] { opacity:1!important; transform:none!important; filter:none!important; transition:none!important; }
   .bt__timeline-progress { transform:scaleY(1)!important; }
   .bt__aura {transform:none!important;}
   .bt__glass, .bt__milestone, .bt__belief {backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}

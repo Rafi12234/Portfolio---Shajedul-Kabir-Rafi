@@ -1,0 +1,13 @@
+/* Motion integration: visual theme is unchanged. GSAP drives the timeline. */
+html:has(.hero) { scroll-behavior: auto; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+.bt__timeline-progress { transform: scaleY(1); }
+@media (max-width: 768px) {
+  .bt__glass { backdrop-filter: blur(12px) saturate(1.12); -webkit-backdrop-filter: blur(12px) saturate(1.12); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  .bt__timeline-progress { transform: scaleY(1) !important; }
+}
