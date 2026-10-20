@@ -65,10 +65,55 @@ a:focus-visible,summary:focus-visible { outline: 2px solid var(--cream); outline
 .hero__orb::after { content:''; position:absolute; inset:-8%; background: linear-gradient(175deg, transparent 28%, rgba(0,0,0,.45) 90%); }
 .hero__orb-sheen { position: absolute; z-index: 1; width: 150%; height: 100%; border-radius: 50%; background: radial-gradient(ellipse at 35% 10%, rgba(222,79,61,.08), transparent 55%); }
 
-.hero__masthead-depth { position: absolute; z-index: 2; top: 2.3%; left: 50%; width: max-content; pointer-events: none; transform: translate3d(calc(-50% + var(--type-x)), calc(var(--type-y) + var(--scroll-title)), 0); will-change: transform; }
+
+.hero__masthead-depth {
+  position: absolute;
+  z-index: 2;
+  top: 2.3%;
+  left: 50%;
+  width: max-content;
+  pointer-events: none;
+
+  /* Permanent horizontal centering */
+  translate: -50% 0;
+
+  /* GSAP-controlled movement only */
+  transform: translate3d(
+    var(--type-x, 0px),
+    calc(var(--type-y, 0px) + var(--scroll-title, 0px)),
+    0
+  );
+
+  will-change: transform;
+}
+
 .hero__masthead-mask { overflow: hidden; padding: 0 10px 15px; }
 .hero__masthead { display: block; font-family: var(--display); font-weight: 900; font-size: clamp(8rem, 26.9vw, 29rem); font-stretch: ultra-condensed; line-height: .82; letter-spacing: -.023em; color: var(--cream); margin: 0; white-space: nowrap; text-align: center; text-shadow: 0 5px 40px rgba(0,0,0,.08); }
-.hero__portrait-depth { position: absolute; z-index: 5; width: clamp(460px, 47.3vw, 760px); bottom: -22%; left: 50%; transform: translate3d(calc(-50% + var(--portrait-x)), calc(var(--portrait-y) + var(--scroll-portrait)), 0); pointer-events: none; will-change: transform; }
+
+.hero__portrait-depth {
+  position: absolute;
+  z-index: 5;
+  width: clamp(460px, 47.3vw, 760px);
+  bottom: -22%;
+  left: 50%;
+  pointer-events: none;
+
+  /* Permanent horizontal centering */
+  translate: -50% 0;
+
+  /* Independent GSAP parallax and scroll movement */
+  transform: translate3d(
+    var(--portrait-x, 0px),
+    calc(
+      var(--portrait-y, 0px) +
+      var(--scroll-portrait, 0px)
+    ),
+    0
+  );
+
+  will-change: transform;
+}
+
 .hero__portrait-reveal { width: 100%; display: block; }
 .hero__portrait-reveal picture { display: block; }
 .hero__portrait { display: block; width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 5px 33px rgba(0,0,0,.37)); -webkit-user-drag: none; user-select: none; }
