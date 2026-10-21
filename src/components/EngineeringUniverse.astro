@@ -1,0 +1,137 @@
+---
+import { skillGroups, projectLevelTools } from '../data/skillAtlas';
+const count = skillGroups.reduce((sum, group) => sum + group.skills.length, 0);
+const codeSamples = [
+  ['#include <iostream>', 'int main() {', '  std::cout << "build";', '  return 0;', '}', 'std::vector<int> data;', 'for (auto &x : data) {', '  process(x);', '}', 'constexpr int n = 42;', 'std::sort(v.begin(), v.end());'],
+  ['#include <vector>', 'template<typename T>', 'class Repository {', ' public:', '  T findById(int id);', '  void save(const T& item);', '};', 'auto result = query();', 'if (result.ok()) {', '  commit(result);', '}'],
+  ['#include <algorithm>', 'bool isSorted = true;', 'for (size_t i = 1;', '     i < data.size(); ++i) {', '  if (data[i] < data[i-1])', '    isSorted = false;', '}', 'std::unique_ptr<Node> root;', 'root = std::make_unique<Node>();'],
+  ['#include <map>', 'std::map<int, string> cache;', 'cache.emplace(id, value);', 'for (const auto& [k,v] : cache)', '  std::cout << k << v;', 'auto it = cache.find(key);', 'if (it != cache.end()) {', '  return it->second;', '}', 'return {};'],
+  ['#include <thread>', 'std::mutex guard;', 'std::lock_guard lock(guard);', 'auto task = std::async(', '    std::launch::async, run);', 'task.wait();', 'while (ready) {', '  publish(event);', '}', 'return EXIT_SUCCESS;'],
+  ['#include <cmath>', 'double score = 0.0;', 'for (double x : features) {', '  score += std::abs(x);', '}', 'const auto mean =', '  score / features.size();', 'if (mean > threshold) {', '  optimize();', '}'],
+  ['#include <string>', 'struct Developer {', '  std::string name;', '  int experience;', '};', 'Developer rafi{ "Rafi", 4 };', 'auto sprint = plan();', 'test(sprint);', 'deploy(sprint);', 'return success;'],
+  ['#include <array>', 'std::array<int, 4> nodes;', 'auto edges = graph.edges();', 'for (auto edge : edges) {', '  visit(edge.target);', '}', 'int shortestPath(int s) {', '  return dijkstra(s);', '}', 'assert(result >= 0);'],
+];
+---
+<section id="engineering-universe" class="eu" data-engineering-universe aria-labelledby="eu-heading">
+  <div class="eu__grain" aria-hidden="true"></div>
+  <div class="eu__wrap">
+    <div class="eu__folio">
+      <span><span class="eu__signal-dot" aria-hidden="true"></span> 02 / ENGINEERING & EXPERTISE</span>
+      <span class="eu__folio-line" aria-hidden="true"></span>
+      <span>SKILLS, ALWAYS IN MOTION <i aria-hidden="true">✳</i></span>
+    </div>
+
+    <header class="eu__header">
+      <div class="eu__headline-block">
+        <p class="eu__eyebrow">THE MATERIALS OF MY WORK <b aria-hidden="true">↗</b></p>
+        <h2 id="eu-heading" class="eu__heading"><span>CAPABILITIES</span><br/><em>IN MOTION.</em></h2>
+      </div>
+      <div class="eu__header-aside">
+        <span class="eu__header-aside-number">{String(count).padStart(2, '0')} <small>SKILL ENTRIES</small></span>
+        <p>Ideas become products through the tools behind them. Watch technologies flow toward you through a cinematic 3D scene — filter the stream to explore a specific engineering discipline.</p>
+        <span class="eu__aside-sign">CODE / DESIGN / INTELLIGENCE</span>
+      </div>
+    </header>
+
+    <div class="eu__category-header">
+      <div class="eu__category-label">01 / FILTER THE STREAM <span>✳</span></div>
+      <div class="eu__categories" role="group" aria-label="Filter flying skills by discipline">
+        <button type="button" class="eu__category eu__category--all is-active" data-eu-category="all" aria-pressed="true" title="Show technologies from all disciplines"><span class="eu__category-num">✳</span><span>ALL SKILLS</span></button>
+        {skillGroups.map((group, i) => (
+          <button type="button" class="eu__category" data-eu-category={group.id} aria-pressed="false" title={`Only ${group.title}`} >
+            <span class="eu__category-num">{String(i+1).padStart(2,'0')}</span>
+            <span>{group.short}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="eu__theater" data-eu-theater>
+    <div class="eu__theater-light" aria-hidden="true"></div>
+    <div class="eu__code-rain" aria-hidden="true">
+      {codeSamples.map((sample, i) => (
+        <div class="eu__code-column" style={`--eu-code-col:${i};--eu-code-time:${32 + (i % 4) * 6}s;--eu-code-delay:-${i * 4.2}s`}>
+          <div class="eu__code-track">
+            {[0, 1].map(copy => (
+              <div class="eu__code-copy">
+                {sample.map((line, j) => <div class:list={['eu__code-line', j % 5 === 0 && 'eu__code-line--bright', j % 6 === 2 && 'eu__code-line--dim']}>{line}</div>)}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="eu__theater-texture" aria-hidden="true"></div>
+
+    <div class="eu__theater-top">
+      <span class="eu__stage-coordinate"><span class="eu__red-dot" aria-hidden="true"></span> LIVE TECHNOLOGY TRANSMISSION</span>
+      <span class="eu__stage-sidenote">MULTI-DEPTH / Z-AXIS <b aria-hidden="true">↗</b></span>
+    </div>
+
+    <div class="eu__depth" data-eu-depth aria-hidden="true">
+      {Array.from({ length: 7 }, (_, i) => <span class="eu__flight" data-eu-flight data-eu-slot={i} style={`--eu-slot:${i}`}>{i===0 ? "React.js" : ""}</span>)}
+    </div>
+
+    <div class="eu__stage-left" aria-hidden="true">
+      <span class="eu__minor-heading">A DIFFERENT WAY<br/>TO BUILD</span>
+      <span class="eu__stage-hairline"></span>
+      <span class="eu__side-script">The craft<br/><em>behind the code.</em></span>
+    </div>
+    <div class="eu__stage-right" aria-hidden="true">
+      <span>EST. 2026</span>
+      <span class="eu__vertical-rail"></span>
+      <span>ALWAYS LEARNING <i>✳</i></span>
+    </div>
+
+    <div class="eu__theater-bottom">
+      <span class="eu__depth-label">FAR <span class="eu__depth-line" aria-hidden="true"><i></i></span> NEAR</span>
+      <div class="eu__current-details">
+        <span class="eu__current-eyebrow" data-eu-current-group>ALL / DISCIPLINES</span>
+        <span class="eu__current-name" data-eu-current-name>REACT.JS</span>
+      </div>
+      <span class="eu__stage-counter" data-eu-counter>01 / {String(count).padStart(2,'0')}</span>
+    </div>
+    <div class="eu__theater-edge eu__theater-edge--left" aria-hidden="true"></div>
+    <div class="eu__theater-edge eu__theater-edge--right" aria-hidden="true"></div>
+  </div>
+
+  <div class="eu__wrap eu__wrap--footer">
+    <div class="eu__controls">
+      <div class="eu__controls-left">
+        <span class="eu__control-tag">THE TECHNOLOGIES</span>
+        <p>Many skills. One direction. <em>Always moving forward.</em></p>
+      </div>
+      <div class="eu__controls-right">
+        <button type="button" class="eu__ctrl eu__ctrl--previous" data-eu-previous aria-label="Previous skill">← <span>PREV</span></button>
+        <button type="button" class="eu__ctrl eu__ctrl--pause" data-eu-pause aria-pressed="false"><span data-eu-pause-icon>Ⅱ</span> <span data-eu-pause-label>PAUSE</span></button>
+        <button type="button" class="eu__ctrl eu__ctrl--next" data-eu-next aria-label="Next skill"><span>NEXT</span> →</button>
+        <button type="button" class="eu__all-skills" data-eu-all>EXPLORE ALL <span aria-hidden="true">↗</span></button>
+      </div>
+    </div>
+    <div class="eu__bottom-folio"><span>RAFI / AN ENGINEERING PRACTICE</span><span data-eu-motion-status>ANIMATION READY</span><span>THE WORK FOLLOWS <b aria-hidden="true">↘</b></span></div>
+  </div>
+
+  <dialog class="eu__dialog" data-eu-dialog aria-labelledby="eu-dialog-title" data-lenis-prevent>
+    <div class="eu__dialog-inner">
+      <div class="eu__dialog-header">
+        <div><span class="eu__red-dot"></span><span>ENGINEERING / COMPLETE INDEX</span></div>
+        <button type="button" class="eu__dialog-close" data-eu-close aria-label="Close skills index">✕ &nbsp; CLOSE</button>
+      </div>
+      <div class="eu__dialog-intro"><p>ALL THE MATERIALS OF MY WORK</p><h3 id="eu-dialog-title">THE COMPLETE<br/><em>TOOLKIT.</em></h3><span>CV-SOURCED SKILLS, ARRANGED BY DISCIPLINE.</span></div>
+      <div class="eu__dialog-grid">
+        {skillGroups.map((group,i) => (
+          <section class="eu__dialog-group" aria-labelledby={`eu-skill-group-${group.id}`}>
+            <div class="eu__dialog-group-top"><span>{String(i+1).padStart(2,'0')} / 09</span><span>{group.skills.length} ENTRIES</span></div>
+            <h4 id={`eu-skill-group-${group.id}`}>{group.title}</h4>
+            <p>{group.note}</p>
+            <div class="eu__dialog-tags">{group.skills.map(skill => <span>{skill}</span>)}</div>
+          </section>
+        ))}
+      </div>
+      <div class="eu__dialog-additional"><span>ADDITIONAL TECHNOLOGIES EVIDENCED IN MY REPOSITORIES — NOT A PROFICIENCY RANKING</span><div>{projectLevelTools.map(tool=><span>{tool}</span>)}</div></div>
+      <div class="eu__dialog-footer">THE TOOLS CHANGE. THE CURIOSITY DOESN'T. <span aria-hidden="true">✳</span></div>
+    </div>
+  </dialog>
+  <span class="eu__sr-only" aria-live="polite" data-eu-announcement></span>
+</section>
