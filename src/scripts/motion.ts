@@ -170,7 +170,19 @@ function destroy() {
     .forEach(p => stage?.style.removeProperty(p));
 }
 
+let introHeroQueued = false;
 function start() {
+  // Keep the original Hero entrance from playing behind the intro film.
+  if (document.documentElement.classList.contains('intro-pending')) {
+    if (!introHeroQueued) {
+      introHeroQueued = true;
+      document.addEventListener('portfolio:intro-complete', () => {
+        introHeroQueued = false;
+        start();
+      }, { once: true });
+    }
+    return;
+  }
   destroy();
   previousReduced = reduced.matches;
   previousDesktop = desktopPointer.matches;
