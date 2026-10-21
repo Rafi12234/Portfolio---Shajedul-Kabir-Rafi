@@ -4,6 +4,7 @@ import BeyondTitle from "../components/BeyondTitle.astro";
 import SelectedProjects from "../components/SelectedProjects.astro";
 
 import ExperienceShowcase from "../components/ExperienceShowcase.astro";
+import ResearchPublicationsShowcase from "../components/ResearchPublicationsShowcase.astro";
 ---
 <!doctype html>
 <html lang="en">
@@ -27,6 +28,7 @@ import ExperienceShowcase from "../components/ExperienceShowcase.astro";
     <link rel="stylesheet" href="./styles/beyond-title.css" />
 
     <link rel="stylesheet" href="./styles/selected-projects.css" />
+    <link rel="stylesheet" href="./styles/research-publications.css" />
     <link rel="stylesheet" href="./styles/experience.css" />
 
     <!-- Shared GSAP + ScrollTrigger + Lenis director: Astro bundles all dependencies. -->
@@ -36,6 +38,7 @@ import ExperienceShowcase from "../components/ExperienceShowcase.astro";
       import '../scripts/engineering-universe.ts';
 
       import '../scripts/selected-projects.ts';
+      import '../scripts/research-publications.ts';
       import '../scripts/experience.ts';
 
     </script>
@@ -151,6 +154,7 @@ import ExperienceShowcase from "../components/ExperienceShowcase.astro";
         <BeyondTitle />
         <EngineeringUniverse />
         <SelectedProjects />
+        <ResearchPublicationsShowcase />
         <ExperienceShowcase />
       </main>
     </div>
