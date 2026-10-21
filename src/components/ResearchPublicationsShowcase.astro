@@ -1,0 +1,142 @@
+---
+import { researchRecords, unmatchedManuscripts } from '../data/research';
+const N = researchRecords.length;
+const first = researchRecords[0];
+---
+<section class="rgl" id="research" data-research-liquid aria-labelledby="rgl-title">
+  <div class="rgl__aura" aria-hidden="true"></div>
+  <div class="rgl__grain" aria-hidden="true"></div>
+
+  <div class="rgl__wrap">
+    <div class="rgl__folio">
+      <span><i class="rgl__live-dot" aria-hidden="true"></i> 05 / THE RESEARCH ARCHIVE</span>
+      <span class="rgl__folio-rule"></span>
+      <span>SHAJEDUL KABIR RAFI <b aria-hidden="true">✳</b> MMXXVI</span>
+    </div>
+
+    <div class="rgl__head">
+      <div>
+        <p class="rgl__eyebrow">SCHOLARLY WORK / ALWAYS QUESTIONING <span aria-hidden="true">↗</span></p>
+        <h2 id="rgl-title">BEYOND<br /><em>THE CODE.</em></h2>
+      </div>
+      <div class="rgl__head-aside">
+        <span>THE ART OF INVESTIGATION / 2026</span>
+        <p>Ideas made testable. Questions turned into research. An evolving archive of conference papers, proposals and investigations.</p>
+        <div class="rgl__stats" aria-label="Research overview">
+          <span><b>03</b><small>ACCEPTED PAPERS</small></span>
+          <span><b>06</b><small>RESEARCH RECORDS</small></span>
+          <span class="rgl__stats-sign" aria-hidden="true">✳</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rgl__theatre" data-rgl-theatre tabindex="-1">
+      <div class="rgl__ambient rgl__ambient--a" aria-hidden="true"></div>
+      <div class="rgl__ambient rgl__ambient--b" aria-hidden="true"></div>
+      <div class="rgl__orbit-ring rgl__orbit-ring--one" aria-hidden="true"></div>
+      <div class="rgl__orbit-ring rgl__orbit-ring--two" aria-hidden="true"></div>
+      <div class="rgl__theatre-watermark" aria-hidden="true">R <span>/</span> 05</div>
+      <div class="rgl__theatre-top">
+        <span><i class="rgl__live-dot" aria-hidden="true"></i> RESEARCH FREQUENCY / ON AIR</span>
+        <span>ENDLESS ORBIT <b aria-hidden="true">↗</b></span>
+      </div>
+
+      <div class="rgl__orbit-window" data-rgl-orbit aria-label="Interactive continuously moving research carousel; hover over a paper to pause movement">
+        <div class="rgl__orbit" data-rgl-track>
+          {researchRecords.map((paper, index) => (
+            <article class="rgl__orbit-item" data-rgl-card={index} style={`--rgl-accent:${paper.accent}`}>
+              <div class="rgl__card-flip">
+                <div class="rgl__face rgl__face--front" data-rgl-front>
+                  <div class="rgl__art">
+                    <img src={paper.cover} alt="" width="740" height="700" draggable="false" loading="lazy" decoding="async" />
+                    <span class="rgl__art-shine" aria-hidden="true"></span>
+                    <span class="rgl__art-meta">RESEARCH / {paper.index}</span>
+                    <span class="rgl__art-year">{paper.year}</span>
+                    <span class="rgl__art-monogram" aria-hidden="true">R<span>✳</span></span>
+                  </div>
+                  <div class="rgl__front-caption">
+                    <span>{paper.domain}</span>
+                    <strong>{paper.shortTitle}</strong>
+                    <p class="rgl__front-full-title">{paper.title}</p>
+                    <small>{paper.status}</small>
+                  </div>
+                  <button class="rgl__pick" type="button" data-rgl-pick={index} aria-label={`Open research paper ${paper.title}, flip card to details`}>
+                    <span class="rgl__pick-icon" aria-hidden="true">↗</span>
+                  </button>
+                </div>
+
+                <div class="rgl__face rgl__face--back" data-rgl-back aria-hidden="true" inert>
+                  <div class="rgl__back-top">
+                    <span>THE RESEARCH DOSSIER <i aria-hidden="true">✳</i></span>
+                    <button type="button" class="rgl__close" data-rgl-close={index} aria-label={`Close ${paper.shortTitle} details`}>×</button>
+                  </div>
+                  <div class="rgl__back-scroll" data-lenis-prevent>
+                    <div class="rgl__back-status" data-rgl-status-kind={paper.statusKind}>{paper.status}</div>
+                    <span class="rgl__back-index">{paper.index} / {String(N).padStart(2,'0')} &nbsp; · &nbsp; {paper.domain}</span>
+                    <h3>{paper.title}</h3>
+                    <p class="rgl__back-venue">{paper.venue}</p>
+                    <div class="rgl__back-divider"></div>
+                    <div class="rgl__back-label">THE RESEARCH</div>
+                    <p class="rgl__abstract">{paper.abstract}</p>
+                    {paper.authors && <p class="rgl__authors"><span>RESEARCH AUTHORS</span>{paper.authors}</p>}
+                    <div class="rgl__back-tags">{paper.tags.map(tag => <span>{tag}</span>)}</div>
+                    <p class="rgl__disclaimer">{paper.statusDetail}</p>
+                    {paper.links.length ? (
+                      <div class="rgl__back-links">
+                        {paper.links.map(link => <a href={link.url} target="_blank" rel="noopener noreferrer" title={link.note}>{link.label} <span aria-hidden="true">↗</span></a>)}
+                      </div>
+                    ) : (
+                      <div class="rgl__link-unavailable" aria-label="No verified public paper link">PUBLIC PAPER LINK NOT VERIFIED <span aria-hidden="true">↗</span></div>
+                    )}
+                  </div>
+                  <div class="rgl__back-bottom">RAFI / A STUDY IN POSSIBILITY <span>{paper.year}</span></div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div class="rgl__orbit-hint" aria-hidden="true"><span>←</span> HOVER A PAPER TO PAUSE · CLICK TO FLIP <span>→</span></div>
+      <div class="rgl__theatre-floor" aria-hidden="true"></div>
+    </div>
+
+    <div class="rgl__player" data-rgl-player aria-label="Research carousel controls">
+      <div class="rgl__player-identity">
+        <div class="rgl__player-cover"><img src={first.cover} alt="" data-rgl-player-art width="740" height="700" /></div>
+        <div class="rgl__player-copy">
+          <span data-rgl-player-overline>NOW EXPLORING / {first.domain}</span>
+          <strong data-rgl-player-title>{first.shortTitle}</strong>
+          <small data-rgl-player-venue>{first.status}</small>
+        </div>
+      </div>
+      <div class="rgl__transport">
+        <button type="button" class="rgl__transport-arrow" data-rgl-prev aria-label="Previous paper">↶</button>
+        <button type="button" class="rgl__transport-pause" data-rgl-toggle aria-label="Pause automatic carousel" aria-pressed="false"><span data-rgl-toggle-glyph>Ⅱ</span></button>
+        <button type="button" class="rgl__transport-arrow" data-rgl-next aria-label="Next paper">↷</button>
+      </div>
+      <div class="rgl__player-right">
+        <span class="rgl__player-count" data-rgl-player-count>01 <i>/</i> 06</span>
+        <button type="button" class="rgl__explore" data-rgl-explore>EXPLORE RESEARCH <span aria-hidden="true">↗</span></button>
+      </div>
+      <div class="rgl__player-progress" aria-hidden="true"><i data-rgl-progress></i></div>
+    </div>
+
+    <div class="rgl__lower-row">
+      <div class="rgl__lower-note">
+        <span><i></i> THE RESEARCH CONTINUES</span>
+        <p>Three accepted IEEE conference contributions. A wider practice of inquiry — from language and vision to security and healthcare.</p>
+      </div>
+      <details class="rgl__sources">
+        <summary>ADDITIONAL SHARED REFERENCES <span aria-hidden="true">+</span></summary>
+        <div class="rgl__sources-body">
+          <p>Two previously shared WIE manuscripts have not been conclusively matched to their titles. These links are preserved as supplied references, not assigned to a particular paper.</p>
+          {unmatchedManuscripts.map(link => <a href={link.url} target="_blank" rel="noopener noreferrer" title={link.note}>{link.label} <span aria-hidden="true">↗</span></a>)}
+          <small>Sharing permissions may apply. Conference acceptance and copyright filing are not the same as verified indexing.</small>
+        </div>
+      </details>
+    </div>
+    <div class="rgl__outro"><span>RAFI — SELECTED RESEARCH / 2026</span><span>THE NEXT CHAPTER IS BUILT ON QUESTIONS <i aria-hidden="true">✳</i></span></div>
+  </div>
+  <span class="rgl__sr-only" data-rgl-live role="status" aria-live="polite"></span>
+</section>
