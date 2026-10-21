@@ -1,0 +1,124 @@
+---
+import { experienceOrganizations } from '../data/experience';
+const [first] = experienceOrganizations;
+---
+<section class="xp" id="experience" data-experience aria-labelledby="xp-title">
+  <div class="xp__intro">
+    <div class="xp__intro-folio">
+      <span><span class="xp__signal" aria-hidden="true"></span> 05 / THE JOURNEY</span>
+      <span class="xp__intro-rule" aria-hidden="true"></span>
+      <span>ENGINEERING · COLLABORATION · LEADERSHIP</span>
+    </div>
+    <div class="xp__intro-grid">
+      <div>
+        <p class="xp__intro-kicker">THE PLACES I BUILD WITH <span aria-hidden="true">✳</span></p>
+        <h2 id="xp-title">WORK IN<br/><em>PROGRESS.</em></h2>
+      </div>
+      <p>From production engineering to ambitious startups and university leadership. Three chapters, one enduring obsession: <em>building things that matter.</em></p>
+    </div>
+  </div>
+
+  <div class="xp__stage xp__stage--datapulse" data-xp-stage style={`--xp-accent:${first.accent}`}>
+    <div class="xp__backdrops" aria-hidden="true">
+      {experienceOrganizations.map((org, index) => (
+        <img
+          class:list={['xp__backdrop', index === 0 && 'is-active']}
+          data-xp-background={index}
+          src={org.background}
+          alt=""
+          width="1599"
+          height="900"
+          loading={index === 0 ? 'eager' : 'lazy'}
+          decoding="async"
+        />
+      ))}
+    </div>
+    <div class="xp__scrim" aria-hidden="true"></div>
+    <div class="xp__grain" aria-hidden="true"></div>
+    <div class="xp__expander" data-xp-expander aria-hidden="true">
+      <img data-xp-expand-image alt="" width="1599" height="900" />
+      <span class="xp__expander-scrim"></span>
+    </div>
+
+    <div class="xp__stage-folio" aria-hidden="true">
+      <span>RAFI / PROFESSIONAL CHAPTERS</span>
+      <span>SELECT TO EXPLORE <b>↗</b></span>
+    </div>
+
+    <div class="xp__narrative" data-xp-narrative>
+      {experienceOrganizations.map((org, index) => (
+        <article class="xp__story" data-xp-story={index} hidden={index !== 0} aria-labelledby={`xp-org-${org.id}`}>
+          <div class="xp__story-topline">
+            <span class="xp__story-kicker">{org.eyebrow}</span>
+            <span class="xp__story-location">{org.arrangement}</span>
+          </div>
+          <h3 id={`xp-org-${org.id}`} class="xp__story-name">{org.name === 'AUST Robotics Club' ? <>AUST<br/>ROBOTICS CLUB</> : org.name}</h3>
+          <div class="xp__position-row">
+            <p class="xp__position">{org.role}</p>
+            <span class="xp__position-date">{org.dates}</span>
+          </div>
+          <p class="xp__description">{org.introduction}</p>
+          <div class="xp__work-head"><span>SELECTED CONTRIBUTIONS</span><span aria-hidden="true">↘</span></div>
+          <ol class="xp__project-list">
+            {org.projects.map((project, i) => (
+              <li class="xp__project">
+                <span class="xp__project-number">{String(i + 1).padStart(2, '0')}</span>
+                <div class="xp__project-main">
+                  <strong>{project.name}</strong>
+                  <span>{project.note}</span>
+                </div>
+                {project.label && <span class="xp__project-badge">{project.label}</span>}
+              </li>
+            ))}
+          </ol>
+          {org.progression && (
+            <div class="xp__career">
+              <div class="xp__career-heading">LEADERSHIP TIMELINE <span>2025 → PRESENT</span></div>
+              <ol class="xp__career-steps">
+                {org.progression.map((step, i) => (
+                  <li class:list={['xp__career-step', i === org.progression!.length - 1 && 'is-current']}>
+                    <span class="xp__career-pin" aria-hidden="true"></span>
+                    <strong>{step.position}</strong><small>{step.period}</small>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+          <span class="xp__story-footnote">{org.location} <span aria-hidden="true">✳</span> BUILDING WITH INTENTION</span>
+        </article>
+      ))}
+    </div>
+
+    <nav class="xp__dock" aria-label="Choose a company">
+      {experienceOrganizations.map((org, index) => (
+        <button
+          class:list={['xp__company-card', index === 0 && 'is-active']}
+          data-xp-select={index}
+          type="button"
+          aria-pressed={index === 0 ? 'true' : 'false'}
+          aria-label={`Show ${org.name} experience`}
+          style={`--xp-card-accent:${org.accent}`}
+        >
+          <img src={org.background} alt="" loading="eager" decoding="async" width="1599" height="900" />
+          <span class="xp__card-shade" aria-hidden="true"></span>
+          <span class="xp__card-number">0{index + 1} / 03</span>
+          <span class="xp__card-title">{org.short}</span>
+          <span class="xp__card-role">{org.role}</span>
+          <span class="xp__card-arrow" aria-hidden="true">↗</span>
+        </button>
+      ))}
+    </nav>
+
+    <div class="xp__stage-bottom">
+      <div class="xp__switcher" role="group" aria-label="Experience navigation">
+        <button type="button" data-xp-prev aria-label="Previous company">← <span>PREVIOUS</span></button>
+        <span class="xp__counter" data-xp-counter>01 <span>/ 03</span></span>
+        <button type="button" data-xp-next aria-label="Next company"><span>NEXT</span> →</button>
+      </div>
+      <div class="xp__swatches" aria-hidden="true"><i class="is-active"></i><i></i><i></i></div>
+      <span class="xp__stage-end">THE EXPERIENCE CONTINUES <b aria-hidden="true">↗</b></span>
+    </div>
+  </div>
+  <div class="xp__outro"><span>THREE ENVIRONMENTS. ONE COMMITMENT TO THE CRAFT.</span><span>CONTINUALLY EVOLVING / 2026 <i aria-hidden="true">✳</i></span></div>
+  <span class="xp__sr-only" data-xp-status role="status" aria-live="polite">Showing DataPulse Global experience</span>
+</section>

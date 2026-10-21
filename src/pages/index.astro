@@ -2,36 +2,12 @@
 import EngineeringUniverse from "../components/EngineeringUniverse.astro";
 import BeyondTitle from "../components/BeyondTitle.astro";
 import SelectedProjects from "../components/SelectedProjects.astro";
-import IntroFilm from "../components/IntroFilm.astro";
+
+import ExperienceShowcase from "../components/ExperienceShowcase.astro";
 ---
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Play only on the first visit in this browser.
-         This runs synchronously to prevent flashing on repeat loads. -->
-    <script is:inline>
-      (() => {
-        try {
-          const skipDeepLink = !!location.hash && location.hash !== '#page-top';
-          const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-          const seen = localStorage.getItem('rafi-intro-seen-v2') === '1';
-          if (!seen && !reduced && !skipDeepLink) {
-            document.documentElement.classList.add('intro-pending');
-          }
-        } catch { /* storage unavailable: render the portfolio immediately */ }
-
-        // Failsafe even if a JS module fails to load or the video stalls.
-        window.setTimeout(() => {
-          const doc = document.documentElement;
-          if (!doc.classList.contains('intro-pending')) return;
-          doc.classList.remove('intro-pending', 'intro-revealing');
-          const overlay = document.querySelector('[data-intro-film]');
-          if (overlay) overlay.hidden = true;
-          document.querySelector('.portfolio-shell')?.removeAttribute('inert');
-          document.dispatchEvent(new Event('portfolio:intro-complete'));
-        }, 36000);
-      })();
-    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0A0708" />
@@ -46,25 +22,27 @@ import IntroFilm from "../components/IntroFilm.astro";
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
     <link rel="preload" href="./assets/rafi-portrait.webp" as="image" type="image/webp" fetchpriority="high" />
-    <link rel="stylesheet" href="./styles/intro-film.css" />
+
     <link rel="stylesheet" href="./styles/hero.css" />
     <link rel="stylesheet" href="./styles/beyond-title.css" />
 
     <link rel="stylesheet" href="./styles/selected-projects.css" />
+    <link rel="stylesheet" href="./styles/experience.css" />
 
     <!-- Shared GSAP + ScrollTrigger + Lenis director: Astro bundles all dependencies. -->
     <script>
-      import '../scripts/intro-film.ts';
+
       import '../scripts/motion.ts';
       import '../scripts/engineering-universe.ts';
 
       import '../scripts/selected-projects.ts';
+      import '../scripts/experience.ts';
 
     </script>
       <link rel="stylesheet" href="./styles/engineering-universe.css" />
   </head>
   <body>
-    <IntroFilm />
+
     <a class="skip-link" href="#introduction">Skip to content</a>
     <div class="portfolio-shell" id="page-top">
       <div class="portfolio-shell__atmosphere" aria-hidden="true"></div>
@@ -173,6 +151,7 @@ import IntroFilm from "../components/IntroFilm.astro";
         <BeyondTitle />
         <EngineeringUniverse />
         <SelectedProjects />
+        <ExperienceShowcase />
       </main>
     </div>
   </body>
