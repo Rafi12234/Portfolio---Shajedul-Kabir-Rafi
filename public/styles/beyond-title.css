@@ -254,3 +254,8 @@
   .bt__glass, .bt__milestone, .bt__belief {backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
   .bt .bt__chapter-rule {transform:none!important;}
 }
+
+/* RAFI / CONTINUOUS SCROLL V2 — animations stay active while scrolling. */
+@media (max-width: 760px) {
+  .bt__glass { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+}
