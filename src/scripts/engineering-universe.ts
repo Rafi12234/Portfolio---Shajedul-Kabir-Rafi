@@ -125,7 +125,7 @@ if (root) {
     const generation = sceneGeneration;
     // Each slot starts at a different moment. Overlapping flights give a
     // continuous flow, rather than forcing the visitor to wait between skills.
-    const activeSlotCount = smallScreen.matches ? 4 : slots.length;
+    const activeSlotCount = smallScreen.matches ? Math.min(3, slots.length) : Math.min(8, slots.length);
     slots.forEach((slot, i) => {
       if (i >= activeSlotCount) {
         gsap.set(slot.el, { autoAlpha: 0 });
@@ -243,6 +243,7 @@ if (root) {
     if (disposed) return;
     disposed = true;
     visibilityObserver.disconnect();
+
     document.removeEventListener('visibilitychange', updateControls);
     reducedMotion.removeEventListener('change', preferenceChanged);
     smallScreen.removeEventListener('change', buildFlights);
