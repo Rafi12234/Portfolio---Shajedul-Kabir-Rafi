@@ -1,0 +1,144 @@
+---
+import { featuredClient as client } from '../data/clientProjects';
+---
+<section id="client-projects" class="cp" data-client-projects aria-labelledby="cp-heading">
+  <div class="cp__atmosphere" aria-hidden="true">
+    <span class="cp__aura cp__aura--a"></span>
+    <span class="cp__aura cp__aura--b"></span>
+    <span class="cp__vertical-lines"></span>
+    <span class="cp__noise"></span>
+  </div>
+
+  <div class="cp__container">
+    <div class="cp__topline" data-cp-reveal>
+      <span><i class="cp__on-air" aria-hidden="true"></i> 08 / CLIENT PROJECTS</span>
+      <span class="cp__topline-rule" aria-hidden="true"></span>
+      <span>REAL BRANDS / REAL WORLD <b aria-hidden="true">✳</b></span>
+    </div>
+
+    <header class="cp__intro">
+      <div data-cp-reveal>
+        <p class="cp__eyebrow">OUTSIDE THE PERSONAL LAB / INTO THE WORLD</p>
+        <h2 id="cp-heading" class="cp__heading">BUILT FOR<br /><em>OTHER WORLDS.</em></h2>
+      </div>
+      <p data-cp-reveal>Some of the most interesting work begins with somebody else's ambition. <strong>Independent ideas, shaped into a digital presence.</strong></p>
+    </header>
+  </div>
+
+  <div class="cp__ticker" aria-hidden="true" data-cp-ticker>
+    <div class="cp__ticker-track">
+      {Array.from({length:2}).map(() => (
+        <div class="cp__ticker-set">
+          <span>NOT JUST ANOTHER WEBSITE</span><i>✳</i>
+          <span>INDEPENDENT BY DESIGN</span><i>✳</i>
+          <span>MADE TO BE SEEN</span><i>✳</i>
+          <span>CLIENT FILE 001</span><i>✳</i>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="cp__container cp__container--theater">
+    <div class="cp__theater" data-cp-theater>
+      <span class="cp__side-caption cp__side-caption--left" aria-hidden="true">ARCHIVE NO. 001 &nbsp; / &nbsp; VISUAL CASEFILE</span>
+      <span class="cp__side-caption cp__side-caption--right" aria-hidden="true">EXTERNAL COMMISSIONS &nbsp; / &nbsp; EST. 2026</span>
+
+      <div class="cp__story" data-cp-story>
+        <div class="cp__story-head" data-cp-reveal>
+          <span class="cp__story-index">CLIENT <b>001</b> / FEATURED</span>
+          <span class="cp__story-live"><i aria-hidden="true"></i> LIVE WEBSITE</span>
+        </div>
+        <span class="cp__story-overline" data-cp-reveal>CLIENT WORK / INDEPENDENT IDENTITY</span>
+        <h3 class="cp__client-name" data-cp-reveal><span>SICKO</span><br /><em>SOUL.</em></h3>
+        <div class="cp__story-rule" aria-hidden="true"><i></i></div>
+        <p class="cp__story-lede" data-cp-reveal>{client.tagline}</p>
+        <p class="cp__story-description" data-cp-reveal>{client.description}</p>
+        <div class="cp__story-meta" data-cp-reveal>
+          {client.editorialNotes.map(note => (
+            <div><span>{note.label}</span><strong>{note.value}</strong></div>
+          ))}
+        </div>
+        <div class="cp__actions" data-cp-reveal>
+          <a class="cp__visit" href={client.url} target="_blank" rel="noopener noreferrer" aria-label="Visit Sicko Soul live website in a new tab">
+            <span>VISIT LIVE WEBSITE</span><b aria-hidden="true">↗</b>
+          </a>
+          <button class="cp__inspect" type="button" data-cp-open aria-haspopup="dialog">
+            <span>INSPECT THE WORK</span><b aria-hidden="true">⊕</b>
+          </button>
+        </div>
+        <div class="cp__story-foot" data-cp-reveal>
+          <span>WWW.{client.domain.toUpperCase()}</span>
+          <span>VIEW THE EVIDENCE / 01</span>
+        </div>
+      </div>
+
+      <div class="cp__visual-zone" data-cp-visual>
+        <div class="cp__halo" aria-hidden="true"></div>
+        <div class="cp__orbit cp__orbit--one" aria-hidden="true"></div>
+        <div class="cp__orbit cp__orbit--two" aria-hidden="true"></div>
+        <div class="cp__visual-frame" data-cp-frame>
+          <div class="cp__frame-header">
+            <div class="cp__frame-lights" aria-hidden="true"><i></i><i></i><i></i></div>
+            <span>{client.domain}</span>
+            <span class="cp__frame-status">01 / SHOWCASE</span>
+          </div>
+          <div class="cp__frame-image">
+            <img src={client.image} alt="Sicko Soul website showing the streetwear brand, photographic editorial hero, and dark graphic typography" width="1919" height="969" loading="lazy" decoding="async" />
+            <div class="cp__frame-glare" aria-hidden="true"></div>
+          </div>
+          <button type="button" class="cp__image-expand" data-cp-open aria-label="Expand Sicko Soul project screenshot">
+            <span>OPEN THE VISUAL FILE</span><b aria-hidden="true">↗</b>
+          </button>
+        </div>
+        <span class="cp__visual-stamp" aria-hidden="true"><strong>IN THE<br />WILD.</strong><small>LIVE / 001</small></span>
+        <span class="cp__visual-corner cp__visual-corner--a" aria-hidden="true"></span>
+        <span class="cp__visual-corner cp__visual-corner--b" aria-hidden="true"></span>
+        <p class="cp__visual-under" aria-hidden="true">THE WEB, WITH TEETH. &nbsp; / &nbsp; AN IDENTITY THAT DOESN'T ASK PERMISSION.</p>
+      </div>
+    </div>
+
+    <div class="cp__bridge" data-cp-reveal>
+      <span><i aria-hidden="true">✳</i> THE NEXT COMMISSION</span>
+      <span>IS NEVER A COPY OF THE LAST</span>
+    </div>
+
+    <div class="cp__future" data-cp-future>
+      <div class="cp__future-intro" data-cp-reveal>
+        <span class="cp__future-index">02—∞ / THE OPEN FILES</span>
+        <h3>THE NEXT<br /><em>CHAPTER ISN'T</em><br />WRITTEN YET.</h3>
+        <p>More client stories are on the way. No invented brands, no filler showcases—only real work when it's ready to be seen.</p>
+      </div>
+      <div class="cp__future-vault" aria-label="More client projects will be added soon" data-cp-reveal>
+        <div class="cp__vault-card cp__vault-card--front" aria-hidden="true">
+          <span>CASEFILE 002</span>
+          <div class="cp__vault-glyph">?</div>
+          <strong>COMING<br />INTO FOCUS.</strong>
+          <small>CLIENT IDENTITY / TO BE REVEALED</small>
+        </div>
+        <div class="cp__vault-card cp__vault-card--back" aria-hidden="true">
+          <span>CASEFILE 003</span>
+          <div class="cp__vault-glyph">+</div>
+          <strong>THE STORY<br />CONTINUES.</strong>
+          <small>THE ARCHIVE IS GROWING</small>
+        </div>
+        <div class="cp__vault-sweep" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="cp__closing" data-cp-reveal>
+      <span>RAFI / BUILT WITH INTENTION</span>
+      <span>ONE CLIENT LIVE. MORE TO COME. <i aria-hidden="true">↗</i></span>
+    </div>
+  </div>
+
+  <dialog class="cp__dialog" data-cp-dialog aria-labelledby="cp-dialog-title" data-lenis-prevent>
+    <div class="cp__dialog-wrap">
+      <div class="cp__dialog-top">
+        <div><span class="cp__dialog-eyebrow">CLIENT FILE 001 / IN FOCUS</span><h3 id="cp-dialog-title">SICKO SOUL <em>/ DIGITAL STOREFRONT</em></h3></div>
+        <button type="button" data-cp-close class="cp__dialog-close" aria-label="Close Sicko Soul project viewer">CLOSE <span aria-hidden="true">✕</span></button>
+      </div>
+      <img class="cp__dialog-image" src={client.original} width="1919" height="969" alt="Full original screenshot of the Sicko Soul streetwear website design" loading="lazy" />
+      <div class="cp__dialog-bottom"><span>ORIGINAL USER-SUPPLIED WEBSITE SCREENSHOT / 1919 × 969</span><a href={client.url} target="_blank" rel="noopener noreferrer">OPEN {client.domain.toUpperCase()} <span aria-hidden="true">↗</span></a></div>
+    </div>
+  </dialog>
+</section>
