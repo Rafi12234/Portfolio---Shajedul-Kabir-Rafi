@@ -1,0 +1,151 @@
+/* RAFI — HERO / EXPERIENCE REFINEMENT
+   Adds a legible premium CV download treatment and locks every company story
+   to the SAME visual origin during the card-to-environment transition.
+   Import AFTER experience.css and site-finish.css.
+*/
+
+/* EXPERIENCE: both stories occupy exactly the same anchored slot while fading.
+   Previously the second article entered document flow below the first article,
+   then jumped up when the former article became hidden. */
+.xp__narrative { isolation: isolate; }
+.xp__narrative > .xp__story {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.xp__narrative > .xp__story[hidden] { display: none !important; }
+
+/* HERO: a luminous champagne editorial badge instead of the near-invisible
+   outline button. Existing anchor, download URL, and accessible name retained. */
+.hero__action-group .hero__cv-link {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: 34px max-content 29px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 59px;
+  padding: 7px 12px 7px 8px;
+  overflow: hidden;
+  border: 1px solid #f9d5b7;
+  border-radius: 2px;
+  color: #230d0d;
+  background: linear-gradient(117deg, #fbe3bf 0%, #eac29e 48%, #d7a187 100%);
+  box-shadow: 0 0 0 1px rgba(130, 48, 40, .28),
+              0 9px 31px rgba(171, 66, 49, .23),
+              inset 0 1px 0 rgba(255, 255, 255, .48);
+  font: 800 11px/1.2 var(--ui, 'Instrument Sans', system-ui, sans-serif);
+  letter-spacing: .125em;
+  text-shadow: none;
+  white-space: nowrap;
+  text-decoration: none;
+  transform: translateY(0);
+  transition: transform .37s cubic-bezier(.2,.78,.2,1),
+              box-shadow .37s ease,
+              border-color .37s ease;
+}
+.hero__action-group .hero__cv-link::before {
+  content: 'PDF';
+  z-index: 1;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 37px;
+  color: #f6ddbd;
+  background: linear-gradient(145deg, #752b25, #3d1217);
+  border: 1px solid rgba(126, 44, 36, .6);
+  border-radius: 1px;
+  box-shadow: 0 2px 10px rgba(62, 16, 15, .22);
+  font: 800 9px/1 var(--ui, 'Instrument Sans', sans-serif);
+  letter-spacing: .08em;
+}
+.hero__action-group .hero__cv-link::after {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  inset: -20% auto -20% 0;
+  width: 26%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.53), transparent);
+  transform: translateX(-160%) skewX(-22deg);
+  pointer-events: none;
+  transition: transform .68s cubic-bezier(.2,.8,.2,1);
+}
+.hero__action-group .hero__cv-link > span:first-child {
+  z-index: 1;
+  position: relative;
+  color: #230d0d;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+}
+.hero__action-group .hero__cv-link > span:last-child {
+  z-index: 1;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 29px;
+  height: 29px;
+  border: 1px solid rgba(90,26,22,.35);
+  border-radius: 50%;
+  color: #fbe7ca;
+  background: #67221f;
+  font: 400 21px/1 var(--ui, 'Instrument Sans', sans-serif);
+  transform: none;
+  transition: transform .38s cubic-bezier(.2,.8,.2,1), background-color .3s ease;
+}
+.hero__action-group .hero__cv-link:hover,
+.hero__action-group .hero__cv-link:focus-visible {
+  color: #230d0d;
+  background: linear-gradient(117deg, #fbe3bf 0%, #eac29e 48%, #d7a187 100%);
+  border-color: #fff0d8;
+  box-shadow: 0 0 0 1px rgba(225, 150, 112, .3),
+              0 15px 36px rgba(171, 66, 49, .38),
+              inset 0 1px 0 rgba(255,255,255,.58);
+  transform: translateY(-4px);
+}
+.hero__action-group .hero__cv-link:hover::after,
+.hero__action-group .hero__cv-link:focus-visible::after {
+  transform: translateX(500%) skewX(-22deg);
+}
+.hero__action-group .hero__cv-link:hover > span:last-child,
+.hero__action-group .hero__cv-link:focus-visible > span:last-child {
+  color: #fff1d7;
+  background: #8a3128;
+  transform: translateY(2px);
+}
+.hero__action-group .hero__cv-link:focus-visible {
+  outline: 2px solid #f9d9b8;
+  outline-offset: 5px;
+}
+
+@media (max-width: 720px) {
+  .hero__action-group .hero__cv-link {
+    grid-template-columns: 27px max-content 23px;
+    gap: 6px;
+    min-height: 48px;
+    padding: 6px 8px 6px 6px;
+    font-size: 9px;
+    letter-spacing: .055em;
+  }
+  .hero__action-group .hero__cv-link::before { width: 27px; height: 30px; font-size: 8px; }
+  .hero__action-group .hero__cv-link > span:last-child { width: 23px; height: 23px; font-size: 16px; }
+}
+@media (max-width: 380px) {
+  .hero__action-group .hero__cv-link {
+    grid-template-columns: 23px max-content 20px;
+    gap: 5px;
+    min-height: 44px;
+    padding: 5px;
+    font-size: 8px;
+  }
+  .hero__action-group .hero__cv-link::before { width: 23px; height: 27px; font-size: 7px; }
+  .hero__action-group .hero__cv-link > span:last-child { width: 20px; height: 20px; font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__action-group .hero__cv-link,
+  .hero__action-group .hero__cv-link::after,
+  .hero__action-group .hero__cv-link > span:last-child { transition: none !important; }
+}
