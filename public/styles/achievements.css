@@ -222,3 +222,8 @@
 @media(prefers-reduced-motion:reduce){
   .aw *, .aw *::before,.aw *::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
+
+/* RAFI / CONTINUOUS SCROLL V2 — animations stay active while scrolling. */
+@media (max-width: 760px) {
+  .aw__photo-blur { filter: none !important; opacity: .22; }
+}
