@@ -18,7 +18,7 @@ html.cp-dialog-open{overflow:hidden!important}
 .cp button {font:inherit;cursor:pointer}
 .cp button:focus-visible,.cp a:focus-visible {outline:2px solid var(--cp-ivory);outline-offset:5px}
 .cp__atmosphere {position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.cp__aura {position:absolute;width:min(88vw,1150px);aspect-ratio:1;border-radius:50%;filter:blur(44px);opacity:.28;will-change:transform}
+.cp__aura {position:absolute;width:min(88vw,1150px);aspect-ratio:1;border-radius:50%;filter:none;opacity:.28;will-change:auto}
 .cp__aura--a {top:4%;left:-30%;background:radial-gradient(circle,rgba(175,29,42,.44) 0%,rgba(88,8,18,.19) 47%,transparent 70%);animation:cp-aura-a 21s ease-in-out infinite alternate}
 .cp__aura--b {right:-30%;top:29%;background:radial-gradient(circle,rgba(183,68,47,.22),rgba(76,16,18,.12) 48%,transparent 70%);animation:cp-aura-b 28s ease-in-out infinite alternate}
 .cp__vertical-lines {position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0, transparent calc(20vw - 1px),rgba(239,216,190,.045) calc(20vw - 1px),rgba(239,216,190,.045) 20vw);opacity:.34}
@@ -76,7 +76,7 @@ html.cp-dialog-open{overflow:hidden!important}
 .cp__visit b,.cp__inspect b {font-size:19px;font-weight:400}
 .cp__story-foot {display:flex;justify-content:space-between;gap:12px;color:#7a6261;letter-spacing:.12em;font:700 8px/1.4 var(--cp-sans);margin-top:42px}
 .cp__visual-zone {position:relative;display:flex;align-items:center;justify-content:center;min-width:0;min-height:580px;perspective:1200px;isolation:isolate}
-.cp__halo {position:absolute;width:95%;aspect-ratio:1;max-width:810px;border-radius:50%;background:radial-gradient(circle,rgba(150,25,39,.27),rgba(97,16,25,.12) 37%,transparent 70%);filter:blur(12px);animation:cp-halo 12s ease-in-out infinite alternate;pointer-events:none}
+.cp__halo {position:absolute;width:95%;aspect-ratio:1;max-width:810px;border-radius:50%;background:radial-gradient(circle,rgba(150,25,39,.27),rgba(97,16,25,.12) 37%,transparent 70%);filter:none;animation:cp-halo 12s ease-in-out infinite alternate;pointer-events:none}
 @keyframes cp-halo {to{transform:scale(1.3);opacity:.64}}
 .cp__orbit {position:absolute;inset:9% 1%;border:1px solid rgba(221,134,103,.11);border-radius:50%;transform:rotate(-14deg);pointer-events:none;animation:cp-orbit 42s linear infinite}
 .cp__orbit--two {inset:15% -6%;border-style:dashed;opacity:.62;animation-duration:63s;animation-direction:reverse}
@@ -236,3 +236,7 @@ html.cp-dialog-open{overflow:hidden!important}
   .cp__visual-frame {transform:none!important}
   .cp__visual-zone:hover .cp__frame-image img {transform:none}
 }
+
+/* RAFI / CONTINUOUS SCROLL V2 — animations stay active while scrolling. */
+.cp--motion-active .cp__aura { will-change: transform; }
+.cp:not(.cp--motion-active) .cp__aura { will-change: auto; }
