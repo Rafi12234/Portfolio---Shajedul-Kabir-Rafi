@@ -290,6 +290,7 @@ if (root) {
   relayout();
   window.addEventListener('pagehide', () => {
     stopMotion(); observer.disconnect(); intro?.kill();
+
     if (dialog.open) dialog.close();
     document.documentElement.classList.remove('sw-modal-open');
   }, { once: true });
