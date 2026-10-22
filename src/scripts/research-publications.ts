@@ -38,6 +38,9 @@ if (root) {
   const modulo = (value: number, n: number) => ((value % n) + n) % n;
   const angleNormalize = (theta: number) => Math.atan2(Math.sin(theta), Math.cos(theta));
   let orbitWidth = 1100;
+  // The mobile orbit is a readable horizontal conveyor rather than stacked 3D cards.
+  // Measure the actual CSS card width only at startup / resize (not every frame).
+  let mobileCardPitch = 236;
   let isVisible = false;
   let isHovered = false; // strictly card hover; the surrounding orbit window never pauses playback
   let keyboardFocused = false;
@@ -59,6 +62,7 @@ if (root) {
 
   function refreshWidth() {
     orbitWidth = windowEl.clientWidth || 1100;
+    mobileCardPitch = (items[0]?.offsetWidth || (window.innerWidth <= 420 ? 222 : 236)) + 14;
     render();
   }
 
@@ -93,6 +97,20 @@ if (root) {
       const frontDepth = Math.cos(a);
       const sinA = Math.sin(a);
       const theta = angleNormalize(a);
+      if (isSmall()) {
+        // Old orbit radius was ~90px on a 360px phone while the card was 222px
+        // wide, causing unreadable overlapping titles, images, and descriptions.
+        // A linear lane with a full card-width pitch ensures neighbors never
+        // overlap, even halfway through a continuously moving transition.
+        const lane = theta / STEP;
+        const x = lane * mobileCardPitch;
+        const opacity = Math.min(1, Math.max(0, (2.35 - Math.abs(lane)) / 0.4));
+        item.style.transform = `translate3d(${x.toFixed(2)}px,0,0) translate(-50%,-50%)`;
+        item.style.zIndex = String(Math.round(60 - Math.abs(lane) * 8));
+        item.style.opacity = opacity.toFixed(3);
+        item.style.pointerEvents = opacity < 0.2 ? 'none' : '';
+        return;
+      }
       const x = Math.sign(theta) * radius * Math.pow(Math.abs(theta) / STEP, 0.86);
       const y = (1 - frontDepth) * -travel + Math.abs(sinA) * 3;
       const scale = 0.67 + ((frontDepth + 1) / 2) * 0.33;
