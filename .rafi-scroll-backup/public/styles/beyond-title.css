@@ -1,0 +1,256 @@
+/* SECTION 01 / BEYOND THE TITLE — bespoke continuation of the Hero 00 art direction.
+   Scoped bt__ selectors; requires existing hero.css design tokens + hero-atmosphere.webp.
+   Real content visible with JavaScript disabled. */
+
+/* Prevent the inherited atmospheric image from re-scaling across both chapters.
+   That image must remain attached to the HERO's height, not the combined page height. */
+.portfolio-shell > .portfolio-shell__atmosphere {
+  inset: 0 0 auto;
+  height: max(930px, 100svh);
+}
+.hero__bottom-scroll { text-decoration: none; display: inline-flex; align-items: center; justify-content: flex-end; transition: color .25s ease; }
+.hero__bottom-scroll:hover { color: var(--cream); }
+
+.bt {
+  --bt-cream: var(--cream,#e4ccaf);
+  --bt-red: var(--red,#b85e55);
+  --bt-ease: cubic-bezier(.16,1,.3,1);
+  position: relative;
+  z-index: 3;
+  isolation: isolate;
+  min-height: 1010px;
+  overflow: clip;
+  color: var(--bt-cream);
+  background: #0a0708;
+  scroll-margin-top: 16px;
+}
+.bt__atmosphere {
+  position: absolute;
+  z-index: -3;
+  inset: -12% 0 -7%;
+  background:
+    linear-gradient(180deg,rgba(7,4,5,.2) 0%, rgba(10,5,6,.42) 32%,rgba(8,4,5,.3) 76%,#090607 100%),
+    url('https://res.cloudinary.com/wujcxa24/image/upload/f_auto,q_auto:good,c_limit,w_1672/v1792672486/hero-atmosphere.webp') center center / cover no-repeat;
+  opacity: .98;
+  pointer-events: none;
+}
+.bt__aura {
+  position: absolute;
+  z-index: -2;
+  pointer-events: none;
+  width: min(66vw,1060px);
+  aspect-ratio: 1;
+  right: -22%;
+  top: -19%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(111,20,26,.32) 0%,rgba(72,10,16,.16) 31%,rgba(35,6,8,.07) 51%,transparent 69%);
+  filter: blur(18px);
+  transform: translate3d(0,calc(var(--bt-aura-y, 0px)),0);
+}
+.bt__outline {
+  position:absolute;
+  top: 12%; right: -2%; z-index: -1;
+  font: 900 clamp(330px, 37vw, 650px)/1 var(--display);
+  letter-spacing: -.09em;
+  -webkit-text-stroke: 1px rgba(228,204,175,.035);
+  color: transparent;
+  pointer-events: none;
+  user-select: none;
+}
+.bt__wrap { width: min(100% - clamp(40px,7.4vw,148px), 1576px); margin-inline: auto; position: relative; }
+.bt__chapter {
+  min-height: 97px;
+  border-top: 1px solid rgba(228,204,175,.28);
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+.bt__chapter-index,.bt__chapter-edition {
+  white-space: nowrap;
+  color: #ccad9a;
+  font: 700 10px/1.5 var(--ui);
+  letter-spacing: .20em;
+}
+.bt__chapter-index { display: flex; align-items: center; gap: 10px; }
+.bt__chapter-dot { width: 7px; aspect-ratio: 1; border-radius: 50%; background: var(--bt-red); box-shadow: 0 0 0 5px rgba(184,94,85,.12); }
+.bt__slash { color: var(--bt-red); }
+.bt__chapter-rule { height: 1px; flex: 1; background: rgba(228,204,175,.18); transform-origin: left center; }
+.bt__chapter-edition span { color: var(--bt-red); padding-inline: 8px; font-size: 14px; }
+
+.bt__columns {
+  padding: clamp(48px,5.2vw,90px) 0 clamp(74px,8vw,140px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(0, .82fr);
+  align-items: start;
+  column-gap: clamp(55px,5.5vw,102px);
+}
+.bt__education { min-width: 0; grid-column:1; grid-row:1; }
+.bt__education-heading { display: flex; justify-content: space-between; align-items: end; gap: 16px; padding-bottom: 26px; border-bottom: 1px solid rgba(228,204,175,.2); }
+.bt__overline { display: block; margin: 0; color: #d1b6a1; font: 700 10px/1.7 var(--ui); letter-spacing: .24em; }
+.bt__index { color: var(--bt-red); margin-right: 12px; }
+.bt__timeline-title { margin: 11px 0 0; color: var(--bt-cream); font: 800 clamp(45px, 4.0vw, 74px)/.89 var(--display); letter-spacing: -.005em; white-space: nowrap; }
+.bt__timeline-title em { font: italic 400 .68em/1 var(--serif); letter-spacing: -.02em; margin-left: .075em; color:#e8bea3; }
+.bt__milestone-count { flex: none; color: #b9a398; font: 600 9px/1.3 var(--ui); letter-spacing: .13em; padding-bottom: 4px; }
+
+/* Genuine alternating timeline: axis through the LEFT column, glass cards change sides. */
+.bt__timeline { position: relative; margin-top: 47px; padding: 3px 0 29px; --bt-progress: 0; }
+.bt__timeline-rail { position: absolute; z-index: 1; left: 50%; top: 10px; bottom: 38px; width: 1px; transform: translateX(-50%); background: linear-gradient(180deg,rgba(228,204,175,.28),rgba(228,204,175,.1) 100%); pointer-events: none; }
+.bt__timeline-progress { display: block; position: absolute; inset: 0 0 auto; height: 100%; background: linear-gradient(180deg,#e7b29c 0%,#be655d 50%,#7c2428 100%); transform-origin: center top; transform: scaleY(1); box-shadow: 0 0 16px rgba(184,94,85,.5); }
+.bt__events { padding: 0; margin: 0; list-style: none; display: grid; gap: clamp(40px,4.5vw,70px); }
+.bt__event { position: relative; display: grid; grid-template-columns: minmax(0,1fr) 45px minmax(0,1fr); align-items: start; min-height: 178px; }
+.bt__event--left .bt__milestone { grid-column: 1; }
+.bt__event--right .bt__milestone { grid-column: 3; }
+.bt__event-node { grid-column: 2; grid-row: 1; z-index: 3; width: 25px; height: 25px; justify-self: center; margin-top: 25px; border-radius: 50%; border: 1px solid rgba(228,204,175,.52); background: rgba(15,5,7,.94); box-shadow: 0 0 0 5px rgba(65,18,22,.73),0 0 18px rgba(153,51,52,.18); display: grid; place-items: center; }
+.bt__event-node span { width: 7px; height: 7px; border-radius: 50%; background: var(--bt-red); box-shadow: 0 0 0 3px rgba(184,94,85,.13); transition: transform .45s var(--bt-ease),background .3s; }
+.bt__event-join { position: absolute; z-index: 2; top: 37px; width: 21px; height: 1px; background: rgba(228,204,175,.45); }
+.bt__event--left .bt__event-join { left: calc(50% - 22px); }
+.bt__event--right .bt__event-join { left: calc(50% + 1px); }
+.bt__rail-start { width: 100%; color: rgba(228,204,175,.42); font: 700 9px/1.2 var(--ui); letter-spacing: .2em; text-align: center; margin-top: 7px; }
+
+/* A subtle liquid-glass treatment that belongs to the Burgundy/Obsidian editorial world. */
+.bt__glass {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    linear-gradient(130deg, rgba(228,204,175,.125) -28%, rgba(228,204,175,.035) 18%, rgba(72,15,22,.16) 70%, rgba(228,204,175,.026) 118%),
+    rgba(26,13,16,.52);
+  border: 1px solid rgba(228,204,175,.23);
+  border-radius: 9px;
+  backdrop-filter: blur(20px) saturate(1.22);
+  -webkit-backdrop-filter: blur(20px) saturate(1.22);
+  box-shadow: 0 16px 50px rgba(0,0,0,.21), inset 0 1px 0 rgba(255,243,224,.13),inset 1px 0 0 rgba(255,243,224,.05);
+}
+.bt__glass::before { content: ''; z-index: 0; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(112deg,rgba(255,221,192,.10),transparent 35%,transparent 70%,rgba(170,55,55,.05)); pointer-events: none; }
+.bt__glass::after { content: ''; z-index: 0; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(280px circle at var(--bt-mx,20%) var(--bt-my,0%), rgba(255,233,201,.125), transparent 69%); opacity: .48; transition: opacity .4s ease; pointer-events: none; }
+.bt__glass-light { position: absolute; top: 0; left: 9%; right: 9%; height: 1px; background: linear-gradient(90deg,transparent,rgba(250,213,186,.52) 36%,rgba(250,213,186,.12) 78%,transparent); pointer-events:none; }
+.bt__milestone { width: 100%; min-height: 182px; padding: 20px 20px 22px; grid-row: 1; transition: border-color .35s, box-shadow .4s, background .4s, transform .5s var(--bt-ease); }
+.bt__milestone:hover { transform: translateY(-5px); border-color: rgba(231,181,153,.48); box-shadow: 0 24px 60px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,243,224,.16); }
+.bt__event:hover .bt__event-node span { transform: scale(1.5); background: #e3ba9d; }
+.bt__milestone-date { position: relative; z-index: 1; display: flex; align-items: center; gap: 7px; padding-bottom: 15px; color: #e2b9a1; font: 700 10px/1 var(--ui); letter-spacing: .18em; }
+.bt__date-dash { color: var(--bt-red); }
+.bt__milestone-content { position:relative; z-index:1; }
+.bt__milestone-eyebrow { color: #c5a49a; font: 600 8px/1.4 var(--ui); letter-spacing: .18em; }
+.bt__milestone h4 { font: 800 clamp(23px,2.4vw,38px)/.95 var(--display); letter-spacing: .025em; margin: 9px 0 9px; color: #f3d8bb; }
+.bt__punct { color: var(--bt-red); }
+.bt__milestone-subtitle { font: 600 11px/1.45 var(--ui); color: #e1c6b4; margin: 0 0 6px; }
+.bt__milestone-description { font: 400 10px/1.52 var(--ui); color: #bda89e; margin: 0; }
+.bt__milestone-number { position: absolute; right: 15px; top: 11px; opacity: .5; font: italic 20px/1 var(--serif); color: #c98e86; }
+
+/* INTRO PANEL — right, opposite the timeline. */
+.bt__introduction { grid-column:2; grid-row:1; position: sticky; top: 40px; min-width: 0; padding: 0 0 20px clamp(12px,2.1vw,32px); }
+.bt__introduction::before { content: ''; position: absolute; left: calc(-1 * clamp(20px,2.8vw,50px)); top: 0; bottom: 12%; width: 1px; background: linear-gradient(to bottom, rgba(228,204,175,.36), rgba(228,204,175,.03) 86%); }
+.bt__intro-top { display: flex; align-items: center; gap: 13px; }
+.bt__intro-mark { font: 22px/1 var(--serif); color: var(--bt-red); }
+.bt__intro-top .bt__overline { font-size: 10px; }
+.bt__intro-top .bt__overline span { color:var(--bt-red); padding-inline: 9px; }
+.bt__intro-title-wrap { margin-top: 16px; }
+.bt__intro-title { margin: 0; color:var(--bt-cream); font: 900 clamp(90px, 8vw, 155px)/.77 var(--display); letter-spacing: -.027em; }
+.bt__title-second { display: inline-flex; align-items: baseline; white-space: nowrap; gap: .095em; }
+.bt__title-second em { font: italic 400 .49em/.75 var(--serif); letter-spacing: -.055em; color: #e8baa5; }
+.bt__intro-copy { padding-top: 44px; margin-top: 27px; border-top: 1px solid rgba(228,204,175,.3); }
+.bt__intro-copy p { max-width: 525px; font: 400 clamp(14px,1.1vw,17px)/1.75 var(--ui); color: #c9b4a4; margin: 0 0 18px; }
+.bt__intro-copy p strong { color:#f0d6ba; font-weight: 600; }
+.bt__intro-copy .bt__lead { font: 400 clamp(19px,1.7vw,27px)/1.45 var(--serif); color:#edcfb1; letter-spacing: .004em; margin-bottom: 19px; }
+.bt__intro-copy .bt__lead strong { font-weight: 400; font-style: italic; color:#f7e0c7; }
+.bt__belief { margin-top: 37px; padding: 26px 28px 23px 70px; transition: border-color .35s ease, transform .5s var(--bt-ease); }
+.bt__belief:hover { border-color:rgba(238,208,181,.55); transform:translateY(-4px); }
+.bt__belief-asterisk { position: absolute; top: 19px; left: 23px; font: italic 75px/.7 var(--serif); color:#b56159; opacity:.8; }
+.bt__belief p { position: relative; z-index:1; font: 400 clamp(18px,1.5vw,22px)/1.38 var(--serif); color:#e6c9b5; margin: 0 0 18px; }
+.bt__belief em { color:#fff0dd; }
+.bt__belief > span { font: 600 9px/1.2 var(--ui); letter-spacing: .22em; color:#bc9d91; }
+.bt__intro-footer { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:42px; padding-top:18px; border-top:1px solid rgba(228,204,175,.18); }
+.bt__intro-footer-signature { display:flex; align-items:center; gap:13px; }
+.bt__intro-footer-signature > span:first-child { font: italic 43px/1 var(--serif); }
+.bt__intro-footer-signature > span:last-child { font:700 10px/1.4 var(--ui); letter-spacing: .11em; }
+.bt__intro-footer-signature small { display:block; margin-top:5px; font-size:8px; color:#bda89e; letter-spacing:.18em; }
+.bt__intro-link { text-decoration:none; white-space: nowrap; font:700 10px/1.5 var(--ui); letter-spacing:.12em; border-bottom:1px solid rgba(228,204,175,.56); padding-bottom:9px; transition:color .25s,border-color .25s; }
+.bt__intro-link span { color:var(--bt-red); display:inline-block; margin-left:5px; font-size:15px; transition:transform .35s var(--bt-ease); }
+.bt__intro-link:hover { color:#fff0da; border-color:var(--bt-red); }
+.bt__intro-link:hover span { transform:translate(3px,-3px); }
+.bt__end-rule { display:flex; gap:19px; align-items:center; padding: 0 0 33px; color:#bd9b8b; white-space:nowrap; font:600 9px/1.4 var(--ui); letter-spacing:.22em; }
+.bt__end-rule span:first-child { width: 24px; height:1px; background:var(--bt-red); }
+.bt__end-rule span:last-child { flex:1; height:1px; background:rgba(228,204,175,.22); }
+
+/* GSAP owns scroll-linked entrances. Static content remains visible without JS. */
+
+/* TABLET: intro becomes the first chapter page; educational chronology continues below. */
+@media (max-width: 1190px) {
+  .bt__columns { grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:48px; }
+  .bt__intro-title { font-size:clamp(81px,8vw,110px); }
+  .bt__timeline-title { font-size:clamp(46px,4.3vw,61px); }
+  .bt__milestone { padding:18px 14px; }
+  .bt__milestone h4 { font-size:clamp(24px,2.5vw,32px); }
+  .bt__milestone-count { display:none; }
+}
+@media (max-width: 960px) {
+  .bt { min-height: 0; }
+  .bt__columns { display:flex; flex-direction:column; gap:69px; padding-top:65px; }
+  .bt__introduction { order:0; width:100%; position:relative; top:auto; padding:0 0 42px; border-bottom:1px solid rgba(228,204,175,.25); }
+  .bt__introduction::before { display:none; }
+  .bt__education { order:1; width:100%; }
+  .bt__intro-title { font-size:clamp(104px,13vw,151px); }
+  .bt__intro-copy { max-width:760px; }
+  .bt__intro-copy .bt__lead { max-width:720px; font-size:clamp(25px,3vw,37px); }
+  .bt__intro-copy p { max-width:720px; }
+  .bt__belief { max-width:700px; }
+  .bt__timeline-title { font-size:clamp(54px,7vw,79px); }
+  .bt__milestone { min-height:184px; padding:20px 24px; }
+  .bt__milestone h4 { font-size:clamp(27px,4vw,37px); }
+  .bt__events { gap:52px; }
+}
+@media (max-width: 680px) {
+  .bt__wrap { width:calc(100% - 40px); }
+  .bt__chapter { min-height:79px; gap:14px; }
+  .bt__chapter-index { font-size:8px; letter-spacing:.14em; }
+  .bt__chapter-edition { display:none; }
+  .bt__columns { padding-top:54px; padding-bottom:75px; gap:55px; }
+  .bt__overline { font-size:9px; letter-spacing:.17em; }
+  .bt__intro-title { font-size:clamp(75px,17vw,118px); }
+  .bt__intro-title-wrap { margin-top:22px; }
+  .bt__intro-copy { padding-top:29px; margin-top:27px; }
+  .bt__intro-copy .bt__lead { font-size:clamp(23px,6.4vw,32px);line-height:1.35; }
+  .bt__intro-copy p { font-size:15px; line-height:1.7; }
+  .bt__belief { padding:25px 22px 22px 58px; margin-top:31px; }
+  .bt__belief-asterisk { left:16px; top:21px; font-size:68px; }
+  .bt__belief p { font-size:20px; }
+  .bt__intro-footer { align-items:flex-end; margin-top:33px; }
+  .bt__intro-footer-signature > span:last-child { font-size:9px; }
+  .bt__intro-link { font-size:9px; }
+  .bt__education-heading { padding-bottom:23px; }
+  .bt__timeline-title { font-size:clamp(54px,12vw,71px); }
+  .bt__milestone-count { display:none; }
+  .bt__timeline { margin-top:32px; padding:0; }
+  .bt__timeline-rail { left:16px; transform:none; top:7px; bottom:14px; }
+  .bt__events { gap:26px; }
+  .bt__event { display:block; min-height:0; padding-left:48px; }
+  .bt__event-node { display:grid; position:absolute; left:3px; top:27px; margin:0; width:27px; height:27px; }
+  .bt__event-join { left:16px !important; top:40px; width:32px; }
+  .bt__milestone { min-height:160px; padding:18px 18px 20px; }
+  .bt__milestone h4 { font-size:clamp(31px,8vw,43px); }
+  .bt__milestone-description { font-size:11px; }
+  .bt__milestone-subtitle { font-size:12px; }
+  .bt__rail-start { text-align:left; padding-left:0; margin-top:19px; }
+  .bt__outline { top:34%;right:-12%; font-size:55vw; }
+  .bt__aura {width:130vw;right:-85%;top:0;}
+}
+@media (max-width: 370px) {
+  .bt__wrap { width:calc(100% - 30px); }
+  .bt__intro-title { font-size:clamp(68px,18vw,86px); }
+  .bt__title-second { gap:.07em; }
+  .bt__intro-footer { flex-wrap:wrap; }
+  .bt__intro-link { margin-left:auto; }
+  .bt__timeline-title { font-size:51px; }
+  .bt__milestone { padding:16px; }
+}
+@media (hover:none), (pointer:coarse) {
+  .bt__glass::after {display:none;}
+  .bt__milestone:hover, .bt__belief:hover {transform:none;}
+}
+@media (prefers-reduced-motion: reduce) {
+  .bt [data-bt-reveal] { opacity:1!important; transform:none!important; filter:none!important; transition:none!important; }
+  .bt__timeline-progress { transform:scaleY(1)!important; }
+  .bt__aura {transform:none!important;}
+  .bt__glass, .bt__milestone, .bt__belief {backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+  .bt .bt__chapter-rule {transform:none!important;}
+}
