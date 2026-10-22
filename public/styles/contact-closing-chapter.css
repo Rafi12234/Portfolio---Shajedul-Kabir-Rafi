@@ -25,7 +25,7 @@
 .rc__atmosphere { position: absolute; z-index: -1; inset: 0; pointer-events: none; overflow: hidden; background: radial-gradient(ellipse at 22% 33%, #321014 0%, #170b0e 34%, transparent 68%), radial-gradient(ellipse at 74% 70%, #1b0c13, transparent 62%), #080607; }
 .rc__atmosphere::before { position: absolute; content: ''; inset: 0; opacity: .23; background: repeating-linear-gradient(90deg, transparent 0 128px, rgba(255,218,194,.08) 128px 129px), repeating-linear-gradient(0deg, transparent 0 128px, rgba(255,218,194,.04) 128px 129px); mask-image: linear-gradient(90deg, transparent, #000 34%, transparent 90%); }
 .rc__atmosphere::after { position: absolute; content: ''; inset: 0; opacity: .15; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='190' height='190' viewBox='0 0 190 190'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.42'/%3E%3C/svg%3E"); mix-blend-mode: screen; }
-.rc__glow { position: absolute; border-radius: 50%; filter: blur(72px); will-change: transform; }
+.rc__glow { position: absolute; border-radius: 50%; filter: none; will-change: auto; }
 .rc__glow--one { width: min(54vw,680px); aspect-ratio: 1; top: 11%; left: 3%; background: radial-gradient(circle,rgba(150,43,47,.24),rgba(131,15,33,.08) 42%,transparent 70%); animation: rc-glow-one 19s ease-in-out infinite alternate; }
 .rc__glow--two { width: min(37vw,480px); aspect-ratio: 1; right: 4%; top: 10%; background: radial-gradient(circle,rgba(169,93,76,.11),transparent 66%); animation: rc-glow-two 23s ease-in-out infinite alternate; }
 .rc__contours { position:absolute; width: min(74vw,1100px); aspect-ratio: 1; left:-26%; top:6%; transform: rotate(-18deg); opacity: .32; }
@@ -206,3 +206,7 @@
   .rc__glow,.rc__signal-rings,.rc__ticker-track,.rc__availability-dot,.rc__channel-pulse { animation: none !important; }
   .rc__main-cta,.rc__main-cta::before,.rc__social,.rc__social::before,.rc__social-arrow,.rc__to-top>span,.rc__monogram { transition:none !important; }
 }
+
+/* RAFI / CONTINUOUS SCROLL V2 — animations stay active while scrolling. */
+.rc:not([data-contact-motion='off']) .rc__glow { will-change: transform; }
+.rc[data-contact-motion='off'] .rc__glow { will-change: auto; }
