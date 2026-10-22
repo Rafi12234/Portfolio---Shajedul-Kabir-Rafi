@@ -1,0 +1,111 @@
+---
+import { achievements } from '../data/achievements';
+---
+<section id="achievements" class="aw" data-achievements aria-labelledby="aw-title">
+  <div class="aw__texture" aria-hidden="true"></div>
+  <div class="aw__halo" aria-hidden="true"></div>
+  <div class="aw__shell">
+    <div class="aw__folio">
+      <span class="aw__folio-start"><i aria-hidden="true"></i> 07 / HONOURS &amp; DISTINCTIONS</span>
+      <span class="aw__folio-line"></span>
+      <span>THREE MOMENTS, DOCUMENTED.</span>
+    </div>
+    <header class="aw__intro">
+      <div class="aw__intro-title">
+        <p class="aw__eyebrow">BEYOND THE BUILD / THE RECOGNITION <span aria-hidden="true">✳</span></p>
+        <h2 id="aw-title">THE PROOF<br /><em>IS IN THE WORK.</em></h2>
+      </div>
+      <div class="aw__intro-aside">
+        <span class="aw__aside-index">03 <small>RECOGNITIONS</small></span>
+        <p>Not a list of claims. A collection of real moments — the work, the people, and the photographs that prove it.</p>
+        <span class="aw__aside-sign">THE RECORD / 2025—2026 <b>↗</b></span>
+      </div>
+    </header>
+
+    <div class="aw__theater" data-aw-theater>
+      <div class="aw__theater-edge" aria-hidden="true"><span>EXHIBIT / RECOGNITION</span><span>PROOF ARCHIVE — 001</span></div>
+      <div class="aw__theater-grid">
+        <div class="aw__exhibit" data-aw-exhibit>
+          <div class="aw__exhibit-matte" aria-hidden="true"></div>
+          <div class="aw__exhibit-watermark" aria-hidden="true">R<span>✳</span></div>
+          <div class="aw__photo-stack">
+            {achievements.map((entry, i) => (
+              <figure class:list={['aw__photo', i === 0 && 'is-active']} data-aw-photo={i} hidden={i !== 0}>
+                <img class="aw__photo-blur" src={entry.photo} alt="" loading={i === 0 ? 'eager' : 'lazy'} decoding="async" aria-hidden="true" />
+                <img class="aw__photo-main" src={entry.photo} alt={entry.photoAlt} width={entry.photoWidth} height={entry.photoHeight} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+              </figure>
+            ))}
+          </div>
+          <div class="aw__photo-vignette" aria-hidden="true"></div>
+          <div class="aw__photo-header"><span><i></i> DOCUMENTED MOMENT</span><span data-aw-evidence-counter>01 / 03</span></div>
+          <div class="aw__photo-corners" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <button class="aw__photo-zoom" type="button" data-aw-zoom aria-label="Open full award photograph">
+            <span class="aw__zoom-icon" aria-hidden="true">↗</span><span>VIEW ORIGINAL PHOTO</span>
+          </button>
+          <span class="aw__photo-caption" data-aw-photo-caption>AUST ROBOTICS CLUB / BEST PANEL MEMBER</span>
+          <div class="aw__seal" aria-hidden="true"><span>R</span><i>✳</i></div>
+        </div>
+
+        <div class="aw__story-panel">
+          <div class="aw__story-top"><span>THE RECOGNITION FILE</span><span data-aw-story-counter>01 — 03</span></div>
+          <div class="aw__story-stack">
+            {achievements.map((entry, i) => (
+              <article class="aw__story" data-aw-story={i} hidden={i !== 0} aria-labelledby={`aw-award-${entry.id}`}>
+                <div class="aw__story-overline"><span>{entry.level}</span><span>{entry.date}</span></div>
+                <h3 id={`aw-award-${entry.id}`}><span>{entry.displayLines[0]}</span><span>{entry.displayLines[1]}</span></h3>
+                <p class="aw__story-subtitle">{entry.subtitle}</p>
+                <div class="aw__story-divider" aria-hidden="true"><span></span><i>✳</i></div>
+                <p class="aw__story-lead">{entry.spotlight}</p>
+                <p class="aw__story-description">{entry.detail}</p>
+                <div class="aw__facts">
+                  <div><small>PRESENTED BY</small><strong>{entry.issuer}</strong></div>
+                  <div><small>WHEN</small><strong>{entry.date}</strong></div>
+                </div>
+                <div class="aw__story-actions">
+                  <a class="aw__original" href={entry.externalUrl} target="_blank" rel="noopener noreferrer" aria-label={`View original award post for ${entry.award} on Facebook`}>
+                    ORIGINAL AWARD POST <span aria-hidden="true">↗</span>
+                  </a>
+                  <button class="aw__inspect" type="button" data-aw-inspect>
+                    INSPECT PROOF <span aria-hidden="true">↗</span>
+                  </button>
+                </div>
+                <p class="aw__story-note">{entry.context}</p>
+              </article>
+            ))}
+          </div>
+          <div class="aw__story-tail" aria-hidden="true"><span>NOT CLAIMED. EARNED.</span><span>RAFI / ARCHIVE OF WORK</span></div>
+        </div>
+      </div>
+
+      <div class="aw__rail-head"><span>THE DISTINCTION INDEX</span><span>SELECT A MOMENT <b>↗</b></span></div>
+      <nav class="aw__award-nav" aria-label="Select an achievement">
+        {achievements.map((entry, i) => (
+          <button
+            class:list={['aw__award', i === 0 && 'is-active']}
+            type="button"
+            data-aw-select={i}
+            aria-pressed={i === 0 ? 'true' : 'false'}
+            aria-label={`Show ${entry.award} achievement`}
+          >
+            <span class="aw__award-img"><img src={entry.photo} alt="" loading="lazy" decoding="async" /></span>
+            <span class="aw__award-info"><span class="aw__award-number">{entry.number} <i>/</i> 03</span><strong>{entry.award}</strong><small>{entry.issuer} · {entry.date}</small></span>
+            <span class="aw__award-arrow" aria-hidden="true">↗</span>
+          </button>
+        ))}
+      </nav>
+    </div>
+    <footer class="aw__outro"><span>THE NEXT CHAPTER IS BUILT, NOT PROMISED.</span><span>RAFI / DISTINCTIONS <i aria-hidden="true">✳</i></span></footer>
+  </div>
+
+  <dialog class="aw__dialog" data-aw-dialog data-lenis-prevent aria-labelledby="aw-dialog-title">
+    <div class="aw__dialog-content">
+      <div class="aw__dialog-heading"><span><i></i> VERIFIED MOMENT / EVIDENCE FILE <span data-aw-dialog-no>01</span></span><button type="button" data-aw-close aria-label="Close photograph">✕ <span>CLOSE</span></button></div>
+      <div class="aw__dialog-image-wrap"><img data-aw-dialog-image alt="" decoding="async" /></div>
+      <div class="aw__dialog-bottom">
+        <div><span>DOCUMENTARY PHOTOGRAPH</span><h3 id="aw-dialog-title" data-aw-dialog-title>BEST PANEL MEMBER</h3><p data-aw-dialog-note>AUST Robotics Club</p></div>
+        <a data-aw-dialog-link href="#" target="_blank" rel="noopener noreferrer">VIEW ORIGINAL FACEBOOK POST <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </dialog>
+  <span class="aw__sr" role="status" aria-live="polite" data-aw-announcement>Showing Best Panel Member</span>
+</section>
