@@ -1,151 +1,639 @@
-/*
- * RAFI / V4 — Hero typography, editorial CV, and animation paint budget.
- * This stylesheet must load LAST, after the previous site-finish and CTA patch.
- * Changes are localized: no global scroll override or new animation engine.
- */
 
-/* Two-line art direction — SOFTWARE is a distinct, readable part of the
-   background wordmark, not screen-reader duplication of the professional role. */
+/* ================================================================
+   RAFI / HERO FINAL — POSITION, CONTRAST & PERFORMANCE
+   Complete replacement: public/styles/hero-performance-v4.css
+   Load AFTER hero.css, site-finish.css, hero-experience-refinement.css
+   No changes to the Astro markup, logo, CV, animation hooks or sections.
+   ================================================================ */
+
+/* 01. Software Engineer — maintain established cinematic hierarchy. */
 .hero__masthead {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-start;
   width: max-content;
+  margin: 0;
   font-size: clamp(8rem, 26.9vw, 29rem);
-  line-height: 0.82;
+  line-height: .82;
   white-space: nowrap;
 }
+
 .hero__masthead-pre {
   display: block;
   color: #e8c5ab;
-  font-family: var(--display, 'Big Shoulders Display', Impact, sans-serif);
-  font-weight: 900;
+  font-family: var(--display);
   font-size: .28em;
+  font-weight: 900;
   line-height: .79;
   letter-spacing: .115em;
   transform: translateX(.038em);
-  text-shadow: 0 8px 24px rgba(0,0,0,.1);
 }
+
 .hero__masthead-core {
   display: block;
-  color: var(--cream, #e4ccaf);
+  color: var(--cream);
   font: inherit;
   line-height: .82;
   letter-spacing: -.023em;
 }
-.hero__masthead-mask { padding-bottom: 20px; }
-/* Deliberately avoid asking CSS to squeeze seventeen condensed capitals into
-   the width of a single seven-letter headline. At every breakpoint the main
-   masthead remains billboard-scale, with SOFTWARE as its own first line. */
-@media (min-width: 681px) and (max-width: 900px) {
-  .hero__masthead { font-size: 26.4vw; }
-  .hero__masthead-pre { font-size: .31em; }
-}
-@media (max-width: 680px) {
-  .hero__masthead { font-size: 27.2vw; }
-  .hero__masthead-pre { font-size: .32em; letter-spacing: .10em; }
-  .hero__masthead-core { letter-spacing: -.045em; }
-  .hero__masthead-mask { padding-bottom: 12px; }
-}
-@media (max-width: 380px) {
-  .hero__masthead { font-size: 27.6vw; }
-  .hero__masthead-pre { letter-spacing: .09em; }
+
+.hero__masthead-mask {
+  padding-bottom: 20px;
 }
 
-/* Actual breathing room, not a box-shadow pretending to be spacing. The
-   old 73px footer held a 59px button, so the gold CTA visually touched the
-   lower border and sometimes clipped while the GSAP entrance was in flight. */
+
+/* ================================================================
+   02. CURRENTLY WRITING
+   Editorial text only — absolutely no card background or border.
+   ================================================================ */
+
+.hero__side--right {
+  position: absolute;
+  z-index: 12;
+
+  /* Lower than ENGINEER background lettering */
+  top: 60%;
+
+  right: clamp(20px, 3.7vw, 74px);
+  left: auto;
+
+  width: clamp(210px, 19vw, 290px);
+  max-width: 290px;
+  min-width: 0;
+
+  padding: 0 !important;
+  margin: 0;
+
+  color: #f2d7bc;
+  text-align: left;
+
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.hero__side--right::before,
+.hero__side--right::after {
+  content: none !important;
+}
+
+.hero__side--right .hero__side-line {
+  display: block;
+  width: 34px;
+  height: 1px;
+  margin: 0 0 14px;
+  background: #bc6a5f;
+}
+
+.hero__side--right .eyebrow {
+  display: block;
+  color: #e7bea8;
+
+  font: 700 10px/1.65 var(--ui);
+  letter-spacing: .16em;
+
+  text-align: left;
+  text-shadow: 0 2px 13px rgba(12, 3, 5, .85);
+}
+
+.hero__side--right .hero__role-list {
+  display: grid;
+  gap: 17px;
+
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+}
+
+.hero__side--right .hero__role-list li {
+  display: grid;
+  grid-template-columns: 25px minmax(0, 1fr);
+
+  align-items: start;
+  gap: 10px;
+
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+
+  text-align: left;
+}
+
+.hero__side--right .hero__role-index {
+  color: #cb7a6c;
+
+  font: italic 18px/1.25 var(--serif);
+  text-shadow: 0 2px 12px rgba(12, 3, 5, .75);
+}
+
+.hero__side--right .hero__role-copy,
+.hero__side--right .hero__role-list li > span:last-child {
+  display: block;
+  min-width: 0;
+}
+
+.hero__side--right .hero__role-list strong {
+  display: block;
+
+  color: #f6dfc6;
+  font: 700 12px/1.48 var(--ui);
+  letter-spacing: .065em;
+
+  text-shadow: 0 2px 14px rgba(7, 3, 4, .9);
+}
+
+.hero__side--right .hero__role-list small {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #e0aa93;
+  font: 700 9px/1.5 var(--ui);
+  letter-spacing: .09em;
+
+  text-shadow: 0 2px 12px rgba(7, 3, 4, .9);
+}
+
+
+/* ================================================================
+   03. HERO ACTION STRIP
+   Both buttons share one horizontal and vertical centerline.
+   ================================================================ */
+
 .hero__bottom-strip {
-  box-sizing: border-box;
-  height: auto;
-  min-height: 112px;
-  padding-block: 19px;
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto
+    minmax(0, 1fr);
+
   align-items: center;
+
+  height: auto !important;
+  min-height: 112px;
+
+  margin: 0;
+
+  padding:
+    22px
+    clamp(20px, 3.7vw, 74px) !important;
+
+  column-gap: 14px;
+
   overflow: visible;
 }
+
+.hero__bottom-folio {
+  justify-self: start;
+  align-self: center;
+}
+
+.hero__bottom-scroll {
+  justify-self: end;
+  align-self: center;
+}
+
 .hero__bottom-strip > .hero__action-group {
-  display: flex;
+  display: grid;
+
+  grid-template-columns: max-content max-content;
+
   align-items: center;
+  justify-items: center;
+  justify-self: center;
+  align-self: center;
+
+  gap: clamp(14px, 1.8vw, 28px);
+
+  width: max-content;
+
+  height: 58px;
+  min-height: 58px;
+
+  margin: 0;
+  padding: 0;
+}
+
+/* Same outer height and position */
+.hero__action-group .hero__cta,
+.hero__action-group .hero__cv-link {
+  box-sizing: border-box;
+
   align-self: center;
   justify-self: center;
-  gap: clamp(12px, 2vw, 29px);
-  min-height: 64px;
-  margin: 0;
+
+  width: auto;
+
+  height: 56px;
+  min-height: 56px;
+
+  margin: 0 !important;
+
+  top: auto;
+  bottom: auto;
+
+  line-height: 1;
 }
-.hero__action-group .hero__cv-link {
-  align-self: center;
-  flex: none;
-  min-height: 55px;
-  margin: 0;
+
+/* Explore Selected Work */
+.hero__action-group .hero__cta {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 16px;
+  padding: 0 10px;
+
+  white-space: nowrap;
+
+  font-size: 10px;
+  letter-spacing: .14em;
+
   transform: none;
+}
+
+.hero__action-group .hero__cta > span {
+  line-height: 1.2;
+}
+
+.hero__action-group .hero__cta::before {
+  bottom: 4px;
+}
+
+/* Premium Download CV */
+.hero__action-group .hero__cv-link {
+  display: grid;
+
+  grid-template-columns: 34px max-content 29px;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  padding: 6px 12px 6px 8px;
+
   vertical-align: middle;
+  transform: none;
 }
+
+.hero__action-group .hero__cv-link > span:first-child {
+  align-self: center;
+  line-height: 1.2;
+}
+
 .hero__action-group .hero__cv-link:hover,
-.hero__action-group .hero__cv-link:focus-visible { transform: translateY(-3px); }
-@media (max-width: 1100px) and (min-width: 681px) {
-  .hero__bottom-strip { grid-template-columns: 1fr auto; min-height: 109px; }
-  .hero__bottom-folio { display: none; }
-  .hero__bottom-scroll { justify-self: end; }
-}
-@media (max-width: 680px) {
-  .hero__bottom-strip {
-    grid-template-columns: minmax(0, 1fr) !important;
-    min-height: 94px;
-    padding: 17px clamp(13px, 4vw, 20px) !important;
-  }
-  .hero__bottom-strip > .hero__action-group {
-    width: 100%;
-    flex-wrap: nowrap;
-    justify-content: space-around;
-    gap: 8px;
-    min-height: 54px;
-  }
-  .hero__action-group .hero__cv-link { min-height: 48px; }
-  .hero__action-group .hero__cta { min-width: 0; flex: 1 1 auto; }
-}
-@media (max-width: 355px) {
-  .hero__bottom-strip { padding-inline: 11px !important; }
-  .hero__bottom-strip > .hero__action-group { gap: 7px; }
+.hero__action-group .hero__cv-link:focus-visible {
+  transform: translateY(-2px);
 }
 
-/* Remove large per-frame raster effects from composited moving surfaces.
-   The portrait still has the natural shadows in its original image. */
-.hero__portrait { filter: none !important; }
 
-/* Research orbit: 6 moving, perspective-transformed images each have an
-   expensive live backdrop blur. Replace the blur with equivalent glass tints,
-   retaining borders, sheen and all 3D/card-flip interactions. */
+/* ================================================================
+   04. EXISTING PERFORMANCE OPTIMIZATIONS
+   ================================================================ */
+
+/* Avoid live drop-shadow on the moving portrait */
+.hero__portrait {
+  filter: none !important;
+}
+
+/* Research card glass optimization */
 .rgl__orbit.is-ready .rgl__front-caption {
-  -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
-  background: linear-gradient(135deg, rgba(128,77,78,.96), rgba(59,33,43,.97));
+  -webkit-backdrop-filter: none !important;
+
+  background: linear-gradient(
+    135deg,
+    rgba(128, 77, 78, .96),
+    rgba(59, 33, 43, .97)
+  );
 }
+
 .rgl__orbit.is-ready .rgl__face--back {
-  -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
-.rgl__orbit.is-ready .rgl__orbit-item:not(.is-open) .rgl__card-flip {
+
+.rgl__orbit.is-ready .rgl__orbit-item {
+  contain: style;
+}
+
+.rgl__orbit.is-ready
+.rgl__orbit-item:not(.is-open)
+.rgl__card-flip {
   backface-visibility: hidden;
 }
-.rgl__orbit.is-ready .rgl__orbit-item { contain: style; }
-.rgl__aura, .rgl__ambient, .rgl__theatre-floor { filter: none !important; }
 
-/* Keep filmstrip art smooth while it moves: none of its moving images needs
-   to paint a live drop-shadow/filter each frame. */
+.rgl__aura,
+.rgl__ambient,
+.rgl__theatre-floor,
+.sw__cinema-red {
+  filter: none !important;
+}
+
+/* Project filmstrip — no heavy live drop-shadow */
 .sw__reel .sw__card-link,
 .sw__reel .sw__card-link:hover,
-.sw__reel .sw__card-link:focus-visible { filter: none !important; }
-.sw__cinema-red { filter: none !important; }
-
-/* The Skills theatre and continuously moving paper cards already pause when
-   off-screen. Prevent unbounded compositing on small screens. */
-@media (max-width: 700px) {
-  .rgl__orbit.is-ready .rgl__orbit-item { will-change: auto; }
-  .hero__portrait-depth, .hero__masthead-depth, .hero__orb-depth { will-change: auto; }
+.sw__reel .sw__card-link:focus-visible {
+  filter: none !important;
 }
+
+
+/* ================================================================
+   05. SMALL DESKTOP / LAPTOP
+   ================================================================ */
+
+@media (max-width: 1220px) {
+  .hero__side--right {
+    top: 58%;
+    width: min(23vw, 270px);
+  }
+
+  .hero__bottom-strip {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .hero__bottom-folio,
+  .hero__bottom-scroll {
+    display: none !important;
+  }
+
+  .hero__bottom-strip > .hero__action-group {
+    grid-column: 1;
+    justify-self: center;
+  }
+}
+
+
+/* ================================================================
+   06. TABLET
+   ================================================================ */
+
+@media (min-width: 681px) and (max-width: 900px) {
+  .hero__masthead {
+    font-size: 26.4vw;
+  }
+
+  .hero__masthead-pre {
+    font-size: .31em;
+  }
+
+  .hero__side--right {
+    top: 49%;
+    right: 18px;
+    width: min(24vw, 205px);
+  }
+
+  .hero__side--right .eyebrow {
+    font-size: 9px;
+  }
+
+  .hero__side--right .hero__role-list {
+    gap: 13px;
+    margin-top: 16px;
+  }
+
+  .hero__side--right .hero__role-list li {
+    grid-template-columns: 20px minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .hero__side--right .hero__role-list strong {
+    font-size: 10px;
+    letter-spacing: .02em;
+  }
+
+  .hero__side--right .hero__role-list small {
+    font-size: 8px;
+    letter-spacing: .03em;
+  }
+}
+
+
+/* ================================================================
+   07. MOBILE
+   ================================================================ */
+
+@media (max-width: 680px) {
+  .hero__masthead {
+    font-size: 27.2vw;
+  }
+
+  .hero__masthead-pre {
+    font-size: .32em;
+    letter-spacing: .10em;
+  }
+
+  .hero__masthead-core {
+    letter-spacing: -.045em;
+  }
+
+  .hero__masthead-mask {
+    padding-bottom: 12px;
+  }
+
+  /* Lower, borderless career text */
+  .hero__side--right {
+    top: 43%;
+    right: 14px;
+
+    width: 39%;
+    max-width: 160px;
+  }
+
+  .hero__side--right .hero__side-line {
+    width: 24px;
+    margin-bottom: 9px;
+  }
+
+  .hero__side--right .eyebrow {
+    font-size: 7px;
+    line-height: 1.5;
+    letter-spacing: .08em;
+  }
+
+  .hero__side--right .hero__role-list {
+    gap: 11px;
+    margin-top: 12px;
+  }
+
+  .hero__side--right .hero__role-list li {
+    grid-template-columns: 16px minmax(0, 1fr);
+    gap: 5px;
+  }
+
+  .hero__side--right .hero__role-index {
+    font-size: 13px;
+  }
+
+  .hero__side--right .hero__role-list strong {
+    font-size: 8px;
+    line-height: 1.4;
+    letter-spacing: .005em;
+  }
+
+  .hero__side--right .hero__role-list small {
+    font-size: 7px;
+    letter-spacing: .005em;
+  }
+
+  /* Full-width footer action group */
+  .hero__bottom-strip {
+    grid-template-columns: minmax(0, 1fr) !important;
+
+    min-height: 96px;
+
+    padding: 19px 14px !important;
+  }
+
+  .hero__bottom-strip > .hero__action-group {
+    display: grid;
+
+    grid-template-columns: minmax(0, 1fr) max-content;
+
+    align-items: center;
+
+    gap: 8px;
+
+    width: 100%;
+    height: 52px;
+    min-height: 52px;
+  }
+
+  .hero__action-group .hero__cta {
+    width: 100%;
+
+    height: 50px;
+    min-height: 50px;
+    min-width: 0;
+
+    justify-content: center;
+    gap: 6px;
+
+    padding: 0 4px;
+
+    font-size: 8px;
+    letter-spacing: .045em;
+
+    white-space: normal;
+  }
+
+  .hero__action-group .hero__cta > span:first-child {
+    max-width: 113px;
+    line-height: 1.25;
+  }
+
+  .hero__action-group .hero__cv-link {
+    grid-template-columns: 27px max-content 23px;
+
+    width: auto;
+
+    height: 50px;
+    min-height: 50px;
+
+    padding: 6px 8px 6px 6px;
+    gap: 6px;
+
+    font-size: 9px;
+  }
+}
+
+
+/* ================================================================
+   08. SMALL MOBILE
+   ================================================================ */
+
+@media (max-width: 380px) {
+  .hero__masthead {
+    font-size: 27.6vw;
+  }
+
+  .hero__masthead-pre {
+    letter-spacing: .09em;
+  }
+
+  .hero__side--right {
+    right: 10px;
+    width: 41%;
+  }
+
+  .hero__side--right .hero__role-list strong {
+    font-size: 7.6px;
+  }
+
+  .hero__bottom-strip {
+    padding-inline: 10px !important;
+  }
+
+  .hero__action-group .hero__cta {
+    font-size: 7.4px;
+  }
+
+  .hero__action-group .hero__cta > span:first-child {
+    max-width: 91px;
+  }
+
+  .hero__action-group .hero__cv-link {
+    grid-template-columns: 23px max-content 20px;
+
+    height: 48px;
+    min-height: 48px;
+
+    padding: 5px;
+    gap: 5px;
+
+    font-size: 8px;
+  }
+}
+
+
+/* ================================================================
+   09. SHORT DESKTOP VIEWPORTS
+   ================================================================ */
+
+@media (max-height: 760px) and (min-width: 901px) {
+  .hero__side--right {
+    top: 54%;
+  }
+
+  /* Avoid a second text element colliding near the bottom */
+  .hero__lower-right {
+    display: none;
+  }
+}
+
+
+/* ================================================================
+   10. COMPOSITING BUDGET
+   ================================================================ */
+
+@media (max-width: 700px) {
+  .rgl__orbit.is-ready .rgl__orbit-item,
+  .hero__portrait-depth,
+  .hero__masthead-depth,
+  .hero__orb-depth {
+    will-change: auto;
+  }
+}
+
+
+/* ================================================================
+   11. ACCESSIBILITY
+   ================================================================ */
+
 @media (prefers-reduced-motion: reduce) {
-  .hero__bottom-strip { transition: none !important; }
-  .rgl__orbit.is-ready .rgl__orbit-item { will-change: auto; }
+  .hero__action-group .hero__cta,
+  .hero__action-group .hero__cv-link {
+    transition: none !important;
+  }
+
+  .hero__action-group .hero__cv-link {
+    transform: none !important;
+  }
 }
