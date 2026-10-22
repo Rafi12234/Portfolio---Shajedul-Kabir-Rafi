@@ -637,26 +637,134 @@
     transform: none !important;
   }
 }
- 
-/* Laptop hero proportions: the 80%-zoom composition at normal browser zoom.
-   Keep the existing tablet/mobile art direction untouched. */
+
+/* DESKTOP / LAPTOP SINGLE COMPOSITION
+   Keep the large-desktop cover as the master artwork. At high browser zoom or
+   on short laptops the CSS viewport gets shorter: cap every major visual in svh
+   as well as vw so the entire cover scales together rather than cropping.
+   Reserve the REAL 112px action rail, not the original 73px rail. */
 @media (min-width: 901px) {
-  .hero__masthead {
-    font-size: clamp(6.4rem, 26.9vw, 23.2rem);
+  .site-header {
+    height: min(94px, 8.2svh);
+    padding-inline: min(74px, 6.13svh, 3.7vw);
   }
-  /* Keep the entire portrait inside the visible hero instead of anchoring
-     the reduced photo below the stage and hiding the bottom 18-22%. */
+  .site-logo__image { width: min(57px, 4.7svh); height: min(57px, 4.7svh); }
+  .site-logo__caption, .site-header__folio { font-size: min(9px, .745svh); }
+  .site-nav { gap: min(42px, 3.47svh, 2.3vw); }
+  .site-nav > a { font-size: min(10px, .83svh); }
+  .site-nav .site-nav__contact {
+    padding: min(14px, 1.16svh) min(17px, 1.41svh);
+  }
+
+  /* Header + stage + rail fit in one viewport; never a forced 680px stage. */
+  .hero__stage {
+    height: calc(100svh - min(94px, 8.2svh) - min(112px, 9.3svh));
+    min-height: 0;
+    max-height: 1040px;
+  }
+  .hero__masthead {
+    font-size: min(23.2rem, 26.9vw, 31svh);
+  }
+  .hero__masthead-mask { padding-bottom: min(20px, 1.65svh); }
+  .hero__orb-reveal {
+    width: min(800px, 57vw, 66svh);
+    height: min(800px, 57vw, 66svh);
+  }
+  /* Contain the *whole* transparent PNG, never hide a portion below the stage. */
   .hero__portrait-depth {
-    width: min(560px, max(440px, 39vw), max(520px, calc(80svh - 153px)));
+    width: min(560px, 39vw, 46.35svh);
     bottom: 0;
+  }
+
+  .hero__side--left, .hero__lower-left { left: min(74px, 6.13svh, 3.7vw); }
+  .hero__side--right, .hero__lower-right { right: min(74px, 6.13svh, 3.7vw); }
+  .hero__side--right {
+    top: 60%;
+    width: min(290px, 19vw, 23.98svh);
+  }
+  .eyebrow { font-size: min(10px, .83svh); }
+  .hero__side--right .eyebrow { font-size: min(10px, .83svh); }
+  .hero__side-line {
+    width: min(36px, 2.98svh);
+    margin-bottom: min(21px, 1.74svh);
+  }
+  .hero__side--right .hero__side-line {
+    width: min(34px, 2.81svh);
+    margin-bottom: min(14px, 1.16svh);
+  }
+  .hero__side-manifesto {
+    font-size: min(61px, 4vw, 5.05svh);
+    margin-top: min(24px, 1.98svh);
+  }
+  .hero__side--right .hero__role-list {
+    gap: min(17px, 1.41svh);
+    margin-top: min(22px, 1.82svh);
+  }
+  .hero__side--right .hero__role-list li {
+    grid-template-columns: min(25px, 2.07svh) minmax(0, 1fr);
+    gap: min(10px, .83svh);
+  }
+  .hero__side--right .hero__role-index { font-size: min(18px, 1.49svh); }
+  .hero__side--right .hero__role-list strong { font-size: min(12px, .99svh); }
+  .hero__side--right .hero__role-list small {
+    font-size: min(9px, .745svh);
+    margin-top: min(5px, .41svh);
+  }
+
+  .hero__nameplate { top: 69%; width: min(650px, 58vw, 53.7svh); }
+  .hero__given-name { font-size: min(27px, 2.1vw, 2.23svh); }
+  .hero__surname { font-size: min(175px, 10.2vw, 14.5svh); }
+  .hero__name-rule {
+    margin: min(21px, 1.74svh) 0 min(15px, 1.24svh);
+  }
+  .hero__profession { font-size: min(11px, .91svh); }
+  .hero__lower-left, .hero__lower-right { bottom: min(19px, 1.57svh); }
+  .hero__lower-left p, .hero__lower-right p {
+    font-size: min(20px, 1.65svh);
+    margin-bottom: min(12px, .99svh);
+  }
+  .hero__lower-sub { font-size: min(9px, .745svh); }
+
+  /* Override the old auto-height/112px footer with height-aware sizing. */
+  .hero__bottom-strip {
+    height: min(112px, 9.3svh) !important;
+    min-height: min(112px, 9.3svh);
+    padding: min(22px, 1.82svh) min(74px, 6.13svh, 3.7vw) !important;
+  }
+  .hero__bottom-strip > .hero__action-group {
+    height: min(58px, 4.8svh);
+    min-height: min(58px, 4.8svh);
+    gap: min(28px, 1.8vw, 2.32svh);
+  }
+  .hero__action-group .hero__cta,
+  .hero__action-group .hero__cv-link {
+    height: min(56px, 4.63svh);
+    min-height: 0;
+    font-size: min(10px, .83svh);
+  }
+  .hero__action-group .hero__cv-link {
+    grid-template-columns: min(34px, 2.81svh) max-content min(29px, 2.4svh);
+    gap: min(10px, .83svh);
+    padding: min(7px, .58svh) min(12px, .99svh) !important;
+    font-size: min(11px, .91svh);
+  }
+  .hero__action-group .hero__cv-link::before {
+    width: min(34px, 2.81svh);
+    height: min(37px, 3.06svh);
+    font-size: min(9px, .745svh);
+  }
+  .hero__action-group .hero__cv-link > span:last-child {
+    width: min(29px, 2.4svh);
+    height: min(29px, 2.4svh);
+    font-size: min(21px, 1.74svh);
+  }
+  .hero__bottom-folio, .hero__bottom-scroll {
+    font-size: min(10px, .83svh);
   }
 }
 
-/* A 640px stage is used on short laptop screens. Fit the original portrait
-   into that shorter stage as well, including a small parallax safety gap. */
-@media (min-width: 901px) and (max-height: 760px) {
-  .hero__portrait-depth {
-    width: min(500px, max(440px, 39vw), max(440px, calc(80svh - 125px)));
-    bottom: 0;
-  }
+/* Extremely short desktop windows: allow natural vertical scroll rather than
+   forcing illegible text or clipped artwork into an impossibly small stage. */
+@media (min-width: 901px) and (max-height: 540px) {
+  .hero__stage { min-height: 360px; }
 }
