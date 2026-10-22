@@ -89,8 +89,10 @@ function setupHero(entrance: boolean) {
   if (tl && header) tl.from(header, { autoAlpha: 0, y: -15, duration: 0.65 }, 0.1);
   const mark = header?.querySelector<HTMLElement>('.site-logo__image');
   if (tl && mark) tl.from(mark, { autoAlpha: 0, rotate: -14, scale: .67, duration: 1.15, ease: 'expo.out' }, 0.34);
+  // Reveal the actions without displacing either button vertically.
+  // Staggered Y transforms made DOWNLOAD CV look lower than the adjacent CTA.
   if (tl) tl.from(hero.querySelectorAll<HTMLElement>('.hero__action-group a'),
-    { autoAlpha: 0, y: 18, stagger: .13, duration: .73, ease: 'power3.out' }, 1.96);
+    { autoAlpha: 0, stagger: .13, duration: .73, ease: 'power3.out', clearProps: 'opacity,visibility,transform' }, 1.96);
   if (tl && portrait) tl.from(portrait, {
     autoAlpha: 0, y: 98, scale: 1.035,
     clipPath: 'inset(100% 0% 0% 0%)', duration: 1.22,
