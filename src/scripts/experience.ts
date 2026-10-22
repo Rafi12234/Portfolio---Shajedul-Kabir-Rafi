@@ -79,39 +79,76 @@ if (root) {
     gsap.set(expander, { autoAlpha: 1, clipPath: initialMask });
     gsap.set(fromStory, { autoAlpha: 1, x: 0 });
 
+    // RAFI_STORY_CROSSFADES_V2 — ALL THREE companies share the same origin.
+    // Both articles are absolutely positioned by the bundled CSS while
+    // crossfading; no second article can push the first one down the page.
     activeTimeline?.kill();
-    let swapped = false;
-    const swapContent = () => {
-      if (swapped) return;
-      swapped = true;
-      toStory.hidden = false;
-      gsap.set(toStory, { autoAlpha: 0, y: 23 });
+    const headlineParts = Array.from(toStory.querySelectorAll<HTMLElement>(
+      '.xp__story-topline, .xp__story-name, .xp__position-row, .xp__description, .xp__work-head'
+    ));
+    const workParts = Array.from(toStory.querySelectorAll<HTMLElement>('.xp__project'));
+    const careerParts = Array.from(toStory.querySelectorAll<HTMLElement>(
+      '.xp__career-heading, .xp__career-step'
+    ));
+    const footnote = Array.from(toStory.querySelectorAll<HTMLElement>('.xp__story-footnote'));
+    const revealParts = [...headlineParts, ...workParts, ...careerParts, ...footnote];
+
+    // Reveal preparation happens BEFORE the timeline starts, not in an
+    // onUpdate or an animation-completion callback. This eliminates a flash
+    // of unstyled company text while the selected background expands.
+    toStory.hidden = false;
+    fromStory.style.zIndex = '1';
+    toStory.style.zIndex = '2';
+    gsap.set(toStory, { autoAlpha: 0, y: 24 });
+    gsap.set(revealParts, { autoAlpha: 0, y: 18, x: -8 });
+
+    let committed = false;
+    const commitSelection = () => {
+      if (committed) return;
+      committed = true;
       setVisualState(index);
       activeIndex = index;
+    };
+    const cleanup = () => {
+      commitSelection();
+      fromStory.hidden = true;
+      gsap.set(fromStory, { clearProps: 'transform,opacity,visibility' });
+      gsap.set(toStory, { clearProps: 'transform,opacity,visibility' });
+      gsap.set(revealParts, { clearProps: 'transform,opacity,visibility' });
+      fromStory.style.removeProperty('z-index');
+      toStory.style.removeProperty('z-index');
+      gsap.set(expander, { clearProps: 'all' });
+      animating = false;
+      activeTimeline = null;
     };
 
     activeTimeline = gsap.timeline({
       defaults: { overwrite: 'auto' },
-      onComplete: () => {
-        swapContent();
-        fromStory.hidden = true;
-        gsap.set(fromStory, { clearProps: 'transform,opacity,visibility' });
-        gsap.set(toStory, { clearProps: 'transform,opacity,visibility' });
-        gsap.set(expander, { clearProps: 'all' });
-        animating = false;
-        activeTimeline = null;
-      },
+      onComplete: cleanup,
     });
     activeTimeline
-      .to(fromStory, { autoAlpha: 0, x: -20, duration: 0.26, ease: 'power2.in' }, 0)
-      .to(expander, { clipPath: 'inset(0% 0% 0% 0% round 0px)', duration: 1.12, ease: 'power3.inOut' }, 0)
-      .call(swapContent, [], 0.72)
-      .to(expander, { autoAlpha: 0, duration: 0.49, ease: 'power2.inOut' }, 0.91)
-      .to(toStory, { autoAlpha: 1, y: 0, duration: 0.75, ease: 'power3.out' }, 0.87)
-      .fromTo(toStory.querySelectorAll('.xp__project, .xp__career-step'),
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, stagger: 0.045, duration: 0.54, ease: 'power3.out' },
-        0.99);
+      .to(fromStory, { autoAlpha: 0, x: -25, duration: .36, ease: 'power2.inOut' }, .06)
+      .to(expander, {
+        clipPath: 'inset(0% 0% 0% 0% round 0px)',
+        duration: 1.09,
+        ease: 'power3.inOut',
+      }, 0)
+      .call(commitSelection, [], .70)
+      .to(expander, { autoAlpha: 0, duration: .48, ease: 'power2.inOut' }, .90)
+      .to(toStory, { autoAlpha: 1, y: 0, duration: .62, ease: 'power3.out' }, .77)
+      .to(headlineParts, {
+        autoAlpha: 1, x: 0, y: 0, duration: .65, stagger: .085, ease: 'power3.out',
+      }, .84)
+      .to(workParts, {
+        autoAlpha: 1, x: 0, y: 0, duration: .48, stagger: .065, ease: 'power3.out',
+      }, 1.13);
+    // No empty GSAP tweens for companies without a leadership timeline.
+    if (careerParts.length) activeTimeline.to(careerParts, {
+      autoAlpha: 1, x: 0, y: 0, duration: .48, stagger: .07, ease: 'power3.out',
+    }, 1.24);
+    if (footnote.length) activeTimeline.to(footnote, {
+      autoAlpha: 1, x: 0, y: 0, duration: .46, ease: 'power3.out',
+    }, 1.36);
   }
 
   buttons.forEach((button, index) => button.addEventListener('click', () => select(index, button)));
