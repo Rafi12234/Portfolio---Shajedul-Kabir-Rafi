@@ -1,32 +1,43 @@
-# Research Liquid Glass V2 — implementation notes
+# 08 · Client Projects / The Commission Archive
 
-## Visual direction
+## Design reference and intent
 
-The source photo is a music-player album-cover perspective carousel. We adapt the **mechanism**, not the literal orange theme:
+The uploaded Sicko Soul site screenshot is intentionally the hero artifact. The section is not a marketplace widget, fake case-study carousel, or duplicate of the Selected Projects filmstrip; it is a boutique *client commission archive*.
 
-- 5-6 research-cover records circulate in a 3D loop, center card crisp and dominant; outer cards overlap and recede.
-- Cover designs use geometric abstractions rooted in their disciplines: cross-modal data filaments, object-attention iris, security topology, submission signal waves, geospatial latitude/longitude, and histology-inspired cell formations. These are **decorative concepts**, not real figures/results from the papers.
-- The floating bottom player has glass reflections, miniature cover thumbnail, current research label and selection controls.
-- Selected cards gently move to center and flip. The back holds real HTML research details and links.
-- Main palette stays near-black / burgundy / muted-crimson / champagne.
+- Muted burgundy / champagne / black: compatible with the established portfolio identity.
+- In-frame documentary photo of the real streetwear site: the client is clearly named and linked.
+- Oversized editorial typography and long moving imprint band: deliberately different from the research glass orbit and Experience grid.
+- A second 'unreleased' cluster is an honest teaser, with NO fictional client/project names or dead action buttons.
 
-## Performance safeguards
+## Motion choreography
 
-- One `gsap.ticker` listener, attached only while the theatre is visible and playing. The portfolio's Lenis setup is reused, not duplicated.
-- Orbit frame updates touch only `transform`, `opacity`, and `z-index`; width is cached by ResizeObserver and no geometry is read on every tick.
-- GSAP tweens are event-triggered on selection, not scroll scrubbed.
-- Disable movement while reader is open, hovered, reduced-motion, dragged, or when tab is hidden.
-- SVG vectors avoid additional heavy image downloads.
+1. Ambient burgundy light gently travels on opposing paths (CSS `transform`; no JS loop).
+2. A muted typographic ticker runs indefinitely while this section is on screen.
+3. Two fine-line rings orbit behind the presented site screenshot.
+4. A low-opacity glint moves occasionally across the screenshot glass.
+5. The photograph frame tilts *only when someone moves their pointer over the actual visual zone* and returns smoothly on pointer exit.
+6. The unreleased project folders float and separate slightly on hover.
+7. The small reveal animation for each piece of editorial text runs once via IntersectionObserver+GSAP.
 
-## Research-data diligence
+If the section goes offscreen, the CSS motion pauses. If the visitor requests reduced motion, continuous motion is disabled.
 
-The entries were updated from the research titles/statuses disclosed in the conversation. Exact peer-reviewed publication URLs / indexed DOI records have **not** been independently verified. Do not mark CA-DAC as IEEE Xplore indexed solely from the IEEE eCF confirmation receipt. Previously supplied WIE Drive links were not matched to paper titles, and accordingly are not assigned to a specific accepted paper.
+## Content accuracy
 
-## Test checklist after installation
+The supplied reference is a screenshot of `sickosoul.shop`. The case study says only what is supported: it is a streetwear-label web presence with dark photographic editorial identity. No invented client conversions, e-commerce integrations, delivery team details, technologies, or fabricated metrics.
 
-- Fresh desktop scroll to `#research`: verify infinite orbit begins when the stage enters the viewport.
-- Flip each of 6 records; for long titles scroll inside flipped card.
-- With a card open, verify the carousel pauses and the external link is clickable where present.
-- Close; verify the loop resumes after pointer leaves and keyboard focus exits.
-- Test Previous/Next, play/pause, drag, reduced-motion and narrow mobile.
-- Confirm order: Selected Projects, Research, Experience.
+## Expand / link
+
+- `Visit live website` opens the user-provided URL in a new tab.
+- `Inspect the work` opens a native dialog with the *full uploaded* 1919 × 969 image.
+- Dialog handles Escape, backdrop click, close control, and focus restoration.
+
+## Files
+
+- `src/components/ClientProjects.astro`: layout and semantic markup
+- `src/data/clientProjects.ts`: client name/description/link, easy to edit
+- `src/scripts/client-projects.ts`: lightweight pointer and entrance events
+- `public/styles/client-projects.css`: all style and motion
+- `public/assets/client-projects/sicko-soul-showcase.webp`: lightweight page visual (~118 KB)
+- `public/assets/client-projects/sicko-soul-original.png`: exactly the supplied image (~2.5 MB), loaded only for inspection
+
+Do not expose client-sensitive details or make claims about completed product functionality without client approval.
