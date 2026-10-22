@@ -344,3 +344,9 @@
   .eu__code-track {animation:none !important;transform:none !important;will-change:auto;}
   .eu__flight {will-change:auto;transition:none !important;}
 }
+
+/* RAFI / CONTINUOUS SCROLL V2 — animations stay active while scrolling. */
+.eu__flight { will-change: auto; }
+@media (prefers-reduced-motion: no-preference) {
+  .eu--running .eu__flight { will-change: transform, opacity; }
+}
