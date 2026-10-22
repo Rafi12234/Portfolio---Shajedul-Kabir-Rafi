@@ -12,6 +12,19 @@ import ContactClosingChapter from "../components/ContactClosingChapter.astro";
 <!doctype html>
 <html lang="en">
   <head>
+    <script is:inline data-rafi-finish-head>
+      (() => {
+        const html = document.documentElement;
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) html.classList.add('rafi-motion-ready');
+        const nav = performance.getEntriesByType('navigation')[0];
+        if (nav?.type === 'reload') {
+          try { history.scrollRestoration = 'manual'; } catch (_) {}
+          html.dataset.rafiReloadTop = 'true';
+          if (location.hash) history.replaceState(history.state, '', location.pathname + location.search);
+          scrollTo(0, 0);
+        }
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0A0708" />
@@ -20,6 +33,8 @@ import ContactClosingChapter from "../components/ContactClosingChapter.astro";
     <meta property="og:title" content="Shajedul Kabir Rafi — Software Engineer" />
     <meta property="og:description" content="Turning ambitious ideas into purposeful software." />
     <meta property="og:type" content="website" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>Shajedul Kabir Rafi — Software Engineer</title>
     <!-- Live fonts load if connected; the locally installed condensed fallback is carefully designed too. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -40,6 +55,8 @@ import ContactClosingChapter from "../components/ContactClosingChapter.astro";
     <script>
 
       import '../scripts/motion.ts';
+
+      import '../scripts/site-finish.ts';
       import '../scripts/engineering-universe.ts';
 
       import '../scripts/selected-projects.ts';
@@ -52,6 +69,9 @@ import ContactClosingChapter from "../components/ContactClosingChapter.astro";
     </script>
       <link rel="stylesheet" href="./styles/engineering-universe.css" />
       <link rel="stylesheet" href="./styles/contact-closing-chapter.css" />
+    <link rel="stylesheet" href="./styles/site-finish.css" />
+      <link rel="stylesheet" href="./styles/hero-experience-refinement.css" />
+    <link rel="stylesheet" href="./styles/hero-performance-v4.css" />
   </head>
   <body>
 
@@ -64,7 +84,7 @@ import ContactClosingChapter from "../components/ContactClosingChapter.astro";
         <div class="site-header__topline" aria-hidden="true"></div>
         <div class="site-header__inner">
           <a class="site-logo" href="#page-top" aria-label="Shajedul Kabir Rafi, top of page">
-            <span class="site-logo__symbol">r<span class="site-logo__period">.</span></span>
+            <img class="site-logo__image" src="./assets/brand/rafi-signature.webp" width="57" height="54" alt="" decoding="async" />
             <span class="site-logo__caption">SHAJEDUL KABIR<br />RAFI</span>
           </a>
           <p class="site-header__folio">PERSONAL PORTFOLIO <span class="micro-star" aria-hidden="true">✦</span> EST. 2026</p>
@@ -87,14 +107,14 @@ import ContactClosingChapter from "../components/ContactClosingChapter.astro";
       <main id="introduction">
         <section class="hero" aria-labelledby="hero-name" data-hero>
           <div class="hero__stage" data-depth-root>
-            <div class="hero__grid-lines" aria-hidden="true"><span></span><span></span></div>
+<div class="hero__grid-lines" aria-hidden="true"><span></span><span></span></div>
 
             <div class="hero__orb-depth" aria-hidden="true" data-depth="orb">
               <div class="hero__orb-reveal"><div class="hero__orb"><div class="hero__orb-sheen"></div></div></div>
             </div>
 
             <div class="hero__masthead-depth" aria-hidden="true" data-depth="type">
-              <div class="hero__masthead-mask"><p class="hero__masthead" data-enter="headline">ENGINEER</p></div>
+              <div class="hero__masthead-mask"><p class="hero__masthead" data-enter="headline"><span class="hero__masthead-pre">SOFTWARE</span><span class="hero__masthead-core">ENGINEER</span></p></div>
             </div>
 
             <div class="hero__portrait-depth" data-depth="portrait">
@@ -121,14 +141,34 @@ import ContactClosingChapter from "../components/ContactClosingChapter.astro";
               <span class="hero__side-mark" aria-hidden="true"></span>
             </div>
 
-            <div class="hero__side hero__side--right" data-enter="right">
-              <div class="hero__side-line"></div>
-              <span class="eyebrow">CURRENTLY WRITING<br />MY NEXT CHAPTER</span>
-              <ol class="hero__role-list" aria-label="Professional positions">
-                <li><span class="hero__role-index">01</span><span>JUNIOR SOFTWARE<br />ENGINEER <small>DATAPULSE GLOBAL</small></span></li>
-                <li><span class="hero__role-index">02</span><span>FULL STACK<br />DEVELOPER <small>BORAQ · REMOTE</small></span></li>
-              </ol>
-            </div>
+
+<div class="hero__side hero__side--right" data-enter="right">
+  <div class="hero__side-line"></div>
+
+  <span class="eyebrow">
+    CURRENTLY WRITING<br />
+    MY NEXT CHAPTER
+  </span>
+
+  <ol class="hero__role-list" aria-label="Professional positions">
+    <li>
+      <span class="hero__role-index">01</span>
+      <span>
+        <strong>JUNIOR SOFTWARE<br />ENGINEER</strong>
+        <small>DATAPULSE GLOBAL</small>
+      </span>
+    </li>
+
+    <li>
+      <span class="hero__role-index">02</span>
+      <span>
+        <strong>FULL STACK<br />DEVELOPER</strong>
+        <small>BORAQ · REMOTE</small>
+      </span>
+    </li>
+  </ol>
+</div>
+
 
             <div class="hero__nameplate" data-enter="name">
               <p class="hero__given-name">SHAJEDUL <span class="hero__given-separator" aria-hidden="true">✳</span> KABIR</p>
@@ -152,10 +192,13 @@ import ContactClosingChapter from "../components/ContactClosingChapter.astro";
 
           <div class="hero__bottom-strip" data-enter="bottom">
             <span class="hero__bottom-folio"><i aria-hidden="true"></i> 001 <span class="hero__bottom-slash">/</span> INTRODUCTION</span>
+            <div class="hero__action-group">
             <a class="hero__cta" href="https://github.com/Rafi12234" target="_blank" rel="noopener noreferrer">
               <span>EXPLORE SELECTED WORK</span>
               <span class="hero__cta-arrow" aria-hidden="true">↗</span>
             </a>
+              <a class="hero__cv-link" href="/assets/Shajedul_Kabir_Rafi_CV.pdf" download="Shajedul_Kabir_Rafi_CV.pdf" aria-label="Download Shajedul Kabir Rafi CV as PDF"><span>DOWNLOAD CV</span><span aria-hidden="true">↓</span></a>
+            </div>
             <a class="hero__bottom-scroll" href="#beyond-title" aria-label="Scroll to Beyond the Title"><span class="hero__scroll-motif" aria-hidden="true">↓</span> THE STORY CONTINUES</a>
           </div>
         </section>
