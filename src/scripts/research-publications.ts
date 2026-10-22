@@ -104,7 +104,6 @@ if (root) {
       item.style.zIndex = String(Math.round(40 + frontDepth * 34));
       item.style.opacity = (alpha * seamFade).toFixed(3);
       item.style.pointerEvents = seamFade < 0.2 ? 'none' : '';
-      item.style.setProperty('--depth', ((frontDepth + 1) / 2).toFixed(3));
     });
   }
 
@@ -307,6 +306,7 @@ if (root) {
     observer.disconnect(); ro?.disconnect();
     activeTween?.kill(); closeCall?.kill();
     document.removeEventListener('visibilitychange', onVisibility);
+
     reduced.removeEventListener('change', onReduced);
   }, { once: true });
 }
