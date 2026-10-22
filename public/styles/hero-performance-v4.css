@@ -663,16 +663,16 @@
     max-height: 1040px;
   }
   .hero__masthead {
-    font-size: min(23.2rem, 26.9vw, 31svh);
+    font-size: min(23.2rem, 26.9vw, 40svh);
   }
   .hero__masthead-mask { padding-bottom: min(20px, 1.65svh); }
   .hero__orb-reveal {
-    width: min(800px, 57vw, 66svh);
-    height: min(800px, 57vw, 66svh);
+    width: min(800px, 57vw, 79svh);
+    height: min(800px, 57vw, 79svh);
   }
   /* Contain the *whole* transparent PNG, never hide a portion below the stage. */
   .hero__portrait-depth {
-    width: min(560px, 39vw, 46.35svh);
+    width: min(560px, 39vw, calc((100svh - min(94px, 8.2svh) - min(112px, 9.3svh) - 10px) * .79));
     bottom: 0;
   }
 
@@ -693,7 +693,7 @@
     margin-bottom: min(14px, 1.16svh);
   }
   .hero__side-manifesto {
-    font-size: min(61px, 4vw, 5.05svh);
+    font-size: min(61px, 4vw, 6.2svh);
     margin-top: min(24px, 1.98svh);
   }
   .hero__side--right .hero__role-list {
@@ -713,7 +713,7 @@
 
   .hero__nameplate { top: 69%; width: min(650px, 58vw, 53.7svh); }
   .hero__given-name { font-size: min(27px, 2.1vw, 2.23svh); }
-  .hero__surname { font-size: min(175px, 10.2vw, 14.5svh); }
+  .hero__surname { font-size: min(175px, 10.2vw, 16.5svh); }
   .hero__name-rule {
     margin: min(21px, 1.74svh) 0 min(15px, 1.24svh);
   }
