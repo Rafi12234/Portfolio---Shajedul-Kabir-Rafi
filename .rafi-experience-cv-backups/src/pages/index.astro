@@ -1,0 +1,195 @@
+---
+import EngineeringUniverse from "../components/EngineeringUniverse.astro";
+import BeyondTitle from "../components/BeyondTitle.astro";
+import SelectedProjects from "../components/SelectedProjects.astro";
+
+import ExperienceShowcase from "../components/ExperienceShowcase.astro";
+import ResearchPublicationsShowcase from "../components/ResearchPublicationsShowcase.astro";
+import AchievementsGallery from "../components/AchievementsGallery.astro";
+import ClientProjects from "../components/ClientProjects.astro";
+import ContactClosingChapter from "../components/ContactClosingChapter.astro";
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <script is:inline data-rafi-finish-head>
+      (() => {
+        const html = document.documentElement;
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) html.classList.add('rafi-motion-ready');
+        const nav = performance.getEntriesByType('navigation')[0];
+        if (nav?.type === 'reload') {
+          try { history.scrollRestoration = 'manual'; } catch (_) {}
+          html.dataset.rafiReloadTop = 'true';
+          if (location.hash) history.replaceState(history.state, '', location.pathname + location.search);
+          scrollTo(0, 0);
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0A0708" />
+    <meta name="description" content="Shajedul Kabir Rafi — software engineer building thoughtful digital products, intelligent systems, and experiences." />
+    <meta name="author" content="Shajedul Kabir Rafi" />
+    <meta property="og:title" content="Shajedul Kabir Rafi — Software Engineer" />
+    <meta property="og:description" content="Turning ambitious ideas into purposeful software." />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>Shajedul Kabir Rafi — Software Engineer</title>
+    <!-- Live fonts load if connected; the locally installed condensed fallback is carefully designed too. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+    <link rel="preload" href="./assets/rafi-portrait.webp" as="image" type="image/webp" fetchpriority="high" />
+
+    <link rel="stylesheet" href="./styles/hero.css" />
+    <link rel="stylesheet" href="./styles/beyond-title.css" />
+
+    <link rel="stylesheet" href="./styles/selected-projects.css" />
+    <link rel="stylesheet" href="./styles/research-publications.css" />
+    <link rel="stylesheet" href="./styles/experience.css" />
+    <link rel="stylesheet" href="./styles/client-projects.css" />
+    <link rel="stylesheet" href="./styles/achievements.css" />
+
+    <!-- Shared GSAP + ScrollTrigger + Lenis director: Astro bundles all dependencies. -->
+    <script>
+
+      import '../scripts/motion.ts';
+
+      import '../scripts/site-finish.ts';
+      import '../scripts/engineering-universe.ts';
+
+      import '../scripts/selected-projects.ts';
+      import '../scripts/research-publications.ts';
+      import '../scripts/experience.ts';
+      import '../scripts/achievements.ts';
+
+          import '../scripts/client-projects.ts';
+          import '../scripts/contact-closing-chapter.ts';
+    </script>
+      <link rel="stylesheet" href="./styles/engineering-universe.css" />
+      <link rel="stylesheet" href="./styles/contact-closing-chapter.css" />
+    <link rel="stylesheet" href="./styles/site-finish.css" />
+  </head>
+  <body>
+
+    <a class="skip-link" href="#introduction">Skip to content</a>
+    <div class="portfolio-shell" id="page-top">
+      <div class="portfolio-shell__atmosphere" aria-hidden="true"></div>
+      <div class="portfolio-shell__texture" aria-hidden="true"></div>
+
+      <header class="site-header" id="site-header">
+        <div class="site-header__topline" aria-hidden="true"></div>
+        <div class="site-header__inner">
+          <a class="site-logo" href="#page-top" aria-label="Shajedul Kabir Rafi, top of page">
+            <img class="site-logo__image" src="./assets/brand/rafi-signature.webp" width="57" height="54" alt="" decoding="async" />
+            <span class="site-logo__caption">SHAJEDUL KABIR<br />RAFI</span>
+          </a>
+          <p class="site-header__folio">PERSONAL PORTFOLIO <span class="micro-star" aria-hidden="true">✦</span> EST. 2026</p>
+          <nav class="site-nav" aria-label="Primary navigation">
+            <a href="#selected-work">SELECTED WORK <span aria-hidden="true">↗</span></a>
+            <a href="#beyond-title">PROFILE <span aria-hidden="true">↗</span></a>
+            <a class="site-nav__contact" href="#contact">LET'S CONNECT <span aria-hidden="true">↗</span></a>
+          </nav>
+          <details class="mobile-menu" id="mobile-menu">
+            <summary><span class="mobile-menu__label">MENU</span><span class="mobile-menu__glyph" aria-hidden="true"><i></i><i></i></span></summary>
+            <nav class="mobile-menu__panel" aria-label="Mobile navigation">
+              <a href="#selected-work">SELECTED WORK <span aria-hidden="true">↗</span></a>
+              <a href="#beyond-title">PROFILE <span aria-hidden="true">↗</span></a>
+              <a href="#contact">LET'S CONNECT <span aria-hidden="true">↗</span></a>
+            </nav>
+          </details>
+        </div>
+      </header>
+
+      <main id="introduction">
+        <section class="hero" aria-labelledby="hero-name" data-hero>
+          <div class="hero__stage" data-depth-root>
+<div class="hero__grid-lines" aria-hidden="true"><span></span><span></span></div>
+
+            <div class="hero__orb-depth" aria-hidden="true" data-depth="orb">
+              <div class="hero__orb-reveal"><div class="hero__orb"><div class="hero__orb-sheen"></div></div></div>
+            </div>
+
+            <div class="hero__masthead-depth" aria-hidden="true" data-depth="type">
+              <div class="hero__masthead-mask"><p class="hero__masthead" data-enter="headline">ENGINEER</p></div>
+            </div>
+
+            <div class="hero__portrait-depth" data-depth="portrait">
+              <div class="hero__portrait-reveal" data-enter="portrait">
+                <picture>
+                  <source type="image/webp" srcset="./assets/rafi-portrait.webp" />
+                  <img
+                    class="hero__portrait"
+                    src="./assets/rafi-portrait.png"
+                    width="1122"
+                    height="1402"
+                    alt="Shajedul Kabir Rafi wearing a black suit and glasses, facing forward"
+                    fetchpriority="high"
+                    decoding="async"
+                  />
+                </picture>
+              </div>
+            </div>
+
+            <div class="hero__side hero__side--left" data-enter="left">
+              <div class="hero__side-line"></div>
+              <span class="eyebrow">A DIFFERENT KIND<br />OF ENGINEERING</span>
+              <p class="hero__side-manifesto">IDEAS<br /><em>MADE</em><br />REAL<span class="accent-dot">.</span></p>
+              <span class="hero__side-mark" aria-hidden="true"></span>
+            </div>
+
+            <div class="hero__side hero__side--right" data-enter="right">
+              <div class="hero__side-line"></div>
+              <span class="eyebrow">CURRENTLY WRITING<br />MY NEXT CHAPTER</span>
+              <ol class="hero__role-list" aria-label="Professional positions">
+                <li><span class="hero__role-index">01</span><span>JUNIOR SOFTWARE<br />ENGINEER <small>DATAPULSE GLOBAL</small></span></li>
+                <li><span class="hero__role-index">02</span><span>FULL STACK<br />DEVELOPER <small>BORAQ · REMOTE</small></span></li>
+              </ol>
+            </div>
+
+            <div class="hero__nameplate" data-enter="name">
+              <p class="hero__given-name">SHAJEDUL <span class="hero__given-separator" aria-hidden="true">✳</span> KABIR</p>
+              <h1 class="hero__surname" id="hero-name">RAFI</h1>
+              <div class="hero__name-rule" aria-hidden="true"><span></span></div>
+              <p class="hero__profession">SOFTWARE ENGINEER <span aria-hidden="true">/</span> PRODUCT BUILDER</p>
+            </div>
+
+            <div class="hero__lower-left" data-enter="foot-left">
+              <span class="hero__small-line" aria-hidden="true"></span>
+              <p>ENGINEERING WITH<br />INTENTION<span class="accent-dot">.</span></p>
+              <span class="hero__lower-sub">DHAKA, BANGLADESH <span aria-hidden="true">↗</span></span>
+            </div>
+
+            <div class="hero__lower-right" data-enter="foot-right">
+              <span class="hero__small-line" aria-hidden="true"></span>
+              <p>BUILDING THE<br />NEXT THING<span class="accent-dot">.</span></p>
+              <span class="hero__lower-sub">ALWAYS IN PROGRESS</span>
+            </div>
+          </div>
+
+          <div class="hero__bottom-strip" data-enter="bottom">
+            <span class="hero__bottom-folio"><i aria-hidden="true"></i> 001 <span class="hero__bottom-slash">/</span> INTRODUCTION</span>
+            <div class="hero__action-group">
+            <a class="hero__cta" href="https://github.com/Rafi12234" target="_blank" rel="noopener noreferrer">
+              <span>EXPLORE SELECTED WORK</span>
+              <span class="hero__cta-arrow" aria-hidden="true">↗</span>
+            </a>
+              <a class="hero__cv-link" href="/assets/Shajedul_Kabir_Rafi_CV.pdf" download="Shajedul_Kabir_Rafi_CV.pdf" aria-label="Download Shajedul Kabir Rafi CV as PDF"><span>DOWNLOAD CV</span><span aria-hidden="true">↓</span></a>
+            </div>
+            <a class="hero__bottom-scroll" href="#beyond-title" aria-label="Scroll to Beyond the Title"><span class="hero__scroll-motif" aria-hidden="true">↓</span> THE STORY CONTINUES</a>
+          </div>
+        </section>
+
+        <BeyondTitle />
+        <EngineeringUniverse />
+        <SelectedProjects />
+        <ResearchPublicationsShowcase />
+        <ExperienceShowcase />
+        <AchievementsGallery />
+        <ClientProjects />
+        <ContactClosingChapter />
+      </main>
+    </div>
+  </body>
+</html>
