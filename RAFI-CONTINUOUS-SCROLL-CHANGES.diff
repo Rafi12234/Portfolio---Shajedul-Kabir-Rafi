@@ -1,0 +1,273 @@
+--- a/src/pages/index.astro
++++ b/src/pages/index.astro
+@@ -116,7 +116,6 @@
+       rel="stylesheet"
+       href="./styles/hero-performance-v4.css"
+     />
+-    <link rel="stylesheet" href="./styles/scroll-performance.css" />
+ 
+     <!-- Shared motion director and section animations -->
+     <script>
+--- a/src/scripts/motion.ts
++++ b/src/scripts/motion.ts
+@@ -7,7 +7,6 @@
+ import Lenis from 'lenis';
+ import 'lenis/dist/lenis.css';
+ import '../styles/motion.css';
+-import './scroll-budget';
+ 
+ gsap.registerPlugin(ScrollTrigger);
+ const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+@@ -105,15 +104,13 @@
+   if (tl && lower.length) tl.from(lower, { autoAlpha: 0, y: 17, duration: 0.72, stagger: 0.11 }, 1.68);
+   if (tl && bottom) tl.from(bottom, { autoAlpha: 0, y: 13, duration: 0.7 }, 1.87);
+ 
+-  // Parallax scrub is a desktop detail, not a touch-scrolling workload.
+-  // Keep the existing composition unchanged on desktop.
+-  if (desktopPointer.matches) {
+-    gsap.to(stage, {
+-      '--scroll-portrait': '-40px', '--scroll-title': '26px', '--scroll-orb': '16px',
+-      ease: 'none',
+-      scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.25, invalidateOnRefresh: true },
+-    });
+-  }
++  // Keep the original parallax moving while scrolling, on touch and wheel.
++  // Shorter scrub catch-up avoids animations continuing long after the gesture.
++  gsap.to(stage, {
++    '--scroll-portrait': '-40px', '--scroll-title': '26px', '--scroll-orb': '16px',
++    ease: 'none',
++    scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.18, invalidateOnRefresh: true },
++  });
+   if (!desktopPointer.matches) return;
+   const px = gsap.quickTo(stage, '--portrait-x', { duration: 0.65, ease: 'power3.out' });
+   const py = gsap.quickTo(stage, '--portrait-y', { duration: 0.65, ease: 'power3.out' });
+--- a/src/scripts/engineering-universe.ts
++++ b/src/scripts/engineering-universe.ts
+@@ -60,7 +60,7 @@
+   let lastFocused: HTMLElement | null = null;
+   let sceneGeneration = 0;
+ 
+-  const playing = () => !disposed && inView && !document.hidden && !manualPause && !modalOpen && !reducedMotion.matches && !document.documentElement.classList.contains('rafi-is-scrolling');
++  const playing = () => !disposed && inView && !document.hidden && !manualPause && !modalOpen && !reducedMotion.matches;
+ 
+   function selectNext(): Entry {
+     const entry = queue[cursor % queue.length];
+@@ -125,7 +125,7 @@
+     const generation = sceneGeneration;
+     // Each slot starts at a different moment. Overlapping flights give a
+     // continuous flow, rather than forcing the visitor to wait between skills.
+-    const activeSlotCount = smallScreen.matches ? 4 : slots.length;
++    const activeSlotCount = smallScreen.matches ? Math.min(3, slots.length) : Math.min(8, slots.length);
+     slots.forEach((slot, i) => {
+       if (i >= activeSlotCount) {
+         gsap.set(slot.el, { autoAlpha: 0 });
+@@ -234,8 +234,6 @@
+     updateControls();
+   }, { threshold: [0, 0.08, 0.30] });
+   visibilityObserver.observe(stage);
+-  const onScrollActivity = () => updateControls();
+-  document.addEventListener('rafi:scroll-activity', onScrollActivity);
+   document.addEventListener('visibilitychange', updateControls);
+   function preferenceChanged() { manualPause = false; buildFlights(); }
+   reducedMotion.addEventListener('change', preferenceChanged);
+@@ -245,7 +243,7 @@
+     if (disposed) return;
+     disposed = true;
+     visibilityObserver.disconnect();
+-    document.removeEventListener('rafi:scroll-activity', onScrollActivity);
++
+     document.removeEventListener('visibilitychange', updateControls);
+     reducedMotion.removeEventListener('change', preferenceChanged);
+     smallScreen.removeEventListener('change', buildFlights);
+--- a/src/scripts/selected-projects.ts
++++ b/src/scripts/selected-projects.ts
+@@ -48,7 +48,7 @@
+   const activeAnimation = (): boolean => !rm.matches && visibleCards.length > 1;
+ 
+   function say(value: string) { if (stateText.textContent !== value) stateText.textContent = value; }
+-  function pauseNeeded() { return document.hidden || !inView || hovered || focused || manuallyPaused || inspecting || rm.matches || document.documentElement.classList.contains('rafi-is-scrolling'); }
++  function pauseNeeded() { return document.hidden || !inView || hovered || focused || manuallyPaused || inspecting || rm.matches; }
+   function updateControls() {
+     const paused = pauseNeeded();
+     if (motion) paused ? motion.pause() : motion.resume();
+@@ -263,8 +263,6 @@
+     updateControls();
+   }, { threshold: .06 });
+   observer.observe(cinema);
+-  const onScrollActivity = () => updateControls();
+-  document.addEventListener('rafi:scroll-activity', onScrollActivity);
+   document.addEventListener('visibilitychange', () => {
+     root.classList.toggle('sw--cinema-visible', inView && !document.hidden && !rm.matches);
+     updateControls();
+@@ -292,7 +290,7 @@
+   relayout();
+   window.addEventListener('pagehide', () => {
+     stopMotion(); observer.disconnect(); intro?.kill();
+-    document.removeEventListener('rafi:scroll-activity', onScrollActivity);
++
+     if (dialog.open) dialog.close();
+     document.documentElement.classList.remove('sw-modal-open');
+   }, { once: true });
+--- a/src/scripts/research-publications.ts
++++ b/src/scripts/research-publications.ts
+@@ -55,7 +55,7 @@
+   let closeCall: gsap.core.Tween | null = null;
+ 
+   const emit = (message: string) => { live.textContent = message; };
+-  const shouldRun = () => isVisible && !document.hidden && !reduced.matches && !isHovered && !keyboardFocused && !isDragging && !manualPaused && !travelling && openIndex === null && !document.documentElement.classList.contains('rafi-is-scrolling');
++  const shouldRun = () => isVisible && !document.hidden && !reduced.matches && !isHovered && !keyboardFocused && !isDragging && !manualPaused && !travelling && openIndex === null;
+ 
+   function refreshWidth() {
+     orbitWidth = windowEl.clientWidth || 1100;
+@@ -104,7 +104,6 @@
+       item.style.zIndex = String(Math.round(40 + frontDepth * 34));
+       item.style.opacity = (alpha * seamFade).toFixed(3);
+       item.style.pointerEvents = seamFade < 0.2 ? 'none' : '';
+-      item.style.setProperty('--depth', ((frontDepth + 1) / 2).toFixed(3));
+     });
+   }
+ 
+@@ -298,8 +297,6 @@
+   const onVisibility = () => syncTicker();
+   const onReduced = () => { syncTicker(); if (reduced.matches) { activeTween?.kill(); travelling = false; render(); } };
+   document.addEventListener('visibilitychange', onVisibility);
+-  const onScrollActivity = () => syncTicker();
+-  document.addEventListener('rafi:scroll-activity', onScrollActivity);
+   reduced.addEventListener('change', onReduced);
+   track.classList.add('is-ready');
+   requestAnimationFrame(() => { refreshWidth(); setCurrent(0); syncTicker(); });
+@@ -309,7 +306,7 @@
+     observer.disconnect(); ro?.disconnect();
+     activeTween?.kill(); closeCall?.kill();
+     document.removeEventListener('visibilitychange', onVisibility);
+-    document.removeEventListener('rafi:scroll-activity', onScrollActivity);
++
+     reduced.removeEventListener('change', onReduced);
+   }, { once: true });
+ }
+--- a/public/styles/hero.css
++++ b/public/styles/hero.css
+@@ -27,9 +27,9 @@
+ .skip-link { position: fixed; z-index: 99; top: 12px; left: 12px; padding: 13px 18px; background: var(--cream); color: var(--ink); transform: translateY(-180%); }
+ .skip-link:focus { transform: translateY(0); }
+ .portfolio-shell { position: relative; isolation: isolate; min-height: 100svh; overflow: clip; background: var(--ink); }
+-.portfolio-shell__atmosphere { position: absolute; z-index: -2; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(8,5,5,.23),transparent 28%,transparent 73%,rgba(8,5,5,.46)), url('https://res.cloudinary.com/wujcxa24/image/upload/f_auto,q_auto:good,c_limit,w_1672/v1792672486/hero-atmosphere.webp') center top / cover no-repeat; }
++.portfolio-shell__atmosphere { position: absolute; z-index: -2; inset: 0 0 auto; height: clamp(900px, 110svh, 1200px); pointer-events: none; background: linear-gradient(90deg, rgba(8,5,5,.23),transparent 28%,transparent 73%,rgba(8,5,5,.46)), url('https://res.cloudinary.com/wujcxa24/image/upload/f_auto,q_auto:good,c_limit,w_1672/v1792672486/hero-atmosphere.webp') center top / cover no-repeat; }
+ .portfolio-shell__atmosphere::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(7,4,5,.08), transparent 36%, rgba(7,4,5,.36) 74%, #0a0708 100%); }
+-.portfolio-shell__texture { position: absolute; z-index: 20; inset: 0; pointer-events: none; opacity: .22; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.19' filter='url(%23n)'/%3E%3C/svg%3E"); mix-blend-mode: soft-light; }
++.portfolio-shell__texture { position: fixed; z-index: 20; inset: 0; height: 100svh; pointer-events: none; opacity: .22; background-size: 180px 180px; background-repeat: repeat; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.19' filter='url(%23n)'/%3E%3C/svg%3E"); mix-blend-mode: soft-light; }
+ 
+ /* HEADER — a slim publication masthead */
+ .site-header { position: relative; z-index: 30; height: 94px; padding: 0 clamp(20px, 3.7vw, 74px); }
+@@ -61,7 +61,7 @@
+ .hero__orb-depth { position: absolute; z-index: 1; inset: 0; pointer-events: none; transform: translate3d(var(--orb-x), calc(var(--orb-y) + var(--scroll-orb)), 0); will-change: transform; }
+ .hero__orb-reveal { position: absolute; width: min(57vw,800px); height: min(57vw,800px); left: 50%; top: 11%; transform: translateX(-50%); }
+ .hero__orb { position: relative; width: 100%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: radial-gradient(circle at 38% 21%, #752020 0%, #581416 37%, #340d10 66%, #160809 100%); box-shadow: 0 0 180px rgba(75,5,12,.17), inset 0 12px 55px rgba(255,125,89,.07), inset 0 -95px 90px rgba(5,1,1,.48); }
+-.hero__orb::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: url('https://res.cloudinary.com/wujcxa24/image/upload/f_auto,q_auto:good,c_limit,w_1672/v1792672486/original-bg-reference.webp') center 44% / 155% auto no-repeat; opacity: .14; mix-blend-mode: screen; }
++.hero__orb::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: url('https://res.cloudinary.com/wujcxa24/image/upload/f_auto,q_auto:good,c_limit,w_1672/v1792672486/original-bg-reference.webp') center 44% / 155% auto no-repeat; opacity: .11; mix-blend-mode: normal; }
+ .hero__orb::after { content:''; position:absolute; inset:-8%; background: linear-gradient(175deg, transparent 28%, rgba(0,0,0,.45) 90%); }
+ .hero__orb-sheen { position: absolute; z-index: 1; width: 150%; height: 100%; border-radius: 50%; background: radial-gradient(ellipse at 35% 10%, rgba(222,79,61,.08), transparent 55%); }
+ 
+--- a/public/styles/engineering-universe.css
++++ b/public/styles/engineering-universe.css
+@@ -344,3 +344,9 @@
+   .eu__code-track {animation:none !important;transform:none !important;will-change:auto;}
+   .eu__flight {will-change:auto;transition:none !important;}
+ }
++
++/* RAFI / CONTINUOUS SCROLL V2 — animations stay active while scrolling. */
++.eu__flight { will-change: auto; }
++@media (prefers-reduced-motion: no-preference) {
++  .eu--running .eu__flight { will-change: transform, opacity; }
++}
+--- a/public/styles/client-projects.css
++++ b/public/styles/client-projects.css
+@@ -18,7 +18,7 @@
+ .cp button {font:inherit;cursor:pointer}
+ .cp button:focus-visible,.cp a:focus-visible {outline:2px solid var(--cp-ivory);outline-offset:5px}
+ .cp__atmosphere {position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+-.cp__aura {position:absolute;width:min(88vw,1150px);aspect-ratio:1;border-radius:50%;filter:blur(44px);opacity:.28;will-change:transform}
++.cp__aura {position:absolute;width:min(88vw,1150px);aspect-ratio:1;border-radius:50%;filter:none;opacity:.28;will-change:auto}
+ .cp__aura--a {top:4%;left:-30%;background:radial-gradient(circle,rgba(175,29,42,.44) 0%,rgba(88,8,18,.19) 47%,transparent 70%);animation:cp-aura-a 21s ease-in-out infinite alternate}
+ .cp__aura--b {right:-30%;top:29%;background:radial-gradient(circle,rgba(183,68,47,.22),rgba(76,16,18,.12) 48%,transparent 70%);animation:cp-aura-b 28s ease-in-out infinite alternate}
+ .cp__vertical-lines {position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0, transparent calc(20vw - 1px),rgba(239,216,190,.045) calc(20vw - 1px),rgba(239,216,190,.045) 20vw);opacity:.34}
+@@ -76,7 +76,7 @@
+ .cp__visit b,.cp__inspect b {font-size:19px;font-weight:400}
+ .cp__story-foot {display:flex;justify-content:space-between;gap:12px;color:#7a6261;letter-spacing:.12em;font:700 8px/1.4 var(--cp-sans);margin-top:42px}
+ .cp__visual-zone {position:relative;display:flex;align-items:center;justify-content:center;min-width:0;min-height:580px;perspective:1200px;isolation:isolate}
+-.cp__halo {position:absolute;width:95%;aspect-ratio:1;max-width:810px;border-radius:50%;background:radial-gradient(circle,rgba(150,25,39,.27),rgba(97,16,25,.12) 37%,transparent 70%);filter:blur(12px);animation:cp-halo 12s ease-in-out infinite alternate;pointer-events:none}
++.cp__halo {position:absolute;width:95%;aspect-ratio:1;max-width:810px;border-radius:50%;background:radial-gradient(circle,rgba(150,25,39,.27),rgba(97,16,25,.12) 37%,transparent 70%);filter:none;animation:cp-halo 12s ease-in-out infinite alternate;pointer-events:none}
+ @keyframes cp-halo {to{transform:scale(1.3);opacity:.64}}
+ .cp__orbit {position:absolute;inset:9% 1%;border:1px solid rgba(221,134,103,.11);border-radius:50%;transform:rotate(-14deg);pointer-events:none;animation:cp-orbit 42s linear infinite}
+ .cp__orbit--two {inset:15% -6%;border-style:dashed;opacity:.62;animation-duration:63s;animation-direction:reverse}
+@@ -236,3 +236,7 @@
+   .cp__visual-frame {transform:none!important}
+   .cp__visual-zone:hover .cp__frame-image img {transform:none}
+ }
++
++/* RAFI / CONTINUOUS SCROLL V2 — animations stay active while scrolling. */
++.cp--motion-active .cp__aura { will-change: transform; }
++.cp:not(.cp--motion-active) .cp__aura { will-change: auto; }
+--- a/public/styles/contact-closing-chapter.css
++++ b/public/styles/contact-closing-chapter.css
+@@ -25,7 +25,7 @@
+ .rc__atmosphere { position: absolute; z-index: -1; inset: 0; pointer-events: none; overflow: hidden; background: radial-gradient(ellipse at 22% 33%, #321014 0%, #170b0e 34%, transparent 68%), radial-gradient(ellipse at 74% 70%, #1b0c13, transparent 62%), #080607; }
+ .rc__atmosphere::before { position: absolute; content: ''; inset: 0; opacity: .23; background: repeating-linear-gradient(90deg, transparent 0 128px, rgba(255,218,194,.08) 128px 129px), repeating-linear-gradient(0deg, transparent 0 128px, rgba(255,218,194,.04) 128px 129px); mask-image: linear-gradient(90deg, transparent, #000 34%, transparent 90%); }
+ .rc__atmosphere::after { position: absolute; content: ''; inset: 0; opacity: .15; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='190' height='190' viewBox='0 0 190 190'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.42'/%3E%3C/svg%3E"); mix-blend-mode: screen; }
+-.rc__glow { position: absolute; border-radius: 50%; filter: blur(72px); will-change: transform; }
++.rc__glow { position: absolute; border-radius: 50%; filter: none; will-change: auto; }
+ .rc__glow--one { width: min(54vw,680px); aspect-ratio: 1; top: 11%; left: 3%; background: radial-gradient(circle,rgba(150,43,47,.24),rgba(131,15,33,.08) 42%,transparent 70%); animation: rc-glow-one 19s ease-in-out infinite alternate; }
+ .rc__glow--two { width: min(37vw,480px); aspect-ratio: 1; right: 4%; top: 10%; background: radial-gradient(circle,rgba(169,93,76,.11),transparent 66%); animation: rc-glow-two 23s ease-in-out infinite alternate; }
+ .rc__contours { position:absolute; width: min(74vw,1100px); aspect-ratio: 1; left:-26%; top:6%; transform: rotate(-18deg); opacity: .32; }
+@@ -206,3 +206,7 @@
+   .rc__glow,.rc__signal-rings,.rc__ticker-track,.rc__availability-dot,.rc__channel-pulse { animation: none !important; }
+   .rc__main-cta,.rc__main-cta::before,.rc__social,.rc__social::before,.rc__social-arrow,.rc__to-top>span,.rc__monogram { transition:none !important; }
+ }
++
++/* RAFI / CONTINUOUS SCROLL V2 — animations stay active while scrolling. */
++.rc:not([data-contact-motion='off']) .rc__glow { will-change: transform; }
++.rc[data-contact-motion='off'] .rc__glow { will-change: auto; }
+--- a/public/styles/experience.css
++++ b/public/styles/experience.css
+@@ -44,7 +44,7 @@
+ .xp__stage--boraq .xp__scrim { background: linear-gradient(90deg, rgba(3,12,17,.93) 0%,rgba(3,13,18,.89) 21%,rgba(3,13,18,.69) 42%,rgba(3,13,18,.08) 76%), linear-gradient(0deg,rgba(3,10,14,.85),transparent 24%,transparent 78%,rgba(3,10,14,.32)); }
+ .xp__stage--robotics .xp__scrim { background: linear-gradient(90deg, rgba(5,18,13,.91) 0%,rgba(5,18,13,.86) 20%,rgba(5,18,13,.71) 42%,rgba(5,18,13,.08) 76%), linear-gradient(0deg,rgba(5,12,9,.91),transparent 24%,transparent 76%,rgba(5,12,9,.32)); }
+ .xp__grain { z-index: 2; pointer-events: none; opacity: .11; background: repeating-linear-gradient(0deg, transparent 0 3px,#f0d1b908 3px 4px); }
+-.xp__expander { z-index: 6; visibility: hidden; opacity: 0; overflow: hidden; pointer-events: none; will-change: clip-path; }
++.xp__expander { z-index: 6; visibility: hidden; opacity: 0; overflow: hidden; pointer-events: none; will-change: auto; }
+ .xp__expander > img { width: 100%; height: 100%; object-fit: cover; }
+ .xp__expander-scrim { position: absolute; inset: 0; background: linear-gradient(90deg,rgba(6,5,7,.45),transparent 67%); }
+ .xp__stage-folio { position: absolute; top: 28px; left: 42%; right: clamp(22px, 4vw, 68px); z-index: 3; display: flex; justify-content: space-between; align-items: center; gap: 15px; border-top: 1px solid #f1dac16e; padding-top: 13px; color: #e6cbb7; font: 700 9px/1.2 var(--xp-ui); letter-spacing: .20em; text-shadow: 0 2px 14px #070507; }
+--- a/public/styles/beyond-title.css
++++ b/public/styles/beyond-title.css
+@@ -254,3 +254,8 @@
+   .bt__glass, .bt__milestone, .bt__belief {backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+   .bt .bt__chapter-rule {transform:none!important;}
+ }
++
++/* RAFI / CONTINUOUS SCROLL V2 — animations stay active while scrolling. */
++@media (max-width: 760px) {
++  .bt__glass { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
++}
+--- a/public/styles/research-publications.css
++++ b/public/styles/research-publications.css
+@@ -95,3 +95,8 @@
+   .rgl__front-caption strong { font-size:21px; }
+   .rgl__front-full-title { font-size:8.1px; line-height:1.11; }
+ }
++
++/* RAFI / CONTINUOUS SCROLL V2 — animations stay active while scrolling. */
++@media (max-width: 760px) {
++  .rgl__player { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
++}
+--- a/public/styles/achievements.css
++++ b/public/styles/achievements.css
+@@ -222,3 +222,8 @@
+ @media(prefers-reduced-motion:reduce){
+   .aw *, .aw *::before,.aw *::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+ }
++
++/* RAFI / CONTINUOUS SCROLL V2 — animations stay active while scrolling. */
++@media (max-width: 760px) {
++  .aw__photo-blur { filter: none !important; opacity: .22; }
++}
