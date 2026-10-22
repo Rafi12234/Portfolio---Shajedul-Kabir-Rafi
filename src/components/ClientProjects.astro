@@ -1,5 +1,6 @@
 ---
 import { featuredClient as client } from '../data/clientProjects';
+import { cloudinarySrcset } from '../utils/cloudinaryImages';
 ---
 <section id="client-projects" class="cp" data-client-projects aria-labelledby="cp-heading">
   <div class="cp__atmosphere" aria-hidden="true">
@@ -83,7 +84,7 @@ import { featuredClient as client } from '../data/clientProjects';
             <span class="cp__frame-status">01 / SHOWCASE</span>
           </div>
           <div class="cp__frame-image">
-            <img src={client.image} alt="Sicko Soul website showing the streetwear brand, photographic editorial hero, and dark graphic typography" width="1919" height="969" loading="lazy" decoding="async" />
+            <img src={client.image} srcset={cloudinarySrcset(client.image, [480, 768, 960, 1440, 1919])} sizes="(max-width: 700px) 95vw, (max-width: 1200px) 85vw, 1000px" alt="Sicko Soul website showing the streetwear brand, photographic editorial hero, and dark graphic typography" width="1919" height="969" loading="lazy" decoding="async" />
             <div class="cp__frame-glare" aria-hidden="true"></div>
           </div>
           <button type="button" class="cp__image-expand" data-cp-open aria-label="Expand Sicko Soul project screenshot">

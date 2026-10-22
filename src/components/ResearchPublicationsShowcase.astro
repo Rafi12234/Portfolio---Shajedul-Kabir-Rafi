@@ -2,6 +2,7 @@
 import { researchRecords, unmatchedManuscripts } from '../data/research';
 const N = researchRecords.length;
 const first = researchRecords[0];
+import { cloudinarySrcset } from '../utils/cloudinaryImages';
 ---
 <section class="rgl" id="research" data-research-liquid aria-labelledby="rgl-title">
   <div class="rgl__aura" aria-hidden="true"></div>
@@ -48,7 +49,7 @@ const first = researchRecords[0];
               <div class="rgl__card-flip">
                 <div class="rgl__face rgl__face--front" data-rgl-front>
                   <div class="rgl__art">
-                    <img src={paper.cover} alt="" width="740" height="700" draggable="false" loading="lazy" decoding="async" />
+                    <img src={paper.cover} srcset={cloudinarySrcset(paper.cover, [320, 480, 740])} sizes="(max-width: 680px) 72vw, 270px" alt="" width="740" height="700" draggable="false" loading="lazy" decoding="async" />
                     <span class="rgl__art-shine" aria-hidden="true"></span>
                     <span class="rgl__art-meta">RESEARCH / {paper.index}</span>
                     <span class="rgl__art-year">{paper.year}</span>
@@ -103,7 +104,7 @@ const first = researchRecords[0];
 
     <div class="rgl__player" data-rgl-player aria-label="Research carousel controls">
       <div class="rgl__player-identity">
-        <div class="rgl__player-cover"><img src={first.cover} alt="" data-rgl-player-art width="740" height="700" /></div>
+        <div class="rgl__player-cover"><img src={first.cover} alt="" loading="lazy" data-rgl-player-art width="740" height="700" /></div>
         <div class="rgl__player-copy">
           <span data-rgl-player-overline>NOW EXPLORING / {first.domain}</span>
           <strong data-rgl-player-title>{first.shortTitle}</strong>

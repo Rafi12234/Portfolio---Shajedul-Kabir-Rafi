@@ -30,7 +30,7 @@ export const experienceOrganizations: ExperienceOrganization[] = [
     dates: 'JUN 2026 — PRESENT',
     location: 'DHAKA, BANGLADESH',
     introduction: 'Designing and delivering software that turns complex business operations into clear, reliable digital workflows.',
-    background: '/assets/experience/datapulse.webp',
+    background: 'https://res.cloudinary.com/wujcxa24/image/upload/f_auto,q_auto:good,c_limit,w_1599/v1792672548/datapulse.webp',
     accent: '#F36A35',
     projects: [
       { name: 'Make My Event', note: 'Office Management System' },
@@ -48,7 +48,7 @@ export const experienceOrganizations: ExperienceOrganization[] = [
     dates: 'JUN 2026 — PRESENT',
     location: 'REMOTE STARTUP TEAM',
     introduction: 'Building collaborative products around smarter meetings, structured data collection, and practical AI-powered workflows.',
-    background: '/assets/experience/boraq.webp',
+    background: 'https://res.cloudinary.com/wujcxa24/image/upload/f_auto,q_auto:good,c_limit,w_1599/v1792672547/boraq.webp',
     accent: '#42DED1',
     projects: [
       { name: 'Boraq Gather', note: 'Meeting platform; AI transcription and summaries planned', label: 'IN DEVELOPMENT' },
@@ -65,7 +65,7 @@ export const experienceOrganizations: ExperienceOrganization[] = [
     dates: 'JUL 2026 — PRESENT',
     location: 'AUST · DHAKA, BANGLADESH',
     introduction: 'From individual contribution to engineering leadership — shaping the club’s digital products, technical direction, and developer community.',
-    background: '/assets/experience/robotics.webp',
+    background: 'https://res.cloudinary.com/wujcxa24/image/upload/f_auto,q_auto:good,c_limit,w_1599/v1792672548/robotics.webp',
     accent: '#69E49C',
     projects: [
       { name: 'AUST Robotics Club Website', note: 'Official website', label: 'TOP CONTRIBUTOR' },

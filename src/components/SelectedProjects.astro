@@ -1,5 +1,6 @@
 ---
 import { selectedProjects, projectGroups } from '../data/selectedProjects';
+import { cloudinaryProjectCover, cloudinaryProjectCoverSrcSet } from '../utils/cloudinaryImages';
 ---
 <section id="selected-work" class="sw" data-selected-work aria-labelledby="sw-title">
   <div class="sw__grain" aria-hidden="true"></div>
@@ -66,7 +67,9 @@ import { selectedProjects, projectGroups } from '../data/selectedProjects';
                 <!-- Each of the 18 plates has a distinct project-specific UI illustration asset. -->
                 <div class="sw__mockup" aria-hidden="true">
                   <img
-                    src={`/assets/project-covers/${project.slug}.webp`}
+                    src={cloudinaryProjectCover(project.slug)}
+                    srcset={cloudinaryProjectCoverSrcSet(project.slug)}
+                    sizes="(max-width: 700px) 94vw, (max-width: 1200px) 72vw, 775px"
                     alt=""
                     loading="lazy"
                     decoding="async"
@@ -101,7 +104,7 @@ import { selectedProjects, projectGroups } from '../data/selectedProjects';
       </div>
       <div class="sw__modal-body">
         <div class="sw__modal-art sw__modal-art--wine" data-sw-modal-art>
-          <img class="sw__modal-image" data-sw-modal-image src="/assets/project-covers/make-my-event.webp" alt="Conceptual demo UI mockup, not an actual application screenshot" width="1400" height="788" decoding="async" />
+          <img class="sw__modal-image" data-sw-modal-image src="https://res.cloudinary.com/wujcxa24/image/upload/f_auto,q_auto:good,c_limit,w_1200/v1792672506/make-my-event.webp" alt="Conceptual demo UI mockup, not an actual application screenshot" width="1400" height="788" decoding="async" />
           <span class="sw__modal-art-caption"><strong>DEMO REPRESENTATION ONLY</strong> — NOT ACTUAL PRODUCT SCREENSHOT</span>
         </div>
         <div class="sw__modal-copy">

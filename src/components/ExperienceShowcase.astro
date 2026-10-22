@@ -1,6 +1,7 @@
 ---
 import { experienceOrganizations } from '../data/experience';
 const [first] = experienceOrganizations;
+import { cloudinarySrcset, cloudinaryResized } from '../utils/cloudinaryImages';
 ---
 <section class="xp" id="experience" data-experience aria-labelledby="xp-title">
   <div class="xp__intro">
@@ -24,11 +25,11 @@ const [first] = experienceOrganizations;
         <img
           class:list={['xp__backdrop', index === 0 && 'is-active']}
           data-xp-background={index}
-          src={org.background}
+          src={org.background} srcset={cloudinarySrcset(org.background, [640, 960, 1280, 1599])} sizes="100vw"
           alt=""
           width="1599"
           height="900"
-          loading={index === 0 ? 'eager' : 'lazy'}
+          loading="lazy"
           decoding="async"
         />
       ))}
@@ -99,7 +100,7 @@ const [first] = experienceOrganizations;
           aria-label={`Show ${org.name} experience`}
           style={`--xp-card-accent:${org.accent}`}
         >
-          <img src={org.background} alt="" loading="eager" decoding="async" width="1599" height="900" />
+          <img src={cloudinaryResized(org.background, 480)} srcset={cloudinarySrcset(org.background, [240, 480, 720])} sizes="(max-width: 700px) 42vw, 260px" alt="" loading="lazy" decoding="async" width="1599" height="900" />
           <span class="xp__card-shade" aria-hidden="true"></span>
           <span class="xp__card-number">0{index + 1} / 03</span>
           <span class="xp__card-title">{org.short}</span>

@@ -4,6 +4,7 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { selectedProjects } from '../data/selectedProjects';
+import { cloudinaryProjectCover } from '../utils/cloudinaryImages';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -149,7 +150,7 @@ if (root) {
     text('[data-sw-modal-pagination]', `${num} / ${selectedProjects.length}`);
     const modalImage = dialog.querySelector<HTMLImageElement>('[data-sw-modal-image]');
     if (modalImage) {
-      modalImage.src = `/assets/project-covers/${project.slug}.webp`;
+      modalImage.src = cloudinaryProjectCover(project.slug, 1400);
       modalImage.alt = `Generated demonstration mockup for ${project.title}, not a screenshot of the actual application`;
     }
     const art = dialog.querySelector<HTMLElement>('[data-sw-modal-art]')!;

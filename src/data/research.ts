@@ -33,7 +33,7 @@ export const researchRecords: ResearchRecord[] = [
     statusDetail: 'Accepted and presented at SPICSCON 2026 (user-reported). Proceedings / DOI / IEEE Xplore listing not independently verified.',
     abstract: 'Multimodal Bangla fake-news detection combining the language understanding of XLM-RoBERTa-large with EfficientNet-B4 visual representations through cross-modal attention fusion.',
     tags: ['Bangla NLP', 'Cross-modal attention', 'XLM-RoBERTa-large', 'EfficientNet-B4'],
-    cover: '/assets/research/banglafakemmd.webp', accent: '#dfaa8d',
+    cover: 'https://res.cloudinary.com/wujcxa24/image/upload/f_auto,q_auto:good,c_limit,w_740/v1792672548/banglafakemmd.webp', accent: '#dfaa8d',
     links: [{ label: 'OPEN SHARED MANUSCRIPT', url: 'https://drive.google.com/file/d/1kwzyEwQjW0WG4r5shDFAykn5WZqErbsJ/view?usp=drive_link', note: 'Previously shared Google Drive manuscript; not a publisher DOI.' }],
   },
   {
@@ -45,7 +45,7 @@ export const researchRecords: ResearchRecord[] = [
     statusDetail: 'Accepted for presentation at IEEE ICOCO 2026. No public paper URL / DOI supplied.',
     abstract: 'Investigates in-cabin driver monitoring by coupling YOLO object localization with real-time OCR signals to profile visual inattention and support safety-oriented computer vision research.',
     tags: ['YOLO', 'OCR', 'Driver monitoring', 'Visual attention'],
-    cover: '/assets/research/driver-vision.webp', accent: '#edbb92',
+    cover: 'https://res.cloudinary.com/wujcxa24/image/upload/f_auto,q_auto:good,c_limit,w_740/v1792672545/driver-vision.webp', accent: '#edbb92',
     links: [],
   },
   {
@@ -58,7 +58,7 @@ export const researchRecords: ResearchRecord[] = [
     abstract: 'Explores an AI-augmented, constraint-aware Zero Trust security framework tailored to the access-control and regulatory requirements of enterprises in Bangladesh.',
     authors: 'Rafiul Awal · Nazmul Huda Setu · Humira Bentay Mahmud · Shajedul Kabir Rafi · Samanta Islam · Syed Mohammed Sazid Ullah',
     tags: ['Zero Trust', 'AI security', 'Enterprise policy', 'Regulated sectors'],
-    cover: '/assets/research/zero-trust.webp', accent: '#c99195',
+    cover: 'https://res.cloudinary.com/wujcxa24/image/upload/f_auto,q_auto:good,c_limit,w_740/v1792672554/zero-trust.webp', accent: '#c99195',
     links: [],
   },
   {
@@ -70,7 +70,7 @@ export const researchRecords: ResearchRecord[] = [
     statusDetail: 'A separate WIECON-ECE submission was previously reported. Its title, current decision and corresponding shared document have not yet been matched.',
     abstract: 'A distinct conference research submission. The title and research abstract are intentionally omitted until its document and current status have been confirmed, rather than presenting invented scholarship.',
     tags: ['Conference submission', 'Peer review', 'Manuscript'],
-    cover: '/assets/research/submission.webp', accent: '#c8a5a9',
+    cover: 'https://res.cloudinary.com/wujcxa24/image/upload/f_auto,q_auto:good,c_limit,w_740/v1792672549/submission.webp', accent: '#c8a5a9',
     links: [],
   },
   {
@@ -82,7 +82,7 @@ export const researchRecords: ResearchRecord[] = [
     statusDetail: 'Proposal submitted. Funding approval or grant award has not been established.',
     abstract: 'A proposed hybrid deep learning framework to estimate regional child malnutrition patterns in Bangladesh by integrating satellite imagery, climate variables and socioeconomic indicators.',
     tags: ['Geospatial AI', 'Satellite imagery', 'Deep learning', 'Public health'],
-    cover: '/assets/research/geospatial.webp', accent: '#d29d67',
+    cover: 'https://res.cloudinary.com/wujcxa24/image/upload/f_auto,q_auto:good,c_limit,w_740/v1792672544/geospatial.webp', accent: '#d29d67',
     links: [{ label: 'OPEN SHARED PROPOSAL', url: 'https://drive.google.com/file/d/1jM663W9Iw3b-O7uqKJactpXzvsU24ri4/view?usp=sharing', note: 'Previously shared Drive proposal; public-access permission should be checked.' }],
   },
   {
@@ -94,7 +94,7 @@ export const researchRecords: ResearchRecord[] = [
     statusDetail: 'Active research, not submitted or published. Research metrics or clinical outcomes are not claimed.',
     abstract: 'Ongoing investigation into deep learning methods for detection and classification of breast cancer from histopathological imagery, focusing on the potential of computer-assisted visual analysis.',
     tags: ['Histopathology', 'Medical imaging', 'Computer vision', 'Deep learning'],
-    cover: '/assets/research/histopathology.webp', accent: '#b6a8c6',
+    cover: 'https://res.cloudinary.com/wujcxa24/image/upload/f_auto,q_auto:good,c_limit,w_740/v1792672544/histopathology.webp', accent: '#b6a8c6',
     links: [{ label: 'RESEARCH COLLABORATOR', url: 'https://www.linkedin.com/in/fabian-dibyo', note: 'Public professional profile for collaborator Dibyo Fabian Dofadar.' }],
   },
 ];

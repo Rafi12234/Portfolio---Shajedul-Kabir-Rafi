@@ -1,5 +1,6 @@
 ---
 import { achievements } from '../data/achievements';
+import { cloudinarySrcset, cloudinaryResized } from '../utils/cloudinaryImages';
 ---
 <section id="achievements" class="aw" data-achievements aria-labelledby="aw-title">
   <div class="aw__texture" aria-hidden="true"></div>
@@ -31,8 +32,8 @@ import { achievements } from '../data/achievements';
           <div class="aw__photo-stack">
             {achievements.map((entry, i) => (
               <figure class:list={['aw__photo', i === 0 && 'is-active']} data-aw-photo={i} hidden={i !== 0}>
-                <img class="aw__photo-blur" src={entry.photo} alt="" loading={i === 0 ? 'eager' : 'lazy'} decoding="async" aria-hidden="true" />
-                <img class="aw__photo-main" src={entry.photo} alt={entry.photoAlt} width={entry.photoWidth} height={entry.photoHeight} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+                <img class="aw__photo-blur" src={entry.photo} alt="" loading="lazy" decoding="async" aria-hidden="true" />
+                <img class="aw__photo-main" src={entry.photo} srcset={cloudinarySrcset(entry.photo, [360, 640, 900, 1050])} sizes="(max-width: 680px) 92vw, (max-width: 1200px) 55vw, 700px" alt={entry.photoAlt} width={entry.photoWidth} height={entry.photoHeight} loading="lazy" decoding="async" />
               </figure>
             ))}
           </div>
@@ -87,7 +88,7 @@ import { achievements } from '../data/achievements';
             aria-pressed={i === 0 ? 'true' : 'false'}
             aria-label={`Show ${entry.award} achievement`}
           >
-            <span class="aw__award-img"><img src={entry.photo} alt="" loading="lazy" decoding="async" /></span>
+            <span class="aw__award-img"><img src={cloudinaryResized(entry.photo, 240)} alt="" loading="lazy" decoding="async" /></span>
             <span class="aw__award-info"><span class="aw__award-number">{entry.number} <i>/</i> 03</span><strong>{entry.award}</strong><small>{entry.issuer} · {entry.date}</small></span>
             <span class="aw__award-arrow" aria-hidden="true">↗</span>
           </button>

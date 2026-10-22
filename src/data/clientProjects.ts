@@ -10,8 +10,8 @@ export const featuredClient = {
   classification: 'CLIENT PROJECT / INDEPENDENT STREETWEAR',
   domain: 'sickosoul.shop',
   url: 'https://sickosoul.shop/',
-  image: '/assets/client-projects/sicko-soul-showcase.webp',
-  original: '/assets/client-projects/sicko-soul-original.png',
+  image: 'https://res.cloudinary.com/wujcxa24/image/upload/f_auto,q_auto:good,c_limit,w_1440/v1792672645/sicko-soul-showcase.webp',
+  original: 'https://res.cloudinary.com/wujcxa24/image/upload/v1792672704/sicko-soul-original.png',
   tagline: 'A different kind of presence.',
   description: 'A bold digital storefront for a streetwear identity that refuses to blend into the background. The visual language is unapologetically dark, graphic, and expressive.',
   // Only brand/site characteristics visible in the user's screenshot are claimed.
