@@ -104,11 +104,12 @@ function setupHero(entrance: boolean) {
   if (tl && lower.length) tl.from(lower, { autoAlpha: 0, y: 17, duration: 0.72, stagger: 0.11 }, 1.68);
   if (tl && bottom) tl.from(bottom, { autoAlpha: 0, y: 13, duration: 0.7 }, 1.87);
 
-  // Separate pointer and scroll custom props avoid clobbering CSS centering.
+  // Keep the original parallax moving while scrolling, on touch and wheel.
+  // Shorter scrub catch-up avoids animations continuing long after the gesture.
   gsap.to(stage, {
     '--scroll-portrait': '-40px', '--scroll-title': '26px', '--scroll-orb': '16px',
     ease: 'none',
-    scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.7, invalidateOnRefresh: true },
+    scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.18, invalidateOnRefresh: true },
   });
   if (!desktopPointer.matches) return;
   const px = gsap.quickTo(stage, '--portrait-x', { duration: 0.65, ease: 'power3.out' });
