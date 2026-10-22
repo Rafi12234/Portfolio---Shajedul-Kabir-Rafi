@@ -73,7 +73,7 @@ if (root) {
   function renderMotion() {
     if (!activeAnimation() || trackLength <= 0) return;
     const low = -Math.max(240, step * 1.1);
-    const visibleLimit = cinema.clientHeight + step;
+    const visibleLimit = cinemaHeight + step; // cached; never force layout on an animation tick
     visibleCards.forEach((card, index) => {
       const adjusted = index * step - travel.value;
       const wrapped = ((adjusted - low) % trackLength + trackLength) % trackLength + low;
