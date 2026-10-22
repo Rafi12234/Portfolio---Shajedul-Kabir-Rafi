@@ -644,7 +644,19 @@
   .hero__masthead {
     font-size: clamp(6.4rem, 26.9vw, 23.2rem);
   }
+  /* Keep the entire portrait inside the visible hero instead of anchoring
+     the reduced photo below the stage and hiding the bottom 18-22%. */
   .hero__portrait-depth {
-    width: clamp(368px, 47.3vw, 608px);
+    width: min(560px, max(440px, 39vw), max(520px, calc(80svh - 153px)));
+    bottom: 0;
+  }
+}
+
+/* A 640px stage is used on short laptop screens. Fit the original portrait
+   into that shorter stage as well, including a small parallax safety gap. */
+@media (min-width: 901px) and (max-height: 760px) {
+  .hero__portrait-depth {
+    width: min(500px, max(440px, 39vw), max(440px, calc(80svh - 125px)));
+    bottom: 0;
   }
 }
