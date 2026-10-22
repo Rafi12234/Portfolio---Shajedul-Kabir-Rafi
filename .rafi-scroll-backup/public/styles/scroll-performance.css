@@ -1,0 +1,80 @@
+/* RAFI / SCROLL PERFORMANCE BUDGET
+   Loaded AFTER the original CSS: the visual system, typography, layout and
+   existing interactive states remain intact.
+
+   The original portfolio-wide background used background-size: cover over
+   the ENTIRE document's height, making a tiny image expand to enormous
+   effective dimensions. Constrain that atmosphere to the introductory area.
+*/
+.portfolio-shell__atmosphere {
+  bottom: auto;
+  height: clamp(900px, 110svh, 1200px);
+  background-position: center top;
+  background-size: cover;
+}
+
+/* Previously an absolute texture covered the full scrolling document. Its
+   fixed, repeating 180px plate now occupies only one screen-sized surface. */
+.portfolio-shell__texture {
+  position: fixed;
+  inset: 0;
+  height: 100svh;
+  background-size: 180px 180px;
+  background-repeat: repeat;
+  pointer-events: none;
+}
+
+/* Extremely wide live blurs cost texture bandwidth. These layers already
+   use feathered radial gradients, which preserve their atmospheric look. */
+.cp__aura,
+.rc__glow {
+  filter: none !important;
+}
+
+/* A mixed blend over the main animated hero disc forces extra compositing. */
+.hero__orb::before {
+  mix-blend-mode: normal;
+  opacity: .11;
+}
+
+/* Scrolling should never compete with decorative CSS animation.
+   The section-specific offscreen/reduced-motion pause rules still apply. */
+html.rafi-is-scrolling .sw__wall-track,
+html.rafi-is-scrolling .eu__code-track,
+html.rafi-is-scrolling .eu__depth-line i,
+html.rafi-is-scrolling .cp__aura,
+html.rafi-is-scrolling .cp__orbit,
+html.rafi-is-scrolling .cp__halo,
+html.rafi-is-scrolling .cp__frame-glare,
+html.rafi-is-scrolling .cp__ticker-track,
+html.rafi-is-scrolling .cp__vault-card--front,
+html.rafi-is-scrolling .cp__vault-sweep,
+html.rafi-is-scrolling .cp__story-live i,
+html.rafi-is-scrolling .rc__glow,
+html.rafi-is-scrolling .rc__signal-rings,
+html.rafi-is-scrolling .rc__ticker-track,
+html.rafi-is-scrolling .rc__availability-dot,
+html.rafi-is-scrolling .rc__channel-pulse {
+  animation-play-state: paused !important;
+}
+
+/* Keep compositor hints only where the CSS animation actually runs. */
+.cp:not(.cp--motion-active) .cp__aura,
+.rc[data-contact-motion='off'] .rc__glow,
+.rc[data-contact-motion='off'] .rc__ticker-track {
+  will-change: auto;
+}
+
+/* Small mobile GPUs struggle with the cost of large live backdrop filters.
+   Retain the existing translucent panel colors and borders instead. */
+@media (max-width: 760px) {
+  .bt__glass,
+  .rgl__player {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .aw__photo-blur {
+    filter: none !important;
+    opacity: .22;
+  }
+}
