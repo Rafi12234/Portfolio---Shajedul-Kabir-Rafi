@@ -21,6 +21,7 @@ if (root) {
   const prev = root.querySelector<HTMLButtonElement>('[data-xp-prev]')!;
   const next = root.querySelector<HTMLButtonElement>('[data-xp-next]')!;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const compact = window.matchMedia('(max-width: 760px)');
   const clamp = (value: number) => Math.min(100, Math.max(0, value));
 
   let activeIndex = 0;
@@ -58,8 +59,9 @@ if (root) {
     if (animating || index === activeIndex) return;
     if (!experienceOrganizations[index]) return;
 
-    // Respect system preference and avoid a heavy mask animation on limited layouts.
-    if (reduced.matches) {
+    // Mobile stories remain in normal document flow; skip overlapping
+    // desktop-only crossfades and card-to-stage mask animations there.
+    if (reduced.matches || compact.matches) {
       immediateSelect(index);
       return;
     }

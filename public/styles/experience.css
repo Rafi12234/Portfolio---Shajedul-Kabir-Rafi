@@ -201,3 +201,30 @@
   .xp__intro-grid h2 em { font-size: 53px; }
   .xp__card-title { font-size: 14px; }
 }
+
+/* Phone and tablet: content-driven chapter height, separated card dock,
+   and comfortably sized touch targets for all three companies. */
+@media (max-width: 760px) {
+  .xp__story { min-height: 0; }
+  .xp__dock {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 10px;
+    margin-top: clamp(26px, 6vw, 36px);
+  }
+  .xp__company-card {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    min-height: 120px;
+    aspect-ratio: 3 / 4;
+  }
+  .xp__project { align-items: flex-start; }
+  .xp__project-badge { overflow-wrap: anywhere; }
+  .xp__stage-bottom { margin-top: 26px; }
+}
+@media (max-width: 400px) {
+  .xp__stage { padding-inline: clamp(13px, 4vw, 16px); }
+  .xp__card-title { font-size: clamp(15px, 4.1vw, 19px); }
+}

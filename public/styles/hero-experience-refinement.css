@@ -144,6 +144,18 @@
   .hero__action-group .hero__cv-link::before { width: 23px; height: 27px; font-size: 7px; }
   .hero__action-group .hero__cv-link > span:last-child { width: 20px; height: 20px; font-size: 14px; }
 }
+/* On mobile, articles must contribute their real height to the stage.
+   Absolute desktop crossfades otherwise collapse the narrative to zero,
+   placing the company selector over the project list. */
+@media (max-width: 760px) {
+  .xp__narrative > .xp__story {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    backface-visibility: visible;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero__action-group .hero__cv-link,
   .hero__action-group .hero__cv-link::after,

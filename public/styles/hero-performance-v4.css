@@ -637,3 +637,14 @@
     transform: none !important;
   }
 }
+ 
+/* Laptop hero proportions: the 80%-zoom composition at normal browser zoom.
+   Keep the existing tablet/mobile art direction untouched. */
+@media (min-width: 901px) {
+  .hero__masthead {
+    font-size: clamp(6.4rem, 26.9vw, 23.2rem);
+  }
+  .hero__portrait-depth {
+    width: clamp(368px, 47.3vw, 608px);
+  }
+}
