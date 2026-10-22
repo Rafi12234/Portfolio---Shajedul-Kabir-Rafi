@@ -16,7 +16,7 @@ const stage = document.querySelector<HTMLElement>('[data-depth-root]');
 const section = document.querySelector<HTMLElement>('[data-beyond-title]');
 let lenis: Lenis | null = null;
 let context: gsap.Context | null = null;
-let ticker: ((time: number) => void) | null = null;
+let rafId: number | null = null;
 let previousReduced = reduced.matches;
 let previousDesktop = desktopPointer.matches;
 let firstIntro = true;
@@ -40,17 +40,38 @@ if (mobileMenu) {
   );
 }
 
+// Sicko-inspired native RAF clock (never GSAP's lag-smoothed ticker).
+// One Lenis, one ScrollTrigger sync, native touch scrolling.
 function setupLenis() {
   if (reduced.matches || !desktopPointer.matches) return;
   lenis = new Lenis({
-    autoRaf: false, smoothWheel: true, syncTouch: false,
-    lerp: 0.21, wheelMultiplier: 0.92, anchors: true,
+    autoRaf: false,
+    smoothWheel: true,
+    syncTouch: false,
+    lerp: 0.12,
+    wheelMultiplier: 0.90,
+    anchors: true,
   });
   lenis.on('scroll', ScrollTrigger.update);
-  ticker = (seconds: number) => lenis?.raf(seconds * 1000);
-  gsap.ticker.add(ticker);
-  // Cap the effect of long frame stalls instead of propagating huge GSAP deltas.
-  gsap.ticker.lagSmoothing(500, 33);
+  const frame = (time: number) => {
+    lenis?.raf(time);
+    rafId = window.requestAnimationFrame(frame);
+  };
+  const onVisibility = () => {
+    if (document.hidden) {
+      lenis?.stop();
+      if (rafId !== null) window.cancelAnimationFrame(rafId);
+      rafId = null;
+    } else {
+      lenis?.start();
+      if (rafId === null) rafId = window.requestAnimationFrame(frame);
+      ScrollTrigger.refresh();
+    }
+  };
+  rafId = window.requestAnimationFrame(frame);
+  document.addEventListener('visibilitychange', onVisibility, { passive: true });
+  removals.push(() => document.removeEventListener('visibilitychange', onVisibility));
+  ScrollTrigger.config({ ignoreMobileResize: true });
 }
 
 function setupHero(entrance: boolean) {
@@ -66,6 +87,10 @@ function setupHero(entrance: boolean) {
   const bottom = hero.querySelector<HTMLElement>('.hero__bottom-strip');
   const tl = entrance ? gsap.timeline({ defaults: { ease: 'power3.out' } }) : null;
   if (tl && header) tl.from(header, { autoAlpha: 0, y: -15, duration: 0.65 }, 0.1);
+  const mark = header?.querySelector<HTMLElement>('.site-logo__image');
+  if (tl && mark) tl.from(mark, { autoAlpha: 0, rotate: -14, scale: .67, duration: 1.15, ease: 'expo.out' }, 0.34);
+  if (tl) tl.from(hero.querySelectorAll<HTMLElement>('.hero__action-group a'),
+    { autoAlpha: 0, y: 18, stagger: .13, duration: .73, ease: 'power3.out' }, 1.96);
   if (tl && portrait) tl.from(portrait, {
     autoAlpha: 0, y: 98, scale: 1.035,
     clipPath: 'inset(100% 0% 0% 0%)', duration: 1.22,
@@ -140,7 +165,7 @@ function setupBeyondTitle() {
   const aura = section.querySelector<HTMLElement>('.bt__aura');
   if (aura && desktopPointer.matches) gsap.fromTo(aura,
     { y: -16 }, { y: 16, ease: 'none',
-      scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 1.3 } }
+      scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 0.8 } }
   );
   if (!desktopPointer.matches) return;
   section.querySelectorAll<HTMLElement>('.bt__glass').forEach(panel => {
@@ -158,8 +183,8 @@ function destroy() {
   removals.splice(0).forEach(fn => fn());
   context?.revert();
   context = null;
-  if (ticker) gsap.ticker.remove(ticker);
-  ticker = null;
+  if (rafId !== null) window.cancelAnimationFrame(rafId);
+  rafId = null;
   if (lenis) {
     lenis.off('scroll', ScrollTrigger.update);
     lenis.destroy();
